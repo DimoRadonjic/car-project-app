@@ -3,9 +3,10 @@ import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
-    path: routeNames.HOME,
+    path: routeNames.GARAGE,
+    alias: [routeNames.HOME, routeNames.GARAGE],
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [{ path: '', component: () => import('pages/GaragePage.vue') }],
   },
 
   {
@@ -28,8 +29,6 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/GaragePage.vue') }],
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

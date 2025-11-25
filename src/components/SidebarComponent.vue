@@ -23,12 +23,6 @@ const linksList: EssentialLinkProps[] = [
     link: routeNames.GARAGE,
     icon: '',
   },
-
-  {
-    title: 'Home',
-    link: routeNames.HOME,
-    icon: '',
-  },
 ];
 </script>
 
