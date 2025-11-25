@@ -1,7 +1,10 @@
 <script setup lang="ts">
+// import { ref } from 'vue';
 import { type TableColumn, type CarInformation as TableRow } from './models';
 
 defineProps<{ data: TableRow[]; market?: boolean }>();
+
+// const carDialog = ref(false);
 
 const defaultColumns: TableColumn[] = [
   {
@@ -96,7 +99,7 @@ const marketColumns: TableColumn[] = [
 ];
 
 function onRowClick(row: TableRow) {
-  console.log('Row clicked:', row);
+  console.log('Open dialog of row clicked:', row);
 }
 </script>
 
@@ -109,14 +112,8 @@ function onRowClick(row: TableRow) {
       :rows="data"
       :columns="market ? marketColumns : defaultColumns"
       row-key="make"
+      @row-dblclick="(_, row) => onRowClick(row)"
     >
-      <template #body="props">
-        <q-tr :props="props" @click="onRowClick(props.row)">
-          <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            {{ col.value }}
-          </q-td>
-        </q-tr>
-      </template>
     </q-table>
   </div>
 </template>
