@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
+import { type CarInformation } from 'src/components/models';
+
+defineProps<{ carData: CarInformation }>();
 
 const plugin = useDialogPluginComponent();
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } = plugin;
+const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
 function onOKClick() {
   onDialogOK();
@@ -15,8 +18,19 @@ function onCancelClick() {
 </script>
 
 <template>
-  <q-dialog ref="dialogRef" @hide="onDialogHide">
+  <q-dialog ref="dialogRef">
     <q-card class="q-dialog-plugin">
+      <q-card-section>
+        <div v-for="(value, key) in carData" :key="key" class="q-mb-sm">
+          <div>
+            <strong>{{ key }}:</strong>
+          </div>
+          <div style="white-space: pre-wrap; font-family: monospace">
+            {{ typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value) }}
+          </div>
+        </div>
+      </q-card-section>
+
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />

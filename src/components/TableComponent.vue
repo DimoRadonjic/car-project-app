@@ -1,10 +1,11 @@
 <script setup lang="ts">
-// import { ref } from 'vue';
+import CarDialog from 'src/dialogs/CarDialog.vue';
 import { type TableColumn, type CarInformation as TableRow } from './models';
+import { useQuasar } from 'quasar';
 
 defineProps<{ data: TableRow[]; market?: boolean }>();
 
-// const carDialog = ref(false);
+const $q = useQuasar();
 
 const defaultColumns: TableColumn[] = [
   {
@@ -100,6 +101,15 @@ const marketColumns: TableColumn[] = [
 
 function onRowClick(row: TableRow) {
   console.log('Open dialog of row clicked:', row);
+
+  $q.dialog({
+    component: CarDialog,
+
+    componentProps: {
+      carData: row,
+      persistent: true,
+    },
+  });
 }
 </script>
 
