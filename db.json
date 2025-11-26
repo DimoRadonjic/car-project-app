@@ -41,43 +41,6 @@
     }
   },
 
-  "purchase": {
-    "budget": 25000,
-    "amountForPurchase": 20000,
-    "percentage": 20
-  },
-
-  "expanse": {
-    "planned": [
-      {
-        "type": "registration",
-        "amount": 300,
-        "dueDate": "2024-09-15"
-      },
-      {
-        "type": "service",
-        "amount": 500,
-        "dueDate": "2024-10-01"
-      }
-    ],
-    "done": [
-      {
-        "type": "repair",
-        "amount": 150,
-        "date": "2024-06-20"
-      }
-    ]
-  },
-
-  "income": {
-    "carsSold": [
-      {
-        "carId": 1,
-        "salePrice": 18000,
-        "saleDate": "2024-05-10"
-      }
-    ]
-  },
   "garage": {
     "cars": [
       {

@@ -34,6 +34,31 @@ export interface CarInformation {
   furtherRepairsNeeded?: boolean;
 }
 
+export interface Expanse {
+  type: 'insurance' | 'tax' | 'repair' | 'maintenance' | 'registration' | 'service';
+  amount: number;
+  dueDate: Date;
+}
+
+export interface Income {
+  source: string;
+  amount: number;
+  receivedDate: Date;
+}
+
+export interface FinanceData {
+  purchase: {
+    budget: number;
+    amountForPurchase: number;
+    percentage: number;
+  };
+  expanse: {
+    planned: Expanse[];
+    done: Expanse[];
+  };
+  income: Income[];
+}
+
 export const sampleCarData: CarInformation[] = [
   {
     make: 'Toyota',
