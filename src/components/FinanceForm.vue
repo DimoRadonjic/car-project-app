@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
+import { API_FINANCE_URL } from 'src/api';
 import { computed, ref } from 'vue';
 
 const props = defineProps<{
@@ -23,17 +24,37 @@ const edit = ref(true);
 const formComponent = ref();
 
 const priceLimit = computed(() => {
-  return amountForPurchase.value * (sliderValue.value / 100);
+  return Math.floor(amountForPurchase.value * (sliderValue.value / 100));
 });
 
-function onSubmit() {
-  if (formComponent.value.validate()) {
+async function updatePurchaseData() {
+  try {
+    const newData = {
+      budget: totalAmount.value,
+      amountForPurchase: amountForPurchase.value,
+      percentage: sliderValue.value,
+    };
+
+    const res = await fetch(API_FINANCE_URL, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newData),
+    });
+
     $q.notify({
       color: 'green-4',
       textColor: 'white',
       icon: 'cloud_done',
       message: 'Saved successfully',
     });
+  } catch (error) {}
+}
+
+function onSubmit() {
+  if (formComponent.value.validate()) {
+    updatePurchaseData();
 
     console.log('Submitted', {
       amountForPurchase: amountForPurchase.value,
@@ -164,7 +185,7 @@ function onCancel() {
       </div>
 
       <div>
-        <h6>Purchasing cars under : {{ priceLimit }}</h6>
+        <h6>Purchasing cars under : {{ priceLimit }} €</h6>
       </div>
     </div>
   </div>

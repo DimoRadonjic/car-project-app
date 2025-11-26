@@ -1,8 +1,17 @@
 enum routeNames {
-  HOME = '/',
-  FINANCE = '/finance',
-  MARKET = '/market',
-  GARAGE = '/garage',
+  HOME = '',
+  FINANCE = 'finance',
+  MARKET = 'market',
+  GARAGE = 'garage',
 }
 
-export { routeNames };
+enum APIEndPoints {
+  FINANCE = 'finance',
+  MARKET = 'market',
+  GARAGE = 'garage',
+  INCOME = 'income',
+  EXPENSE = 'expense',
+  PURCHASE = 'purchase',
+}
+
+export { routeNames, APIEndPoints };
