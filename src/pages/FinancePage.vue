@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { API_EXPENSE_URL, API_FINANCE_URL, API_PURCHASE_URL } from 'src/api';
 import ExpensesList from 'src/components/expenses/ExpensesList.vue';
+import IncomeList from 'src/components/incomes/IncomeList.vue';
 import { type FinanceData } from 'src/components/models';
 import PurchaseForm from 'src/components/purchase/PurchaseForm.vue';
 import { ref, watchEffect } from 'vue';
@@ -71,12 +72,46 @@ watchEffect(() => {
 
 <template>
   <q-page v-if="!loading" class="finance-page">
-    <section class="q-pa-md purchase-section">
-      <PurchaseForm v-model="financeData.purchase" />
+    <section>
+      <q-card class="q-pa-md card purchase-card">
+        <h4>Purchase section</h4>
+        <PurchaseForm v-model="financeData.purchase" />
+      </q-card>
     </section>
-    <section class="q-pa-md expenses-lists">
-      <h4>Expenses Section</h4>
-      <ExpensesList :items="financeData.expanses" />
+    <section>
+      <q-card class="q-pa-md card expenses-card">
+        <h4>Expenses Section</h4>
+        <ExpensesList v-model="financeData.expanses" />
+      </q-card>
+    </section>
+
+    <section>
+      <q-card class="q-pa-md card income-card">
+        <h4>Income Section</h4>
+        <IncomeList v-model="financeData.income" />
+      </q-card>
     </section>
   </q-page>
 </template>
+
+<style scoped lang="scss">
+.finance-page {
+  display: flex;
+  gap: 20px;
+}
+
+section {
+  border: 2px solid #ccc;
+  height: fit-content;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 40px 0;
+}
+
+h4 {
+  margin: 0;
+}
+</style>

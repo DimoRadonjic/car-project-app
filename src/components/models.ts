@@ -34,11 +34,20 @@ export interface CarInformation {
   furtherRepairsNeeded?: boolean;
 }
 
+export type ExpenseType =
+  | 'insurance'
+  | 'tax'
+  | 'repair'
+  | 'maintenance'
+  | 'registration'
+  | 'service';
+
 export interface Expense {
-  type: 'insurance' | 'tax' | 'repair' | 'maintenance' | 'registration' | 'service';
+  type: ExpenseType;
   amount: number;
   dueDate: Date;
   status: 'pending' | 'done' | 'overdue';
+  id: string;
 }
 
 export interface Income {

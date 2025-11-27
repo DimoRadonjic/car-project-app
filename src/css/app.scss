@@ -8,36 +8,10 @@
   gap: 10px;
 }
 
-.purchase-form {
-  display: flex;
-  place-content: space-around;
-  height: fit-content;
-}
-
-.finance-page {
-  display: flex;
-  gap: 20px;
-}
-
 ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
-}
-
-.expenses-lists {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.finance-page > section {
-  border: 2px solid #ccc;
-  height: fit-content;
-}
-
-h4 {
-  margin: 10px 0;
 }
 
 .badges {
@@ -68,4 +42,14 @@ h4 {
   &:hover {
     cursor: default;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
 }

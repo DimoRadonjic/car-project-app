@@ -14,25 +14,29 @@
         "type": "registration",
         "amount": 300,
         "dueDate": "2024-09-15",
-        "status": "pending"
+        "status": "pending",
+        "id": "eb5b"
       },
       {
         "type": "service",
         "amount": 500,
         "dueDate": "2024-10-01",
-        "status": "done"
+        "status": "done",
+        "id": "ae5b"
       },
       {
         "type": "repair",
         "amount": 150,
         "dueDate": "2024-06-20",
-        "status": "pending"
+        "status": "pending",
+        "id": "e75d"
       },
       {
         "type": "repair",
         "amount": 150,
         "dueDate": "2025-11-30",
-        "status": "pending"
+        "status": "pending",
+        "id": "b4d1"
       }
     ],
     "income": {
@@ -46,7 +50,7 @@
     }
   },
   "purchase": {
-    "budget": 123,
+    "budget": 123222,
     "amountForPurchase": 12,
     "percentage": 19
   },
@@ -55,25 +59,29 @@
       "type": "registration",
       "amount": 300,
       "dueDate": "2024-09-15",
-      "status": "pending"
+      "status": "pending",
+      "id": "eb5b"
     },
     {
       "type": "service",
       "amount": 500,
       "dueDate": "2024-10-01",
-      "status": "done"
+      "status": "done",
+      "id": "ae5b"
     },
     {
       "type": "repair",
       "amount": 150,
       "dueDate": "2024-06-20",
-      "status": "pending"
+      "status": "pending",
+      "id": "e75d"
     },
     {
       "type": "repair",
       "amount": 150,
       "dueDate": "2025-11-30",
-      "status": "pending"
+      "status": "pending",
+      "id": "b4d1"
     }
   ],
   "income": {

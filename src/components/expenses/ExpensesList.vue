@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { Expense } from '../models';
+import { useQuasar } from 'quasar';
+import ExpenseDialog from './ExpenseDialog.vue';
+import { API_EXPENSE_URL } from 'src/api';
 
-const props = defineProps<{
-  items: Expense[];
-}>();
+const $q = useQuasar();
 
 function formatDate(dateString: Date): string {
   const date = new Date(dateString).toLocaleDateString('sr-Sr');
@@ -35,8 +36,10 @@ function checkDateStatus(due: Date) {
 
 const getDateStatus = (date: Date) => checkDateStatus(date)();
 
+const expenses = defineModel<Expense[]>({ default: [] });
+
 const dateItems = computed(() =>
-  props.items.map((item) => {
+  expenses.value.map((item) => {
     return {
       ...item,
       formattedDate: formatDate(item.dueDate),
@@ -66,49 +69,143 @@ const allCosts = computed((): Record<string, number> => {
     {} as Record<string, number>,
   );
 });
+
+async function addExpense(newExpense: Expense) {
+  try {
+    const res = await fetch(API_EXPENSE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newExpense),
+    });
+    console.log('res', res);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function removeSelectedExpense() {
+  if (!selected.value) return;
+  try {
+    const res = await fetch(API_EXPENSE_URL + `/${selected.value.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('res', res);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function openDialog() {
+  $q.dialog({
+    component: ExpenseDialog,
+
+    componentProps: {
+      persistent: true,
+    },
+  }).onOk((e) => {
+    console.log('Dialog OK with data:', e);
+    expenses.value.push(e);
+    void addExpense(e);
+  });
+}
+
+// list functions
+
+const selected = ref<Expense | null>(null);
+
+function selectExpense(expense: Expense) {
+  if (selected.value && JSON.stringify(selected.value) === JSON.stringify(expense)) {
+    selected.value = null;
+  } else {
+    selected.value = expense;
+  }
+}
+
+function removeExpense() {
+  if (!selected.value) return;
+  expenses.value = expenses.value.filter((item) => item.id !== selected.value?.id);
+  void removeSelectedExpense();
+  selected.value = null;
+}
 </script>
 
 <template>
-  <q-list class="expense-list">
-    <q-item v-for="(expense, index) in dateItems" :key="index">
-      <q-item-section>
-        <div><strong>Type:</strong> {{ expense.type }}</div>
-        <div><strong>Amount:</strong> €{{ expense.amount }}</div>
-        <div>
-          <strong>Due Date:</strong>
-          {{ expense.formattedDate }}
-        </div>
-      </q-item-section>
+  <div class="expenses">
+    <q-list class="expense-list" separator bordered>
+      <q-item
+        v-for="(expense, index) in dateItems"
+        :key="index"
+        clickable
+        :active="selected && JSON.stringify(selected) === JSON.stringify(expense)"
+        @click="selectExpense(expense)"
+      >
+        <q-item-section>
+          <div><strong>Type:</strong> {{ expense.type }}</div>
+          <div><strong>Amount:</strong> €{{ expense.amount }}</div>
+          <div>
+            <strong>Due Date:</strong>
+            {{ expense.formattedDate }}
+          </div>
+        </q-item-section>
 
-      <q-item-section side top>
-        <q-item-label caption class="badges">
-          <q-badge
-            :class="{
-              overdue: expense.remaining === 'overdue',
-              done: expense.remaining === 'done',
-              pending: expense.remaining !== 'done' && expense.remaining !== 'overdue',
-            }"
-            class="badge"
-          >
-            {{ expense.status === 'pending' ? expense.remaining : expense.status }}
-          </q-badge>
-        </q-item-label>
-      </q-item-section>
-    </q-item>
-  </q-list>
+        <q-item-section side top>
+          <q-item-label caption class="badges">
+            <q-badge
+              :class="{
+                overdue: expense.remaining === 'overdue',
+                done: expense.remaining === 'done',
+                pending: expense.remaining !== 'done' && expense.remaining !== 'overdue',
+              }"
+              class="badge"
+            >
+              {{ expense.status === 'pending' ? expense.remaining : expense.status }}
+            </q-badge>
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
 
-  <div class="expenses-costs">
-    <div class="total-cost"><strong>Total Cost:</strong> € {{ totalExpensesCost }}</div>
-    <div class="overdue-cost">
-      <strong>Total Overdue Cost:</strong> € {{ allCosts['overdue'] ?? 0 }}
+    <div class="expenses-costs">
+      <div class="total-cost"><strong>Total Cost:</strong> € {{ totalExpensesCost }}</div>
+      <div class="overdue-cost">
+        <strong>Total Overdue Cost:</strong> € {{ allCosts['overdue'] ?? 0 }}
+      </div>
+      <div class="done-cost">
+        <strong>Total Completed Cost:</strong> € {{ allCosts['done'] ?? 0 }}
+      </div>
+      <div class="pending-cost">
+        <strong>Total Remaining Cost:</strong> € {{ allCosts['pending'] ?? 0 }}
+      </div>
     </div>
-    <div class="done-cost">
-      <strong>Total Completed Cost:</strong> € {{ allCosts['done'] ?? 0 }}
-    </div>
-    <div class="pending-cost">
-      <strong>Total Remaining Cost:</strong> € {{ allCosts['pending'] ?? 0 }}
+
+    <div class="actions">
+      <q-btn color="primary" label="Add" @click="openDialog" />
+      <q-btn color="red-10" label="Remove" :disable="!selected" @click="removeExpense" />
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.expenses-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.expenses {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.expenses-costs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+</style>
