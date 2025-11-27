@@ -12,7 +12,7 @@ const leftDrawerOpen = ref(false);
 
     <HeaderComponent v-model="leftDrawerOpen" />
 
-    <q-page-container>
+    <q-page-container style="display: flex; place-content: center; place-items: center">
       <router-view />
     </q-page-container>
   </q-layout>
