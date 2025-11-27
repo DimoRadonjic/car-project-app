@@ -10,7 +10,7 @@ enum APIEndPoints {
   MARKET = 'market',
   GARAGE = 'garage',
   INCOME = 'income',
-  EXPENSE = 'expense',
+  EXPENSE = 'expenses',
   PURCHASE = 'purchase',
 }
 

@@ -1,47 +1,41 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
-import { API_FINANCE_URL } from 'src/api';
+import { API_PURCHASE_URL } from 'src/api';
 import { computed, ref } from 'vue';
-
-const props = defineProps<{
-  financeData: {
-    budget: number;
-    amountForPurchase: number;
-    percentage: number;
-  };
-}>();
 
 const $q = useQuasar();
 
-const totalAmount = ref(props.financeData.budget ?? 0);
+const model = defineModel<{
+  budget: number;
+  amountForPurchase: number;
+  percentage: number;
+}>({
+  default: {
+    budget: 0,
+    amountForPurchase: 0,
+    percentage: 5,
+  },
+});
 
-const amountForPurchase = ref(props.financeData.amountForPurchase ?? 0);
-
-const sliderValue = ref(props.financeData.percentage ?? 5);
-
-const edit = ref(true);
+const edit = ref(false);
 
 const formComponent = ref();
 
 const priceLimit = computed(() => {
-  return Math.floor(amountForPurchase.value * (sliderValue.value / 100));
+  return Math.floor(model.value.amountForPurchase * (model.value.percentage / 100));
 });
 
 async function updatePurchaseData() {
   try {
-    const newData = {
-      budget: totalAmount.value,
-      amountForPurchase: amountForPurchase.value,
-      percentage: sliderValue.value,
-    };
-
-    const res = await fetch(API_FINANCE_URL, {
-      method: 'PATCH',
+    const res = await fetch(API_PURCHASE_URL, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newData),
+      body: JSON.stringify(model.value),
     });
+
+    console.log('res', res);
 
     $q.notify({
       color: 'green-4',
@@ -49,17 +43,14 @@ async function updatePurchaseData() {
       icon: 'cloud_done',
       message: 'Saved successfully',
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error('error', error);
+  }
 }
 
-function onSubmit() {
+async function onPurchaseSubmit() {
   if (formComponent.value.validate()) {
-    updatePurchaseData();
-
-    console.log('Submitted', {
-      amountForPurchase: amountForPurchase.value,
-      sliderValue: sliderValue.value,
-    });
+    await updatePurchaseData();
 
     edit.value = false;
   } else {
@@ -71,29 +62,24 @@ function onSubmit() {
     });
   }
 }
-
-function onCancel() {
-  amountForPurchase.value = props.financeData.amountForPurchase;
-  sliderValue.value = props.financeData.percentage;
-  totalAmount.value = props.financeData.budget;
-  edit.value = false;
-}
 </script>
 
 <template>
-  <div class="q-pa-md finance-forms">
-    <div>
-      <h4>Current car expanses</h4>
-    </div>
+  <div class="purchase-form">
     <div>
       <h4>Purchase section</h4>
-      <q-form v-if="edit" ref="formComponent" class="q-gutter-md" @submit.prevent.stop="onSubmit">
+      <q-form
+        v-if="edit"
+        ref="formComponent"
+        class="q-gutter-md"
+        @submit.prevent.stop="onPurchaseSubmit"
+      >
         <div>
           <label for="total-amount-input">Total Amount :</label>
           <q-input
             id="total-amount-input"
             key="total-amount-input"
-            v-model.number="totalAmount"
+            v-model.number="model.budget"
             bottom-slots
             filled
             type="number"
@@ -111,7 +97,7 @@ function onCancel() {
           <q-input
             id="amount-input"
             key="amount-input"
-            v-model.number="amountForPurchase"
+            v-model.number="model.amountForPurchase"
             bottom-slots
             mask="#"
             filled
@@ -123,7 +109,7 @@ function onCancel() {
             lazy-rules
             :rules="[
               (val: number) => val > 0 || 'Amount must be greater than 0',
-              (val: number) => val < totalAmount || `Amount must be less than ${totalAmount}`,
+              (val: number) => val < model.budget || `Amount must be less than ${model.budget}`,
             ]"
           />
         </div>
@@ -131,13 +117,13 @@ function onCancel() {
         <div>
           <label for="percentage-input">
             <span style="margin-right: 5px">Amount:</span>
-            <span>{{ sliderValue }}%</span>
+            <span>{{ model.percentage }}%</span>
           </label>
 
           <q-slider
             id="percentage-input"
             key="percentage-input"
-            v-model.number="sliderValue"
+            v-model.number="model.percentage"
             name="percentage-input"
             for="percentage-input"
             :min="5"
@@ -158,26 +144,26 @@ function onCancel() {
 
         <div class="actions">
           <q-btn color="primary" label="Save" type="submit" />
-          <q-btn label="Cancel" @click="onCancel" />
+          <q-btn label="Cancel" @click="edit = false" />
         </div>
       </q-form>
 
       <div v-else class="q-gutter-md">
         <div>
           <h5>
-            Total Amount : <span>{{ totalAmount }} €</span>
+            Total Amount : <span>{{ model.budget }} €</span>
           </h5>
         </div>
 
         <div>
           <p>
-            Amount for Purchase: <span>{{ amountForPurchase }} €</span>
+            Amount for Purchase: <span>{{ model.amountForPurchase }} €</span>
           </p>
         </div>
 
         <div>
           <p>
-            Percentage Amount: <span>{{ sliderValue }} %</span>
+            Percentage Amount: <span>{{ model.percentage }} %</span>
           </p>
         </div>
 

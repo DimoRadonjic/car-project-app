@@ -10,6 +10,7 @@
     "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\"",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
+    "server": "json-server --watch db.json --port 3000",
     "dev": "pnpm lint --fix && quasar dev",
     "build": "quasar build",
     "postinstall": "quasar prepare"
@@ -17,6 +18,7 @@
   "dependencies": {
     "@quasar/extras": "^1.16.4",
     "@tailwindcss/postcss": "^4.1.17",
+    "json-server": "1.0.0-beta.3",
     "quasar": "^2.16.0",
     "vue": "^3.5.22",
     "vue-router": "^4.0.12"

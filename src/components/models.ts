@@ -34,10 +34,11 @@ export interface CarInformation {
   furtherRepairsNeeded?: boolean;
 }
 
-export interface Expanse {
+export interface Expense {
   type: 'insurance' | 'tax' | 'repair' | 'maintenance' | 'registration' | 'service';
   amount: number;
   dueDate: Date;
+  status: 'pending' | 'done' | 'overdue';
 }
 
 export interface Income {
@@ -52,10 +53,7 @@ export interface FinanceData {
     amountForPurchase: number;
     percentage: number;
   };
-  expanse: {
-    planned: Expanse[];
-    done: Expanse[];
-  };
+  expanses: Expense[];
   income: Income[];
 }
 

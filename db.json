@@ -9,27 +9,32 @@
       "amountForPurchase": 20000,
       "percentage": 20
     },
-    "expanses": {
-      "planned": [
-        {
-          "type": "registration",
-          "amount": 300,
-          "dueDate": "2024-09-15"
-        },
-        {
-          "type": "service",
-          "amount": 500,
-          "dueDate": "2024-10-01"
-        }
-      ],
-      "done": [
-        {
-          "type": "repair",
-          "amount": 150,
-          "date": "2024-06-20"
-        }
-      ]
-    },
+    "expenses": [
+      {
+        "type": "registration",
+        "amount": 300,
+        "dueDate": "2024-09-15",
+        "status": "pending"
+      },
+      {
+        "type": "service",
+        "amount": 500,
+        "dueDate": "2024-10-01",
+        "status": "done"
+      },
+      {
+        "type": "repair",
+        "amount": 150,
+        "dueDate": "2024-06-20",
+        "status": "pending"
+      },
+      {
+        "type": "repair",
+        "amount": 150,
+        "dueDate": "2025-11-30",
+        "status": "pending"
+      }
+    ],
     "income": {
       "carsSold": [
         {
@@ -40,7 +45,46 @@
       ]
     }
   },
-
+  "purchase": {
+    "budget": 123,
+    "amountForPurchase": 12,
+    "percentage": 19
+  },
+  "expenses": [
+    {
+      "type": "registration",
+      "amount": 300,
+      "dueDate": "2024-09-15",
+      "status": "pending"
+    },
+    {
+      "type": "service",
+      "amount": 500,
+      "dueDate": "2024-10-01",
+      "status": "done"
+    },
+    {
+      "type": "repair",
+      "amount": 150,
+      "dueDate": "2024-06-20",
+      "status": "pending"
+    },
+    {
+      "type": "repair",
+      "amount": 150,
+      "dueDate": "2025-11-30",
+      "status": "pending"
+    }
+  ],
+  "income": {
+    "carsSold": [
+      {
+        "carId": 1,
+        "salePrice": 18000,
+        "saleDate": "2024-05-10"
+      }
+    ]
+  },
   "garage": {
     "cars": [
       {
