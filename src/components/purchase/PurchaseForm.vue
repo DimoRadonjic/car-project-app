@@ -87,7 +87,6 @@ async function onPurchaseSubmit() {
           prefix="€"
           stack-label
           lazy-rules
-          :rules="[(val: number) => val > 0 || 'Amount must be greater than 0']"
         />
       </div>
       <div>
@@ -105,10 +104,6 @@ async function onPurchaseSubmit() {
           prefix="€"
           stack-label
           lazy-rules
-          :rules="[
-            (val: number) => val > 0 || 'Amount must be greater than 0',
-            (val: number) => val < model.budget || `Amount must be less than ${model.budget}`,
-          ]"
         />
       </div>
 
@@ -157,6 +152,10 @@ async function onPurchaseSubmit() {
         <p>
           Amount for Purchase: <span>{{ model.amountForPurchase }} €</span>
         </p>
+        <p v-if="model.amountForPurchase > model.budget" class="hint error">
+          <span> Please correct amount ! </span>
+          <span> Must not equal or be greater then your budget. </span>
+        </p>
       </div>
 
       <div>
@@ -187,5 +186,11 @@ async function onPurchaseSubmit() {
   display: flex;
   flex-direction: column;
   gap: 40px;
+}
+
+.error {
+  color: red;
+  display: flex;
+  flex-direction: column;
 }
 </style>

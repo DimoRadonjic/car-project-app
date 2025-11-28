@@ -51,9 +51,10 @@ export interface Expense {
 }
 
 export interface Income {
-  source: string;
+  source: 'car sold' | 'parts sold' | 'other';
   amount: number;
   receivedDate: Date;
+  id: string;
 }
 
 export interface FinanceData {
@@ -142,3 +143,11 @@ export const sampleCarData: CarInformation[] = [
     },
   },
 ];
+
+export interface HistoryTransaction {
+  id: string;
+  type: 'expense' | 'income';
+  category: string;
+  amount: 300;
+  date: string;
+}

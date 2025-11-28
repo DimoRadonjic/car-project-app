@@ -3,6 +3,7 @@ enum routeNames {
   FINANCE = 'finance',
   MARKET = 'market',
   GARAGE = 'garage',
+  HISTORY = 'history',
 }
 
 enum APIEndPoints {
@@ -12,6 +13,7 @@ enum APIEndPoints {
   INCOME = 'income',
   EXPENSE = 'expenses',
   PURCHASE = 'purchase',
+  HISTORY = 'history',
 }
 
 export { routeNames, APIEndPoints };

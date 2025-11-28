@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import ExpensesForm from './ExpensesForm.vue';
-import { type Expense } from '../models';
+import { type Income } from '../models';
 import { ref } from 'vue';
+import IncomeForm from './IncomeForm.vue';
 
 const plugin = useDialogPluginComponent();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
-const newExpense = ref<Expense>({
+const newIncome = ref<Income>({
   amount: 0,
-  type: 'repair',
-  dueDate: new Date(),
-  status: 'pending',
+  source: 'car sold',
+  receivedDate: new Date(),
   id: crypto.randomUUID(),
 });
 
 function onOKClick() {
-  onDialogOK(newExpense.value);
+  onDialogOK(newIncome.value);
 }
 
 function onCancelClick() {
@@ -28,7 +27,7 @@ function onCancelClick() {
 <template>
   <q-dialog ref="dialogRef">
     <q-card class="q-dialog-plugin">
-      <q-card-section> <ExpensesForm v-model="newExpense" /> </q-card-section>
+      <q-card-section> <IncomeForm v-model="newIncome" /> </q-card-section>
 
       <q-card-actions align="right">
         <q-btn color="primary" label="Save" @click="onOKClick" />

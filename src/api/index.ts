@@ -8,3 +8,4 @@ export const API_GARAGE_URL = BASE_URL + '/' + APIEndPoints.GARAGE;
 export const API_FINANCE_URL = BASE_URL + '/' + APIEndPoints.FINANCE;
 export const API_MARKET_URL = BASE_URL + '/' + APIEndPoints.MARKET;
 export const API_PURCHASE_URL = BASE_URL + '/' + APIEndPoints.PURCHASE;
+export const API_HISTORY_URL = BASE_URL + '/' + APIEndPoints.HISTORY;

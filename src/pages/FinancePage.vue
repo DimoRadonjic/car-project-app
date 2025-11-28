@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { API_EXPENSE_URL, API_FINANCE_URL, API_PURCHASE_URL } from 'src/api';
+import { API_FINANCE_URL } from 'src/api';
 import ExpensesList from 'src/components/expenses/ExpensesList.vue';
 import IncomeList from 'src/components/incomes/IncomeList.vue';
 import { type FinanceData } from 'src/components/models';
@@ -26,36 +26,36 @@ async function fetchFinanceData() {
         'Content-Type': 'application/json',
       },
     });
-    // financeData.value = await res.json();
+    financeData.value = await res.json();
     console.log('res finance', await res.json());
   } catch (error) {
     console.error('Error fetching finance data:', error);
   }
 }
 
-async function fetchPurchaseData() {
+async function updateBudget() {
+  const totalExpenses = financeData.value.expanses.reduce(
+    (sum, expense) => sum + expense.amount,
+    0,
+  );
+  const totalIncome = financeData.value.income.reduce((sum, income) => sum + income.amount, 0);
+  financeData.value.purchase.budget = totalIncome - totalExpenses;
   try {
-    const res = await fetch(API_PURCHASE_URL, {
-      method: 'GET',
+    await fetch(API_FINANCE_URL, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(financeData.value),
     });
-    financeData.value.purchase = await res.json();
-  } catch (error) {
-    console.error('Error fetching finance data:', error);
-  }
-}
 
-async function fetchExpansesData() {
-  try {
-    const res = await fetch(API_EXPENSE_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    financeData.value.expanses = await res.json();
+    // await fetch(API_PURCHASE_URL, {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(financeData.value.purchase),
+    // });
   } catch (error) {
     console.error('Error fetching finance data:', error);
   }
@@ -64,51 +64,49 @@ async function fetchExpansesData() {
 watchEffect(() => {
   loading.value = true;
   void fetchFinanceData();
-  void fetchPurchaseData();
-  void fetchExpansesData();
   loading.value = false;
 });
 </script>
 
 <template>
   <q-page v-if="!loading" class="finance-page">
-    <section>
+    <div>
+      <h3>Balance: {{ financeData.purchase.budget }} €</h3>
+    </div>
+    <div class="finance-cards">
       <q-card class="q-pa-md card purchase-card">
         <h4>Purchase section</h4>
-        <PurchaseForm v-model="financeData.purchase" />
+        <PurchaseForm v-model="financeData.purchase" @update-finance="updateBudget" />
       </q-card>
-    </section>
-    <section>
       <q-card class="q-pa-md card expenses-card">
         <h4>Expenses Section</h4>
-        <ExpensesList v-model="financeData.expanses" />
+        <ExpensesList v-model="financeData.expanses" @update-finance="updateBudget" />
       </q-card>
-    </section>
-
-    <section>
       <q-card class="q-pa-md card income-card">
         <h4>Income Section</h4>
-        <IncomeList v-model="financeData.income" />
+        <IncomeList v-model="financeData.income" @update-finance="updateBudget" />
       </q-card>
-    </section>
+    </div>
   </q-page>
 </template>
 
 <style scoped lang="scss">
 .finance-page {
   display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
-section {
-  border: 2px solid #ccc;
-  height: fit-content;
+.finance-cards {
+  display: flex;
+  gap: 20px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
   gap: 40px 0;
+  height: fit-content;
 }
 
 h4 {

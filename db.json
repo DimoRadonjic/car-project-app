@@ -5,91 +5,70 @@
   },
   "finance": {
     "purchase": {
-      "budget": 25000,
+      "budget": 98000,
       "amountForPurchase": 20000,
-      "percentage": 20
+      "percentage": 15
     },
-    "expenses": [
+    "expanses": [
       {
-        "type": "registration",
-        "amount": 300,
-        "dueDate": "2024-09-15",
+        "amount": 2000,
+        "type": "tax",
+        "dueDate": "2025/11/30",
         "status": "pending",
-        "id": "eb5b"
-      },
-      {
-        "type": "service",
-        "amount": 500,
-        "dueDate": "2024-10-01",
-        "status": "done",
-        "id": "ae5b"
-      },
-      {
-        "type": "repair",
-        "amount": 150,
-        "dueDate": "2024-06-20",
-        "status": "pending",
-        "id": "e75d"
-      },
-      {
-        "type": "repair",
-        "amount": 150,
-        "dueDate": "2025-11-30",
-        "status": "pending",
-        "id": "b4d1"
+        "id": "49b0ca3c-612a-4a0a-bee3-266f95855df3"
       }
     ],
-    "income": {
-      "carsSold": [
-        {
-          "carId": 1,
-          "salePrice": 18000,
-          "saleDate": "2024-05-10"
-        }
-      ]
-    }
-  },
-  "purchase": {
-    "budget": 123222,
-    "amountForPurchase": 12,
-    "percentage": 19
-  },
-  "expenses": [
-    {
-      "type": "registration",
-      "amount": 300,
-      "dueDate": "2024-09-15",
-      "status": "pending",
-      "id": "eb5b"
-    },
-    {
-      "type": "service",
-      "amount": 500,
-      "dueDate": "2024-10-01",
-      "status": "done",
-      "id": "ae5b"
-    },
-    {
-      "type": "repair",
-      "amount": 150,
-      "dueDate": "2024-06-20",
-      "status": "pending",
-      "id": "e75d"
-    },
-    {
-      "type": "repair",
-      "amount": 150,
-      "dueDate": "2025-11-30",
-      "status": "pending",
-      "id": "b4d1"
-    }
-  ],
-  "income": {
-    "carsSold": [
+    "income": [
       {
-        "carId": 1,
-        "salePrice": 18000,
-        "saleDate": "2024-05-10"
+        "amount": 100000,
+        "source": "car sold",
+        "receivedDate": "2025/11/02",
+        "id": "023cc558-f074-41a9-a221-974dd6ee2bba"
+      }
+    ]
+  },
+
+  "market": {
+    "cars": [
+      {
+        "id": 101,
+        "make": "Ford",
+        "color": "red",
+        "model": "Mustang",
+        "year": 2019,
+        "mileage": 30000,
+        "price": 80000,
+        "repairHistory": []
+      },
+      {
+        "id": 102,
+        "make": "Chevrolet",
+        "color": "black",
+        "model": "Malibu",
+        "year": 2017,
+        "mileage": 60000,
+        "price": 80000,
+        "repairHistory": []
+      },
+      {
+        "id": 103,
+        "make": "BMW",
+        "model": "3 Series",
+        "color": "blue",
+        "year": 2021,
+        "mileage": 15000,
+        "price": 80000,
+        "repairHistory": []
+      },
+      {
+        "id": 104,
+        "make": "Tesla",
+        "color": "gray",
+        "model": "Model 3",
+        "year": 2022,
+        "mileage": 8000,
+        "price": 80000,
+        "repairHistory": []
       }
     ]
   },
@@ -108,6 +87,45 @@
         "model": "Civic",
         "year": 2020,
         "mileage": 20000
+      }
+    ]
+  },
+  "history": {
+    "transactions": [
+      {
+        "id": "eb5b",
+        "type": "expense",
+        "category": "registration",
+        "amount": 300,
+        "date": "2024-09-15"
+      },
+      {
+        "id": "ae5b",
+        "type": "expense",
+        "category": "service",
+        "amount": 500,
+        "date": "2024-10-01"
+      },
+      {
+        "id": "e75d",
+        "type": "expense",
+        "category": "repair",
+        "amount": 150,
+        "date": "2024-06-20"
+      },
+      {
+        "id": "b4d1",
+        "type": "expense",
+        "category": "repair",
+        "amount": 150,
+        "date": "2025-11-30"
+      },
+      {
+        "id": "c3f9",
+        "type": "income",
+        "category": "car sold",
+        "amount": 18000,
+        "date": "2024-05-10"
       }
     ]
   }

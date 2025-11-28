@@ -28,6 +28,12 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: '/' + routeNames.HISTORY,
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/HistoryPage.vue') }],
+  },
+
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
   },

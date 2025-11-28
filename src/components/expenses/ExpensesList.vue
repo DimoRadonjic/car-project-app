@@ -38,6 +38,8 @@ const getDateStatus = (date: Date) => checkDateStatus(date)();
 
 const expenses = defineModel<Expense[]>({ default: [] });
 
+const emit = defineEmits(['update-finance']);
+
 const dateItems = computed(() =>
   expenses.value.map((item) => {
     return {
@@ -111,6 +113,7 @@ function openDialog() {
     console.log('Dialog OK with data:', e);
     expenses.value.push(e);
     void addExpense(e);
+    emit('update-finance', true);
   });
 }
 
@@ -130,13 +133,17 @@ function removeExpense() {
   if (!selected.value) return;
   expenses.value = expenses.value.filter((item) => item.id !== selected.value?.id);
   void removeSelectedExpense();
-  selected.value = null;
+  if (selected.value.status === 'done') {
+    selected.value = null;
+    return;
+  }
+  emit('update-finance', true);
 }
 </script>
 
 <template>
   <div class="expenses">
-    <q-list class="expense-list" separator bordered>
+    <q-list v-if="expenses.length" class="expense-list" separator bordered>
       <q-item
         v-for="(expense, index) in dateItems"
         :key="index"
@@ -170,7 +177,7 @@ function removeExpense() {
       </q-item>
     </q-list>
 
-    <div class="expenses-costs">
+    <div v-if="expenses.length" class="expenses-costs">
       <div class="total-cost"><strong>Total Cost:</strong> € {{ totalExpensesCost }}</div>
       <div class="overdue-cost">
         <strong>Total Overdue Cost:</strong> € {{ allCosts['overdue'] ?? 0 }}
@@ -183,9 +190,19 @@ function removeExpense() {
       </div>
     </div>
 
+    <div v-else>
+      <p class="hint">No expenses data</p>
+    </div>
+
     <div class="actions">
       <q-btn color="primary" label="Add" @click="openDialog" />
-      <q-btn color="red-10" label="Remove" :disable="!selected" @click="removeExpense" />
+      <q-btn
+        v-if="expenses.length"
+        color="red-10"
+        label="Remove"
+        :disable="!selected"
+        @click="removeExpense"
+      />
     </div>
   </div>
 </template>
@@ -207,5 +224,40 @@ function removeExpense() {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.badges {
+  display: flex;
+  flex-direction: column;
+  place-items: space-between;
+}
+
+.overdue {
+  background: linear-gradient(180deg, #d32f2f 0%, #b71c1c 100%);
+  box-shadow: 0 2px 6px rgba(183, 28, 28, 0.25);
+}
+
+.done {
+  background: linear-gradient(180deg, #388e3c 0%, #1b5e20 100%);
+  box-shadow: 0 2px 6px rgba(27, 94, 32, 0.25);
+}
+
+.pending {
+  background: linear-gradient(180deg, #33779b 0%, #214b72 100%);
+  box-shadow: 0 2px 6px rgba(27, 94, 32, 0.25);
+}
+
+.badge {
+  color: #fff;
+  padding: 8px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  letter-spacing: 0.4px;
+  text-align: center;
+
+  &:hover {
+    cursor: default;
+  }
 }
 </style>
