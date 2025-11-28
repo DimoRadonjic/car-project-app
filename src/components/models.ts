@@ -149,5 +149,5 @@ export interface HistoryTransaction {
   type: 'expense' | 'income';
   category: string;
   amount: 300;
-  date: string;
+  date: Date;
 }

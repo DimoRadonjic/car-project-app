@@ -1,16 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { type Income } from '../models';
+import { formatDate } from '../utils';
 
 const props = defineProps<{
   income: Income;
 }>();
-
-function formatDate(dateString: Date): string {
-  const date = new Date(dateString).toLocaleDateString('sr-Sr');
-
-  return date.replaceAll('. ', '/').slice(0, -1);
-}
 
 function checkDateStatus(due: Date) {
   const now = new Date();

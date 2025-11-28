@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { type Expense } from '../models';
+import { formatDate } from '../utils';
 
 const props = defineProps<{
   expense: Expense;
 }>();
 
 // remaining: item.status !== 'done' ? getDateStatus(item.dueDate) : 'done',
-
-function formatDate(dateString: Date): string {
-  const date = new Date(dateString).toLocaleDateString('sr-Sr');
-
-  return date.replaceAll('. ', '/').slice(0, -1);
-}
 
 function checkDateStatus(due: Date) {
   const now = new Date();

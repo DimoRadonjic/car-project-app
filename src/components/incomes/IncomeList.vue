@@ -8,27 +8,12 @@ import IncomeItem from './IncomeItem.vue';
 
 const $q = useQuasar();
 
-function formatDate(dateString: Date): string {
-  const date = new Date(dateString).toLocaleDateString('sr-Sr');
-
-  return date.replaceAll('. ', '/').slice(0, -1);
-}
-
 const incomes = defineModel<Income[]>({ default: [] });
 
 const emit = defineEmits(['update-finance']);
 
-const dateItems = computed(() =>
-  incomes.value.map((item) => {
-    return {
-      ...item,
-      formattedDate: formatDate(item.receivedDate),
-    };
-  }),
-);
-
 const totalIncomesCost = computed((): number => {
-  return dateItems.value.reduce((acc, income) => acc + income.amount, 0);
+  return incomes.value.reduce((acc, income) => acc + income.amount, 0);
 });
 
 async function addIncome(newIncome: Income) {
@@ -101,23 +86,6 @@ function removeIncome() {
 <template>
   <div class="incomes">
     <q-list v-if="incomes.length" class="income-list" separator bordered>
-      <!-- <q-item
-        v-for="(income, index) in dateItems"
-        :key="index"
-        clickable
-        :active="selected && JSON.stringify(selected) === JSON.stringify(income)"
-        @click="selectIncome(income)"
-      >
-        <q-item-section>
-          <div><strong>Type:</strong> {{ income.source }}</div>
-          <div><strong>Amount:</strong> €{{ income.amount }}</div>
-          <div>
-            <strong>Received Date:</strong>
-            {{ income.formattedDate }}
-          </div>
-        </q-item-section>
-      </q-item> -->
-
       <IncomeItem
         v-for="income in incomes"
         :key="JSON.stringify(income)"
