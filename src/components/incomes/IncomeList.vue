@@ -4,6 +4,7 @@ import type { Income } from '../models';
 import { useQuasar } from 'quasar';
 import { API_INCOME_URL } from 'src/api';
 import IncomeDialog from './IncomeDialog.vue';
+import IncomeItem from './IncomeItem.vue';
 
 const $q = useQuasar();
 
@@ -100,7 +101,7 @@ function removeIncome() {
 <template>
   <div class="incomes">
     <q-list v-if="incomes.length" class="income-list" separator bordered>
-      <q-item
+      <!-- <q-item
         v-for="(income, index) in dateItems"
         :key="index"
         clickable
@@ -115,7 +116,15 @@ function removeIncome() {
             {{ income.formattedDate }}
           </div>
         </q-item-section>
-      </q-item>
+      </q-item> -->
+
+      <IncomeItem
+        v-for="income in incomes"
+        :key="JSON.stringify(income)"
+        :active="selected && JSON.stringify(selected) === JSON.stringify(income)"
+        :income
+        @click="selectIncome(income)"
+      />
     </q-list>
 
     <div v-if="incomes.length" class="incomes-costs">
@@ -129,7 +138,7 @@ function removeIncome() {
     <div class="actions">
       <q-btn color="primary" label="Add" @click="openDialog" />
       <q-btn
-        v-if="incomes.length"
+        v-if="incomes.length && selected"
         color="red-10"
         label="Remove"
         :disable="!selected"

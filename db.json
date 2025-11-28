@@ -5,7 +5,7 @@
   },
   "finance": {
     "purchase": {
-      "budget": 98000,
+      "budget": 100000,
       "amountForPurchase": 20000,
       "percentage": 15
     },
@@ -24,10 +24,15 @@
         "source": "car sold",
         "receivedDate": "2025/11/02",
         "id": "023cc558-f074-41a9-a221-974dd6ee2bba"
+      },
+      {
+        "amount": 2000,
+        "source": "other",
+        "receivedDate": "2025/12/07",
+        "id": "491be66f-5e59-4c70-acf7-608cd77a45e2"
       }
     ]
   },
-
   "market": {
     "cars": [
       {
