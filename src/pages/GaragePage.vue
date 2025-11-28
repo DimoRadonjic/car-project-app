@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { API_GARAGE_URL } from 'src/api';
+import type { CarInformation } from 'src/components/models';
 import TableComponent from 'src/components/TableComponent.vue';
 import { ref, watchEffect } from 'vue';
 
-const garage = ref();
+const garage = ref<{
+  cars: CarInformation[];
+}>();
+
+const loading = ref(true);
 
 async function getGarage() {
   try {
@@ -24,10 +29,12 @@ async function getGarage() {
 }
 
 watchEffect(() => {
+  loading.value = true;
   void getGarage();
+  loading.value = false;
 });
 </script>
 
 <template>
-  <q-page padding> <TableComponent :data="garage.cars" /> </q-page>
+  <q-page padding> <TableComponent v-if="!loading && garage" :data="garage.cars" /> </q-page>
 </template>
