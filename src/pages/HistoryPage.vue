@@ -16,6 +16,8 @@ async function fetchHistoryData() {
     });
     const { transactions: data } = await res.json();
 
+    console.log('data', data);
+
     historyExpenses.value = data.filter(
       (item: { type: 'income' | 'expense' }) => item.type === 'expense',
     );

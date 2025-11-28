@@ -54,6 +54,7 @@ export interface Income {
   source: 'car sold' | 'parts sold' | 'other';
   amount: number;
   receivedDate: Date;
+  status: 'pending' | 'recevied';
   id: string;
 }
 
@@ -63,7 +64,7 @@ export interface FinanceData {
     amountForPurchase: number;
     percentage: number;
   };
-  expanses: Expense[];
+  expenses: Expense[];
   income: Income[];
 }
 
@@ -148,6 +149,6 @@ export interface HistoryTransaction {
   id: string;
   type: 'expense' | 'income';
   category: string;
-  amount: 300;
+  amount: number;
   date: Date;
 }

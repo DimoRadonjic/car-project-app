@@ -8,10 +8,18 @@ const income = defineModel<Income>({
     source: 'car sold',
     receivedDate: new Date(),
     id: '1',
+    status: 'pending',
   },
 });
 
 const formComponent = ref();
+
+const currentDate = new Date();
+
+function optionsFn(date: string): void {
+  if (new Date(date) < currentDate) income.value.status = 'recevied';
+  else income.value.status = 'pending';
+}
 
 const options = ['car sold', 'other', 'parts sold'];
 </script>
@@ -40,7 +48,7 @@ const options = ['car sold', 'other', 'parts sold'];
     </div>
 
     <div>
-      <q-date v-model="income.receivedDate" minimal />
+      <q-date v-model="income.receivedDate" minimal @update:model-value="optionsFn" />
     </div>
   </q-form>
 </template>

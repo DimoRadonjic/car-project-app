@@ -3,7 +3,6 @@ import { computed, ref } from 'vue';
 import type { Expense } from '../models';
 import { useQuasar } from 'quasar';
 import ExpenseDialog from './ExpenseDialog.vue';
-import { API_EXPENSE_URL } from 'src/api';
 import ExpenseItem from './ExpenseItem.vue';
 
 const $q = useQuasar();
@@ -30,34 +29,10 @@ const allCosts = computed((): Record<string, number> => {
   );
 });
 
-async function addExpense(newExpense: Expense) {
-  try {
-    const res = await fetch(API_EXPENSE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newExpense),
-    });
-    console.log('res', res);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function removeSelectedExpense() {
+function removeSelectedExpense() {
   if (!selected.value) return;
-  try {
-    const res = await fetch(API_EXPENSE_URL + `/${selected.value.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log('res', res);
-  } catch (error) {
-    console.error(error);
-  }
+
+  emit('update-finance', true);
 }
 
 function openDialog() {
@@ -70,7 +45,6 @@ function openDialog() {
   }).onOk((e) => {
     console.log('Dialog OK with data:', e);
     expenses.value.push(e);
-    void addExpense(e);
     emit('update-finance', true);
   });
 }
@@ -95,6 +69,8 @@ function removeExpense() {
     selected.value = null;
     return;
   }
+  selected.value = null;
+
   emit('update-finance', true);
 }
 </script>

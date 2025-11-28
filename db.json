@@ -5,17 +5,38 @@
   },
   "finance": {
     "purchase": {
-      "budget": 100000,
+      "budget": 101600,
       "amountForPurchase": 20000,
       "percentage": 15
     },
-    "expanses": [
+    "expenses": [
       {
         "amount": 2000,
         "type": "tax",
         "dueDate": "2025/11/30",
         "status": "pending",
         "id": "49b0ca3c-612a-4a0a-bee3-266f95855df3"
+      },
+      {
+        "amount": 200,
+        "type": "repair",
+        "dueDate": "2025/11/30",
+        "status": "pending",
+        "id": "c08f4532-76d8-4164-9dee-d0ec472ecc72"
+      },
+      {
+        "amount": 200,
+        "type": "repair",
+        "dueDate": "2025/11/25",
+        "status": "done",
+        "id": "c08f4532-76d8-4164-9dee-d0ec472ecc72"
+      },
+      {
+        "amount": 222,
+        "type": "repair",
+        "dueDate": "2025/11/30",
+        "status": "pending",
+        "id": "0082f4ae-c7e6-4efa-b9c1-1b68c3476865"
       }
     ],
     "income": [
@@ -23,13 +44,22 @@
         "amount": 100000,
         "source": "car sold",
         "receivedDate": "2025/11/02",
-        "id": "023cc558-f074-41a9-a221-974dd6ee2bba"
+        "id": "023cc558-f074-41a9-a221-974dd6ee2bba",
+        "status": "received"
       },
       {
         "amount": 2000,
         "source": "other",
         "receivedDate": "2025/12/07",
-        "id": "491be66f-5e59-4c70-acf7-608cd77a45e2"
+        "id": "491be66f-5e59-4c70-acf7-608cd77a45e2",
+        "status": "pending"
+      },
+      {
+        "amount": 2222,
+        "source": "car sold",
+        "receivedDate": "2025/11/06",
+        "id": "488043f9-8a74-4662-9b60-e08fd11b80cd",
+        "status": "recevied"
       }
     ]
   },
@@ -98,39 +128,16 @@
   "history": {
     "transactions": [
       {
-        "id": "eb5b",
-        "type": "expense",
-        "category": "registration",
-        "amount": 300,
-        "date": "2024-09-15"
-      },
-      {
-        "id": "ae5b",
-        "type": "expense",
-        "category": "service",
-        "amount": 500,
-        "date": "2024-10-01"
-      },
-      {
-        "id": "e75d",
-        "type": "expense",
         "category": "repair",
-        "amount": 150,
-        "date": "2024-06-20"
+        "amount": 200,
+        "date": "2025/11/25",
+        "type": "expense"
       },
       {
-        "id": "b4d1",
-        "type": "expense",
-        "category": "repair",
-        "amount": 150,
-        "date": "2025-11-30"
-      },
-      {
-        "id": "c3f9",
-        "type": "income",
         "category": "car sold",
-        "amount": 18000,
-        "date": "2024-05-10"
+        "amount": 2222,
+        "date": "2025/11/06",
+        "type": "income"
       }
     ]
   }

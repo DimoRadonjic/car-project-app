@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { API_FINANCE_URL } from 'src/api';
+import { API_FINANCE_URL, API_HISTORY_URL } from 'src/api';
 import ExpensesList from 'src/components/expenses/ExpensesList.vue';
 import IncomeList from 'src/components/incomes/IncomeList.vue';
+import type { HistoryTransaction } from 'src/components/models';
 import { type FinanceData } from 'src/components/models';
 import PurchaseForm from 'src/components/purchase/PurchaseForm.vue';
 import { ref, watchEffect } from 'vue';
@@ -12,7 +13,7 @@ const financeData = ref<FinanceData>({
     amountForPurchase: 0,
     percentage: 0,
   },
-  expanses: [],
+  expenses: [],
   income: [],
 });
 
@@ -34,12 +35,43 @@ async function fetchFinanceData() {
 }
 
 async function updateBudget() {
-  const totalExpenses = financeData.value.expanses.reduce(
+  const totalExpenses = financeData.value.expenses.reduce(
     (sum, expense) => sum + expense.amount,
     0,
   );
   const totalIncome = financeData.value.income.reduce((sum, income) => sum + income.amount, 0);
   financeData.value.purchase.budget = totalIncome - totalExpenses;
+
+  let historyTransactions: HistoryTransaction[] = [];
+
+  const doneExpenses: HistoryTransaction[] = financeData.value.expenses
+    .filter((ex) => ex.status === 'done')
+    .map(
+      (ex) =>
+        ({
+          category: ex.type,
+          amount: ex.amount,
+          date: ex.dueDate,
+          type: 'expense',
+        }) as HistoryTransaction,
+    );
+
+  const receivedIncome: HistoryTransaction[] = financeData.value.income
+    .filter((income) => income.status === 'recevied')
+    .map(
+      (income) =>
+        ({
+          category: income.source,
+          amount: income.amount,
+          date: income.receivedDate,
+          type: 'income',
+        }) as HistoryTransaction,
+    );
+
+  historyTransactions = doneExpenses.concat(receivedIncome);
+
+  console.log('history', historyTransactions);
+
   try {
     await fetch(API_FINANCE_URL, {
       method: 'PUT',
@@ -48,14 +80,15 @@ async function updateBudget() {
       },
       body: JSON.stringify(financeData.value),
     });
-
-    // await fetch(API_PURCHASE_URL, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(financeData.value.purchase),
-    // });
+    if (historyTransactions.length > 0) {
+      await fetch(API_HISTORY_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ transactions: historyTransactions }),
+      });
+    }
   } catch (error) {
     console.error('Error fetching finance data:', error);
   }
@@ -80,7 +113,7 @@ watchEffect(() => {
       </q-card>
       <q-card class="q-pa-md card expenses-card">
         <h4>Expenses Section</h4>
-        <ExpensesList v-model="financeData.expanses" @update-finance="updateBudget" />
+        <ExpensesList v-model="financeData.expenses" @update-finance="updateBudget" />
       </q-card>
       <q-card class="q-pa-md card income-card">
         <h4>Income Section</h4>

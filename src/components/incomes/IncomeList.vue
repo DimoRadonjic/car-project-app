@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue';
 import type { Income } from '../models';
 import { useQuasar } from 'quasar';
-import { API_INCOME_URL } from 'src/api';
 import IncomeDialog from './IncomeDialog.vue';
 import IncomeItem from './IncomeItem.vue';
 
@@ -16,34 +15,9 @@ const totalIncomesCost = computed((): number => {
   return incomes.value.reduce((acc, income) => acc + income.amount, 0);
 });
 
-async function addIncome(newIncome: Income) {
-  try {
-    const res = await fetch(API_INCOME_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newIncome),
-    });
-    console.log('res', res);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function removeSelectedIncome() {
+function removeSelectedIncome() {
   if (!selected.value) return;
-  try {
-    const res = await fetch(API_INCOME_URL + `/${selected.value.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log('res', res);
-  } catch (error) {
-    console.error(error);
-  }
+  emit('update-finance', true);
 }
 
 function openDialog() {
@@ -56,7 +30,6 @@ function openDialog() {
   }).onOk((e) => {
     console.log('Dialog OK with data:', e);
     incomes.value.push(e);
-    void addIncome(e);
     emit('update-finance', true);
   });
 }
@@ -77,6 +50,10 @@ function removeIncome() {
   if (!selected.value) return;
   incomes.value = incomes.value.filter((item) => item.id !== selected.value?.id);
   void removeSelectedIncome();
+  if (selected.value.status === 'recevied') {
+    selected.value = null;
+    return;
+  }
   selected.value = null;
 
   emit('update-finance', true);

@@ -7,8 +7,6 @@ const props = defineProps<{
   expense: Expense;
 }>();
 
-// remaining: item.status !== 'done' ? getDateStatus(item.dueDate) : 'done',
-
 function checkDateStatus(due: Date) {
   const now = new Date();
   const dueDate = new Date(due);
@@ -49,8 +47,8 @@ const getDateStatus = computed(() => checkDateStatus(props.expense.dueDate));
         <q-badge
           :class="{
             overdue: getDateStatus() === 'overdue',
-            done: getDateStatus() === 'done',
-            pending: getDateStatus() !== 'done' && getDateStatus() !== 'overdue',
+            done: expense.status === 'done',
+            pending: expense.status === 'pending',
           }"
           class="badge"
         >

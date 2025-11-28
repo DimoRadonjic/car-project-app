@@ -13,6 +13,7 @@ const newIncome = ref<Income>({
   source: 'car sold',
   receivedDate: new Date(),
   id: crypto.randomUUID(),
+  status: 'pending',
 });
 
 function onOKClick() {
