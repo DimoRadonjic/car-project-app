@@ -35,6 +35,6 @@ watchEffect(() => {
 
 <template>
   <q-page padding>
-    <TableComponent v-if="!loading && marketCars" :data="marketCars" market
-  /></q-page>
+    <TableComponent v-if="!loading && marketCars" :data="marketCars" market title="Market" />
+  </q-page>
 </template>

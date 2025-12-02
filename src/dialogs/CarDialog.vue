@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
+import CarForm from 'src/components/CarForm.vue';
 import type { CarInformation } from 'src/components/models';
+import { ref } from 'vue';
 
-defineProps<{ carData: CarInformation; edit?: boolean }>();
+const props = defineProps<{ carData: CarInformation; edit?: boolean; market?: boolean }>();
 
 const plugin = useDialogPluginComponent();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
+
+const { registrationDetails, repairHistory, ...rest } = props.carData;
+
+const car = ref(props.carData);
+
+const carInfo = ref(rest);
+
+const registration = ref(registrationDetails);
 
 function onOKClick() {
   onDialogOK();
@@ -20,19 +30,90 @@ function onCancelClick() {
 <template>
   <q-dialog ref="dialogRef">
     <q-card class="q-dialog-plugin">
-      <h3 v-if="edit">Edit</h3>
-      <q-card-section>
-        <div v-for="(value, key) in carData" :key="key" class="q-mb-sm">
-          <div>
-            <strong>{{ key }}:</strong>
+      <q-card-section v-if="edit" class="section">
+        <h3>Edit</h3>
+        <CarForm v-model="car" />
+      </q-card-section>
+      <q-card-section v-else class="section">
+        <h3>Car details</h3>
+        <div class="details">
+          <div class="info primary-info">
+            <div class="info-value flex">
+              <div class="value-label">Make :</div>
+              <div class="value">{{ carInfo.make }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Color :</div>
+              <div class="value">{{ carInfo.color }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Mileage :</div>
+              <div class="value">{{ carInfo.mileage }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Model :</div>
+              <div class="value">{{ carInfo.model }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Year :</div>
+              <div class="value">{{ carInfo.year }}</div>
+            </div>
           </div>
-          <div style="white-space: pre-wrap; font-family: monospace">
-            {{ typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value) }}
+
+          <div class="info reg-info">
+            <div class="info-value flex">
+              <div class="value-label">Registartion Number:</div>
+              <div class="value">{{ registration.registrationNumber }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Expiry Date :</div>
+              <div class="value">{{ registration.expiryDate }}</div>
+            </div>
           </div>
+
+          <div class="info repair-info">
+            <div class="info-value flex">
+              <div class="value-label">Further Repairs Needed:</div>
+              <div class="value">{{ carInfo.furtherRepairsNeeded }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Repair History:</div>
+              <div class="value">{{ repairHistory.length ? repairHistory.join(' ') : 'None' }}</div>
+            </div>
+          </div>
+
+          <div v-if="carInfo.onsale" class="info market-info">
+            <div class="info-value flex">
+              <div class="value-label">Price :</div>
+              <div class="value">{{ carInfo.price }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">On Sale :</div>
+              <div class="value">{{ carInfo.onsale }}</div>
+            </div>
+
+            <div class="info-value flex">
+              <div class="value-label">Sold :</div>
+              <div class="value">{{ carInfo.sold }}</div>
+            </div>
+          </div>
+          <div v-else>Not on sale</div>
         </div>
       </q-card-section>
 
-      <q-card-actions align="right">
+      <q-card-actions v-if="market" align="center">
+        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="Cancel" @click="onCancelClick" />
+      </q-card-actions>
+
+      <q-card-actions v-else align="center">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
@@ -40,4 +121,37 @@ function onCancelClick() {
   </q-dialog>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-value {
+  display: flex;
+  gap: 12px;
+}
+
+.value-label {
+  font-weight: 800;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 20px;
+}
+</style>

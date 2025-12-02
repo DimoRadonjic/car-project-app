@@ -36,5 +36,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <q-page padding> <TableComponent v-if="!loading && garage" :data="garage.cars" /> </q-page>
+  <q-page padding>
+    <TableComponent v-if="!loading && garage" :data="garage.cars" title="Garage" />
+  </q-page>
 </template>

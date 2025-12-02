@@ -18,6 +18,7 @@ export type TableColumn = {
 };
 
 export type CarInformation = {
+  id: string;
   make: string;
   model: string;
   year: number;
@@ -30,7 +31,7 @@ export type CarInformation = {
   registrationDetails: {
     registrationNumber: string;
     expiryDate: string;
-  } | null;
+  };
   furtherRepairsNeeded?: boolean;
 };
 

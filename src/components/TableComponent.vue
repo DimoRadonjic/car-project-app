@@ -4,9 +4,29 @@ import { type TableColumn, type CarInformation as TableRow } from './models';
 import { useQuasar } from 'quasar';
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 
-defineProps<{ data: TableRow[]; market?: boolean }>();
+defineProps<{ data: TableRow[]; market?: boolean; title: string }>();
 
 const $q = useQuasar();
+
+const actionColumns: TableColumn[] = [
+  {
+    name: 'view',
+    label: 'View',
+    align: 'center',
+    field: () => '',
+    sortable: true,
+    sort: (a: string, b: string) => a.localeCompare(b),
+  },
+
+  {
+    name: 'edit',
+    label: 'Edit',
+    align: 'center',
+    field: () => '',
+    sortable: true,
+    sort: (a: string, b: string) => a.localeCompare(b),
+  },
+];
 
 const defaultColumns: TableColumn[] = [
   {
@@ -87,28 +107,9 @@ const defaultColumns: TableColumn[] = [
   },
 ];
 
-const actionColumns: TableColumn[] = [
-  {
-    name: 'view',
-    label: 'View',
-    align: 'center',
-    field: () => '',
-    sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
-  },
-
-  {
-    name: 'edit',
-    label: 'Edit',
-    align: 'center',
-    field: () => '',
-    sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
-  },
-];
-
 const marketColumns: TableColumn[] = [
   ...defaultColumns,
+
   {
     name: 'price',
     label: 'Price',
@@ -118,7 +119,8 @@ const marketColumns: TableColumn[] = [
     sortable: true,
     sort: (a: string, b: string) => Number(a) - Number(b),
   },
-  ...actionColumns,
+
+  ...actionColumns.filter((col) => col.name !== 'edit'),
 ];
 
 function onRowClick(row: TableRow, edit: boolean = false) {
@@ -141,12 +143,14 @@ function onRowClick(row: TableRow, edit: boolean = false) {
 <template>
   <div class="q-pa-xs">
     <q-table
+      v-if="!market"
       color="primary"
       bordered
-      title="Cars"
+      :title
       :rows="data"
-      :columns="market ? marketColumns : defaultColumns"
+      :columns="[...defaultColumns, ...actionColumns]"
       row-key="make"
+      @row-dblclick="(_, row) => onRowClick(row)"
     >
       <template #body-cell-view="props">
         <q-td :props="props">
@@ -160,6 +164,25 @@ function onRowClick(row: TableRow, edit: boolean = false) {
         <q-td :props="props">
           <q-btn class="action-btn" @click="onRowClick(props.row, true)">
             <q-icon :name="matEdit" />
+          </q-btn>
+        </q-td>
+      </template>
+    </q-table>
+
+    <q-table
+      v-else
+      color="primary"
+      bordered
+      :title
+      :rows="data"
+      :columns="marketColumns"
+      row-key="make"
+      @row-dblclick="(_, row) => onRowClick(row)"
+    >
+      <template #body-cell-view="props">
+        <q-td :props="props">
+          <q-btn class="action-btn" @click="onRowClick(props.row)">
+            <q-icon :name="matSearch" />
           </q-btn>
         </q-td>
       </template>
