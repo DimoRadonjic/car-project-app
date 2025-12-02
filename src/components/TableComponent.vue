@@ -2,6 +2,7 @@
 import CarDialog from 'src/dialogs/CarDialog.vue';
 import { type TableColumn, type CarInformation as TableRow } from './models';
 import { useQuasar } from 'quasar';
+import { matEdit, matSearch } from '@quasar/extras/material-icons';
 
 defineProps<{ data: TableRow[]; market?: boolean }>();
 
@@ -86,6 +87,26 @@ const defaultColumns: TableColumn[] = [
   },
 ];
 
+const actionColumns: TableColumn[] = [
+  {
+    name: 'view',
+    label: 'View',
+    align: 'center',
+    field: () => '',
+    sortable: true,
+    sort: (a: string, b: string) => a.localeCompare(b),
+  },
+
+  {
+    name: 'edit',
+    label: 'Edit',
+    align: 'center',
+    field: () => '',
+    sortable: true,
+    sort: (a: string, b: string) => a.localeCompare(b),
+  },
+];
+
 const marketColumns: TableColumn[] = [
   ...defaultColumns,
   {
@@ -97,10 +118,13 @@ const marketColumns: TableColumn[] = [
     sortable: true,
     sort: (a: string, b: string) => Number(a) - Number(b),
   },
+  ...actionColumns,
 ];
 
-function onRowClick(row: TableRow) {
+function onRowClick(row: TableRow, edit: boolean = false) {
   console.log('Open dialog of row clicked:', row);
+
+  console.log('row', row);
 
   $q.dialog({
     component: CarDialog,
@@ -108,6 +132,7 @@ function onRowClick(row: TableRow) {
     componentProps: {
       carData: row,
       persistent: true,
+      edit,
     },
   });
 }
@@ -122,10 +147,30 @@ function onRowClick(row: TableRow) {
       :rows="data"
       :columns="market ? marketColumns : defaultColumns"
       row-key="make"
-      @row-dblclick="(_, row) => onRowClick(row)"
     >
+      <template #body-cell-view="props">
+        <q-td :props="props">
+          <q-btn class="action-btn" @click="onRowClick(props.row)">
+            <q-icon :name="matSearch" />
+          </q-btn>
+        </q-td>
+      </template>
+
+      <template #body-cell-edit="props">
+        <q-td :props="props">
+          <q-btn class="action-btn" @click="onRowClick(props.row, true)">
+            <q-icon :name="matEdit" />
+          </q-btn>
+        </q-td>
+      </template>
     </q-table>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.action-btn {
+  border-radius: 999999px;
+  width: fit-content;
+  height: fit-content;
+}
+</style>

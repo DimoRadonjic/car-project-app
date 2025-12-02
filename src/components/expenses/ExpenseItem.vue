@@ -48,7 +48,7 @@ const getDateStatus = computed(() => checkDateStatus(props.expense.dueDate));
           :class="{
             overdue: getDateStatus() === 'overdue',
             done: expense.status === 'done',
-            pending: expense.status === 'pending',
+            pending: expense.status === 'pending' && getDateStatus() !== 'overdue',
           }"
           class="badge"
         >
@@ -67,7 +67,7 @@ const getDateStatus = computed(() => checkDateStatus(props.expense.dueDate));
 }
 
 .overdue {
-  background: linear-gradient(180deg, #d32f2f 0%, #b71c1c 100%);
+  background: linear-gradient(180deg, #d32f2f 0%, #761111 100%);
   box-shadow: 0 2px 6px rgba(183, 28, 28, 0.25);
 }
 

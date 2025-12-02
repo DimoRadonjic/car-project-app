@@ -4,8 +4,6 @@ import { type CarInformation } from 'src/components/models';
 import TableComponent from 'src/components/TableComponent.vue';
 import { ref, watchEffect } from 'vue';
 
-// const sampleMarketCars: CarInformation[] = sampleCarData.filter((car) => car.onsale && !car.sold);
-
 const marketCars = ref<CarInformation[]>();
 
 const loading = ref(true);

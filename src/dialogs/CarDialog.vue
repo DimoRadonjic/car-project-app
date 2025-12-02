@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import { type CarInformation } from 'src/components/models';
+import type { CarInformation } from 'src/components/models';
 
-defineProps<{ carData: CarInformation }>();
+defineProps<{ carData: CarInformation; edit?: boolean }>();
 
 const plugin = useDialogPluginComponent();
 
@@ -20,6 +20,7 @@ function onCancelClick() {
 <template>
   <q-dialog ref="dialogRef">
     <q-card class="q-dialog-plugin">
+      <h3 v-if="edit">Edit</h3>
       <q-card-section>
         <div v-for="(value, key) in carData" :key="key" class="q-mb-sm">
           <div>
@@ -38,3 +39,5 @@ function onCancelClick() {
     </q-card>
   </q-dialog>
 </template>
+
+<style scoped lang="scss"></style>

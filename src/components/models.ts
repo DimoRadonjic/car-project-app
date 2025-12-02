@@ -1,23 +1,23 @@
-export interface EssentialLinkProps {
+export type EssentialLinkProps = {
   title: string;
   caption?: string;
   link?: string;
   icon?: string;
   target?: string;
-}
+};
 
-export interface TableColumn {
+export type TableColumn = {
   name: string;
   required?: boolean;
   label: string;
   align?: 'left' | 'right' | 'center';
-  field: string | ((row: CarInformation) => string);
+  field: string | ((row: CarInformation) => string | void);
   format?: (val: string) => string;
   sortable?: boolean;
   sort?: (a: string, b: string) => number;
-}
+};
 
-export interface CarInformation {
+export type CarInformation = {
   make: string;
   model: string;
   year: number;
@@ -32,7 +32,7 @@ export interface CarInformation {
     expiryDate: string;
   } | null;
   furtherRepairsNeeded?: boolean;
-}
+};
 
 export type ExpenseType =
   | 'insurance'
@@ -44,26 +44,26 @@ export type ExpenseType =
 
 export type ExpenseStatus = 'pending' | 'done' | 'overdue';
 
-export interface Expense {
+export type Expense = {
   type: ExpenseType;
   amount: number;
   dueDate: Date;
   status: ExpenseStatus;
   id: string;
-}
+};
 
 export type IncomeSource = 'car sold' | 'parts sold' | 'other';
 export type IncomeStatus = 'pending' | 'recevied';
 
-export interface Income {
+export type Income = {
   source: IncomeSource;
   amount: number;
   receivedDate: Date;
   status: IncomeStatus;
   id: string;
-}
+};
 
-export interface FinanceData {
+export type FinanceData = {
   purchase: {
     budget: number;
     amountForPurchase: number;
@@ -71,12 +71,12 @@ export interface FinanceData {
   };
   expenses: Expense[];
   income: Income[];
-}
+};
 
-export interface HistoryTransaction {
+export type HistoryTransaction = {
   id: string;
   type: 'expense' | 'income';
   category: string;
   amount: number;
   date: Date;
-}
+};
