@@ -4,7 +4,7 @@ import { type TableColumn, type CarInformation as TableRow } from './models';
 import { useQuasar } from 'quasar';
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 
-defineProps<{ data: TableRow[]; market?: boolean; title: string }>();
+const propsComp = defineProps<{ data: TableRow[]; market?: boolean; title: string }>();
 
 const $q = useQuasar();
 
@@ -135,6 +135,7 @@ function onRowClick(row: TableRow, edit: boolean = false) {
       carData: row,
       persistent: true,
       edit,
+      market: propsComp.market,
     },
   });
 }

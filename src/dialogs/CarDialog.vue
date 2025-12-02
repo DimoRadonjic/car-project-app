@@ -2,7 +2,7 @@
 import { useDialogPluginComponent } from 'quasar';
 import CarForm from 'src/components/CarForm.vue';
 import type { CarInformation } from 'src/components/models';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{ carData: CarInformation; edit?: boolean; market?: boolean }>();
 
@@ -25,6 +25,12 @@ function onOKClick() {
 function onCancelClick() {
   onDialogCancel();
 }
+
+const repairHistoryValue = computed(() =>
+  repairHistory.length ? repairHistory.join(' ') : 'None',
+);
+
+const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ? 'Yes' : 'No'));
 </script>
 
 <template>
@@ -79,12 +85,14 @@ function onCancelClick() {
           <div class="info repair-info">
             <div class="info-value flex">
               <div class="value-label">Further Repairs Needed:</div>
-              <div class="value">{{ carInfo.furtherRepairsNeeded }}</div>
+              <div class="value">{{ furtherRepairsValue }}</div>
             </div>
 
             <div class="info-value flex">
               <div class="value-label">Repair History:</div>
-              <div class="value">{{ repairHistory.length ? repairHistory.join(' ') : 'None' }}</div>
+              <div class="value">
+                {{ repairHistoryValue }}
+              </div>
             </div>
           </div>
 

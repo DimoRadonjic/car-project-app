@@ -423,15 +423,27 @@
         "id": 1,
         "make": "Toyota",
         "model": "Camry",
+        "color": "black",
         "year": 2018,
-        "mileage": 45000
+        "mileage": 45000,
+        "repairHistory": [],
+        "registrationDetails": {
+          "registrationNumber": "REG-101-XYZ",
+          "expiryDate": "2026-11-30"
+        }
       },
       {
         "id": 2,
         "make": "Honda",
         "model": "Civic",
+        "color": "red",
         "year": 2020,
-        "mileage": 20000
+        "mileage": 20000,
+        "repairHistory": [],
+        "registrationDetails": {
+          "registrationNumber": "REG-101-XYZ",
+          "expiryDate": "2026-11-30"
+        }
       }
     ]
   },
