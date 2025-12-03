@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
-import type { CarInformation as TableRow } from '../models';
-import type { TableColumn } from './data-table.types';
+import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
 import { useDialog } from 'src/composables/useDialog';
 

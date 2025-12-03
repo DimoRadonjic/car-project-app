@@ -1,4 +1,6 @@
-import type { CarInformation } from '../models';
+import type { CarInformation } from 'src/types/car.types';
+
+export type TableRow = CarInformation;
 
 export type TableColumn = {
   name: string;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { EssentialLinkProps } from './models';
+import type { EssentialLinkProps } from './sidebar/link.types';
 
 withDefaults(defineProps<EssentialLinkProps>(), {
   caption: '',

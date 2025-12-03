@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { API_GARAGE_URL } from 'src/api';
-import type { CarInformation } from 'src/components/models';
 import { ref, watchEffect } from 'vue';
 import type { TableColumn } from './data-table.types';
 import DataTable from './DataTable.vue';
+import type { CarInformation } from 'src/types/car.types';
 
 const data = ref<CarInformation[]>();
 

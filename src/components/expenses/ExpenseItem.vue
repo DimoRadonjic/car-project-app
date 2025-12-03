@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { Expense } from 'src/types/finance.types';
+import { formatDate } from 'src/utils/date.utils';
 import { computed } from 'vue';
-import { type Expense } from '../models';
-import { formatDate } from '../utils';
 
 const props = defineProps<{
   expense: Expense;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, toRaw } from 'vue';
-import type { CarInformation, CarRegistration } from '../models';
 import RegistrationForm from './RegistrationForm.vue';
+import type { CarInformation, CarRegistration } from 'src/types/car.types';
 
 const car = defineModel<CarInformation>({ required: true });
 const localCar = ref(structuredClone(toRaw(car.value)));

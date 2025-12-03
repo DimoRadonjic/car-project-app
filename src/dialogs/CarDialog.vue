@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import CarForm from 'src/components/car-forms/CarForm.vue';
-import type { CarInformation } from 'src/components/models';
 import { computed, ref } from 'vue';
+import type { CarInformation } from 'src/types/car.types';
 
 const props = defineProps<{ carData: CarInformation; edit?: boolean; market?: boolean }>();
 

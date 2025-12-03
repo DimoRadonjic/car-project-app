@@ -1,6 +1,6 @@
 import { useQuasar } from 'quasar';
-import type { CarInformation } from 'src/components/models';
 import CarDialog from 'src/dialogs/CarDialog.vue';
+import type { CarInformation } from 'src/types/car.types';
 
 export function useDialog() {
   const $q = useQuasar();

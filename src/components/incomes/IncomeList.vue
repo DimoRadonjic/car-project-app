@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { Income } from '../models';
 import { useQuasar } from 'quasar';
 import IncomeDialog from './IncomeDialog.vue';
 import IncomeItem from './IncomeItem.vue';
+import type { Income } from 'src/types/finance.types';
 
 const $q = useQuasar();
 

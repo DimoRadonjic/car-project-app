@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { Expense } from 'src/types/finance.types';
 import { ref } from 'vue';
-import { type Expense } from '../models';
 
 const expense = defineModel<Expense>({
   default: {

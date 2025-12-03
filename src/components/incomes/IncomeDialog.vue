@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import { type Income } from '../models';
 import { ref } from 'vue';
 import IncomeForm from './IncomeForm.vue';
+import type { Income } from 'src/types/finance.types';
 
 const plugin = useDialogPluginComponent();
 

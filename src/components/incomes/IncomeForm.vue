@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { Income } from 'src/types/finance.types';
 import { ref } from 'vue';
-import { type Income } from '../models';
 
 const income = defineModel<Income>({
   default: {

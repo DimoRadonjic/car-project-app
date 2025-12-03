@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { API_MARKET_URL } from 'src/api';
 import { ref, watchEffect } from 'vue';
-import type { CarInformation } from '../models';
 import DataTable from './DataTable.vue';
 import type { TableColumn } from './data-table.types';
+import type { CarInformation } from 'src/types/car.types';
 
 defineProps<{
   type: 'car' | 'motorcycle';
