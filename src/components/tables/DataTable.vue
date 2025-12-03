@@ -2,7 +2,7 @@
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
-import { useDialog } from 'src/composables/useDialog';
+import { useDialog } from '@/composables/useDialog';
 
 const propsComp = withDefaults(
   defineProps<{

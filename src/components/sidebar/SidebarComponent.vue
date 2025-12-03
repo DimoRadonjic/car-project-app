@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import EssentialLink from 'components/EssentialLink.vue';
-import { routeNames } from 'src/enums/enums';
+import { routeNames } from '@/enums';
 import type { EssentialLinkProps } from './link.types';
 
 const drawerOpen = defineModel<boolean>({ default: false });

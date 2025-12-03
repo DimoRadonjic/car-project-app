@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Income } from 'src/types/finance.types';
+import type { Income } from '@/types/finance.types';
 import { ref } from 'vue';
 
 const income = defineModel<Income>({

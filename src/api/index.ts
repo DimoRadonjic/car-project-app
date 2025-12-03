@@ -1,4 +1,4 @@
-import { APIEndPoints } from 'src/enums/enums';
+import { APIEndPoints } from '@/enums';
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL || '/';
 

@@ -1,4 +1,4 @@
-import type { CarInformation } from 'src/types/car.types';
+import type { CarInformation } from '@/types/car.types';
 
 export type TableRow = CarInformation;
 

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { HistoryTransaction } from 'src/types/finance.types';
-import { formatDate } from 'src/utils/date.utils';
+import type { HistoryTransaction } from '@/types/finance.types';
+import { formatDate } from '@/utils/date.utils';
 
 defineProps<{ item: HistoryTransaction }>();
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { API_HISTORY_URL } from 'src/api';
-import HistoryList from 'src/components/history/HistoryList.vue';
+import { API_HISTORY_URL } from '@/api';
+import HistoryList from '@/components/history/HistoryList.vue';
 import { ref, watchEffect } from 'vue';
 
 const historyExpenses = ref([]);

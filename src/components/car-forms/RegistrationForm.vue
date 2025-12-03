@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CarRegistration } from 'src/types/car.types';
+import type { CarRegistration } from '@/types/car.types';
 
 const model = defineModel<CarRegistration>({ required: true });
 </script>

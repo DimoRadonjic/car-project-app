@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GarageTable from 'src/components/tables/GarageTable.vue';
+import GarageTable from '@/components/tables/GarageTable.vue';
 </script>
 
 <template>

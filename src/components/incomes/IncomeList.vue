@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { useQuasar } from 'quasar';
 import IncomeDialog from './IncomeDialog.vue';
 import IncomeItem from './IncomeItem.vue';
-import type { Income } from 'src/types/finance.types';
+import type { Income } from '@/types/finance.types';
 
 const $q = useQuasar();
 

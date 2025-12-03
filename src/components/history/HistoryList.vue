@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import HistoryItem from './HistoryItem.vue';
-import type { HistoryTransaction } from 'src/types/finance.types';
+import type { HistoryTransaction } from '@/types/finance.types';
 
 defineProps<{
   modelValue: HistoryTransaction[];

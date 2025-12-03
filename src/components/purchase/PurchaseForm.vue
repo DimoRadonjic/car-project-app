@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
-import { API_PURCHASE_URL } from 'src/api';
+import { API_PURCHASE_URL } from '@/api';
 import { computed, ref } from 'vue';
 
 const $q = useQuasar();

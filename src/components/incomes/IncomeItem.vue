@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Income } from 'src/types/finance.types';
-import { formatDate } from 'src/utils/date.utils';
+import type { Income } from '@/types/finance.types';
+import { formatDate } from '@/utils/date.utils';
 import { computed } from 'vue';
 
 const props = defineProps<{

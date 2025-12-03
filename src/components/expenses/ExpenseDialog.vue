@@ -2,7 +2,7 @@
 import { useDialogPluginComponent } from 'quasar';
 import ExpensesForm from './ExpensesForm.vue';
 import { ref } from 'vue';
-import type { Expense } from 'src/types/finance.types';
+import type { Expense } from '@/types/finance.types';
 
 const plugin = useDialogPluginComponent();
 

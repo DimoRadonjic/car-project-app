@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import HeaderComponent from 'src/components/HeaderComponent.vue';
-import SidebarComponent from 'src/components/sidebar/SidebarComponent.vue';
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import SidebarComponent from '@/components/sidebar/SidebarComponent.vue';
 import { ref } from 'vue';
 
 const leftDrawerOpen = ref(false);

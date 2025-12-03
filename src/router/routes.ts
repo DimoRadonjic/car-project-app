@@ -1,4 +1,4 @@
-import { routeNames } from 'src/enums/enums';
+import { routeNames } from '@/enums';
 import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
