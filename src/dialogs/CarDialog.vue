@@ -12,7 +12,7 @@ const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
 const { registrationDetails, repairHistory, ...rest } = props.carData;
 
-const car = ref(props.carData);
+const carForm = ref(props.carData);
 
 const carInfo = ref(rest);
 
@@ -38,7 +38,7 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
     <q-card class="q-dialog-plugin">
       <q-card-section v-if="edit" class="section">
         <h3>Edit</h3>
-        <CarForm v-model="car" />
+        <CarForm v-model="carForm" />
       </q-card-section>
       <q-card-section v-else class="section">
         <h3>Car details</h3>
