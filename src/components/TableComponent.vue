@@ -15,7 +15,6 @@ const actionColumns: TableColumn[] = [
     align: 'center',
     field: () => '',
     sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
   },
 
   {
@@ -24,7 +23,6 @@ const actionColumns: TableColumn[] = [
     align: 'center',
     field: () => '',
     sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
   },
 ];
 
@@ -143,6 +141,7 @@ function onRowClick(row: TableRow, edit: boolean = false) {
 
 <template>
   <div class="q-pa-xs">
+    <p class="hint table-hint">Hint: Double-click opens details of row</p>
     <q-table
       v-if="!market"
       color="primary"
@@ -196,5 +195,10 @@ function onRowClick(row: TableRow, edit: boolean = false) {
   border-radius: 999999px;
   width: fit-content;
   height: fit-content;
+}
+
+.table-hint {
+  text-align: right;
+  width: 100%;
 }
 </style>
