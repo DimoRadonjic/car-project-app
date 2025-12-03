@@ -14,7 +14,7 @@ const actionColumns: TableColumn[] = [
     label: 'View',
     align: 'center',
     field: () => '',
-    sortable: true,
+    sortable: false,
   },
 
   {
@@ -22,7 +22,7 @@ const actionColumns: TableColumn[] = [
     label: 'Edit',
     align: 'center',
     field: () => '',
-    sortable: true,
+    sortable: false,
   },
 ];
 
