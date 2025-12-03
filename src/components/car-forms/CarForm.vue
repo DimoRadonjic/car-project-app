@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, toRaw } from 'vue';
-import type { CarInformation } from './models';
+import type { CarInformation, CarRegistration } from '../models';
+import RegistrationForm from './RegistrationForm.vue';
 
 const car = defineModel<CarInformation>({ required: true });
 const localCar = ref(structuredClone(toRaw(car.value)));
 
-const registration = ref(localCar.value.registrationDetails);
+const registration = ref<CarRegistration>(localCar.value.registrationDetails);
 const carRepairHistoryValue = computed(() =>
   localCar.value?.repairHistory.length ? localCar.value?.repairHistory.join(' ') : '',
 );
@@ -16,7 +17,7 @@ const notUsedInForm = ['id', 'onsale', 'furtherRepairsNeeded', 'onsale'];
 <template>
   <q-form class="form">
     <div>
-      <div v-for="(value, key) in localCar" :key="key" class="q-mb-sm">
+      <div v-for="(_, key) in localCar" :key="key" class="q-mb-sm">
         <q-input
           v-if="
             typeof localCar[key] !== 'boolean' &&
@@ -30,19 +31,7 @@ const notUsedInForm = ['id', 'onsale', 'furtherRepairsNeeded', 'onsale'];
     </div>
 
     <div>
-      <div>
-        <div v-for="(value, key) in registration" :key="key" class="q-mb-sm">
-          <q-input
-            v-model="registration[key]"
-            :label="key"
-            mask="XXX-XXX-XXX"
-            :rules="[
-              (val) =>
-                /^[A-Z0-9]{3}-[A-Z0-9]{3}-[A-Z0-9]{3}$/.test(val) || 'Format must be XXX-XXX-XXX',
-            ]"
-          ></q-input>
-        </div>
-      </div>
+      <RegistrationForm v-model="registration" />
       <div class="q-mb-sm">
         <q-input
           v-model="carRepairHistoryValue"

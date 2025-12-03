@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import CarForm from 'src/components/CarForm.vue';
+import CarForm from 'src/components/car-forms/CarForm.vue';
 import type { CarInformation } from 'src/components/models';
 import { computed, ref } from 'vue';
 
