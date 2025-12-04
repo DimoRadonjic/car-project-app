@@ -29,6 +29,8 @@ const propsComp = withDefaults(
 
 const tableColumns = ref(propsComp.columns);
 
+const tableData = ref(propsComp.data);
+
 const { openCarDialog } = useDialog();
 
 const searchValue = ref<string>('');
@@ -64,8 +66,16 @@ const columnsWithActions = computed<TableColumn[]>(() => {
   return tableColumns.value;
 });
 
-function onRowClick(row: TableRow, edit: boolean = false) {
-  openCarDialog(row, edit, propsComp.market);
+function onRowClick(
+  row: TableRow,
+  edit: boolean = propsComp.edit,
+  market: boolean = propsComp.market,
+) {
+  openCarDialog(row, edit, market).onOk(
+    (newData: TableRow) =>
+      (tableData.value = tableData.value.map((data) => (data.id === newData.id ? newData : data))),
+    // If edit make API Call to update that car (API call by ID)
+  );
 }
 </script>
 
@@ -99,14 +109,14 @@ function onRowClick(row: TableRow, edit: boolean = false) {
     <q-table
       color="primary"
       bordered
-      :rows="data"
+      :rows="tableData"
       :columns="columnsWithActions"
       :row-key
       @row-dblclick="(_, row) => onRowClick(row)"
     >
       <template v-if="view" #body-cell-view="props">
         <q-td :props="props">
-          <q-btn class="action-btn" @click="onRowClick(props.row)">
+          <q-btn class="action-btn" @click="onRowClick(props.row, false, false)">
             <q-icon :name="matSearch" />
           </q-btn>
         </q-td>

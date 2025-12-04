@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import CarForm from '@/components/car-forms/CarForm.vue';
-import { computed, ref } from 'vue';
+import { computed, ref, toRaw, watchEffect } from 'vue';
 import type { CarInformation } from '@/types/car.types';
 
 const props = defineProps<{ carData: CarInformation; edit?: boolean; market?: boolean }>();
@@ -12,13 +12,21 @@ const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
 const { registrationDetails, repairHistory, ...rest } = props.carData;
 
-const carForm = ref(props.carData);
+const carData = ref(props.carData);
+
+const carForm = ref(structuredClone(toRaw(props.carData)));
 
 const carInfo = ref(rest);
 
 const registration = ref(registrationDetails);
 
 function onOKClick() {
+  if (props.edit) {
+    carData.value = carForm.value;
+
+    onDialogOK(carForm.value);
+    return;
+  }
   onDialogOK();
 }
 
@@ -31,6 +39,8 @@ const repairHistoryValue = computed(() =>
 );
 
 const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ? 'Yes' : 'No'));
+
+watchEffect(() => console.log('form Data', carForm.value));
 </script>
 
 <template>
@@ -117,7 +127,12 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
       </q-card-section>
 
       <q-card-actions v-if="market" align="center">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="Buy" @click="onOKClick" />
+        <q-btn color="primary" label="Cancel" @click="onCancelClick" />
+      </q-card-actions>
+
+      <q-card-actions v-if="edit" align="center">
+        <q-btn color="primary" label="Save" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
 

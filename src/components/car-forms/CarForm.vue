@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, toRaw } from 'vue';
+import { computed, ref } from 'vue';
 import RegistrationForm from './RegistrationForm.vue';
 import type { CarInformation, CarRegistration } from '@/types/car.types';
 
 const car = defineModel<CarInformation>({ required: true });
-const localCar = ref(structuredClone(toRaw(car.value)));
 
-const registration = ref<CarRegistration>(localCar.value.registrationDetails);
+const registration = ref<CarRegistration>(car.value.registrationDetails);
 const carRepairHistoryValue = computed(() =>
-  localCar.value?.repairHistory.length ? localCar.value?.repairHistory.join(' ') : '',
+  car.value?.repairHistory.length ? car.value?.repairHistory.join(' ') : '',
 );
 
 const notUsedInForm = ['id', 'onsale', 'furtherRepairsNeeded', 'onsale'];
@@ -17,14 +16,14 @@ const notUsedInForm = ['id', 'onsale', 'furtherRepairsNeeded', 'onsale'];
 <template>
   <q-form class="form">
     <div>
-      <div v-for="(_, key) in localCar" :key="key" class="q-mb-sm">
+      <div v-for="(_, key) in car" :key="key" class="q-mb-sm">
         <q-input
           v-if="
-            typeof localCar[key] !== 'boolean' &&
-            typeof localCar[key] !== 'object' &&
+            typeof car[key] !== 'boolean' &&
+            typeof car[key] !== 'object' &&
             !notUsedInForm.includes(key)
           "
-          v-model="localCar[key]"
+          v-model="car[key]"
           :label="key"
         ></q-input>
       </div>

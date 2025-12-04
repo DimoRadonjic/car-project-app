@@ -18,7 +18,6 @@ const model = defineModel<CarRegistration>({ required: true });
     <q-input
       v-model="model.expiryDate"
       label="Experation date"
-      mask="XXX-XXX-XXX"
       :rules="[
         (val) => /^[A-Z0-9]{3}-[A-Z0-9]{3}-[A-Z0-9]{3}$/.test(val) || 'Format must be XXX-XXX-XXX',
       ]"
