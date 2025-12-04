@@ -3,6 +3,7 @@ import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
+import type { CarInformation } from 'src/types/car.types';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -30,6 +31,8 @@ const propsComp = withDefaults(
 const tableColumns = ref(propsComp.columns);
 
 const tableData = ref(propsComp.data);
+
+const selected = ref<CarInformation[]>([]);
 
 const { openCarDialog } = useDialog();
 
@@ -77,6 +80,13 @@ function onRowClick(
     // If edit make API Call to update that car (API call by ID)
   );
 }
+
+function openAddDialog() {
+  openCarDialog(undefined, true).onOk(
+    (newData: TableRow) => tableData.value.push(newData),
+    // If edit make API Call to update that car (API call by ID)
+  );
+}
 </script>
 
 <template>
@@ -98,8 +108,8 @@ function onRowClick(
               </q-input>
             </div>
             <div v-if="add || remove" class="action-btns">
-              <q-btn v-if="add">Add</q-btn>
-              <q-btn v-if="remove">Remove</q-btn>
+              <q-btn v-if="add" @click="openAddDialog">Add</q-btn>
+              <q-btn v-if="remove" :disable="!selected.length">Remove</q-btn>
             </div>
           </div>
         </div>
@@ -107,11 +117,13 @@ function onRowClick(
       </slot>
     </div>
     <q-table
+      v-model:selected="selected"
       color="primary"
       bordered
       :rows="tableData"
       :columns="columnsWithActions"
       :row-key
+      selection="multiple"
       @row-dblclick="(_, row) => onRowClick(row)"
     >
       <template v-if="view" #body-cell-view="props">

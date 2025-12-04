@@ -5,7 +5,7 @@ import type { CarInformation } from '@/types/car.types';
 export function useDialog() {
   const $q = useQuasar();
 
-  function openCarDialog(car: CarInformation, edit: boolean = false, market: boolean = false) {
+  function openCarDialog(car?: CarInformation, edit?: boolean, market?: boolean) {
     return $q.dialog({
       component: CarDialog,
 

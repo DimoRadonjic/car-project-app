@@ -1,29 +1,47 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import CarForm from '@/components/car-forms/CarForm.vue';
-import { computed, ref, toRaw, watchEffect } from 'vue';
-import type { CarInformation } from '@/types/car.types';
+import { computed, ref, toRaw } from 'vue';
+import type { CarInformation, CarRegistration } from '@/types/car.types';
+import { formatDate } from 'src/utils/date.utils';
 
-const props = defineProps<{ carData: CarInformation; edit?: boolean; market?: boolean }>();
+const props = withDefaults(
+  defineProps<{ carData?: CarInformation; edit?: boolean; market?: boolean }>(),
+  {
+    carData: () => ({
+      color: '',
+      id: crypto.randomUUID(),
+      make: '',
+      mileage: 0,
+      model: '',
+      onsale: false,
+      price: 0,
+      registrationDetails: {
+        expiryDate: formatDate(new Date()),
+        registrationNumber: 'XXXX-XXXX-XXXX',
+      },
+      repairHistory: [],
+      sold: false,
+      year: new Date().getFullYear(),
+      furtherRepairsNeeded: false,
+    }),
+  },
+);
 
 const plugin = useDialogPluginComponent();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
-const { registrationDetails, repairHistory, ...rest } = props.carData;
+const carForm = ref<CarInformation>(structuredClone(toRaw(props.carData)));
 
-const carData = ref(props.carData);
-
-const carForm = ref(structuredClone(toRaw(props.carData)));
+const { registrationDetails, ...rest } = props.carData;
 
 const carInfo = ref(rest);
 
-const registration = ref(registrationDetails);
+const registration = ref<CarRegistration>(registrationDetails);
 
 function onOKClick() {
   if (props.edit) {
-    carData.value = carForm.value;
-
     onDialogOK(carForm.value);
     return;
   }
@@ -33,14 +51,11 @@ function onOKClick() {
 function onCancelClick() {
   onDialogCancel();
 }
-
 const repairHistoryValue = computed(() =>
-  repairHistory.length ? repairHistory.join(' ') : 'None',
+  carInfo.value.repairHistory.length ? carInfo.value.repairHistory.join(' ') : 'None',
 );
 
 const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ? 'Yes' : 'No'));
-
-watchEffect(() => console.log('form Data', carForm.value));
 </script>
 
 <template>
