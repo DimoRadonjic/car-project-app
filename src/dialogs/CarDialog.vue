@@ -18,7 +18,7 @@ const props = withDefaults(
       price: 0,
       registrationDetails: {
         expiryDate: formatDate(new Date()),
-        registrationNumber: 'XXXX-XXXX-XXXX',
+        registrationNumber: '',
       },
       repairHistory: [],
       sold: false,
@@ -43,9 +43,9 @@ const registration = ref<CarRegistration>(registrationDetails);
 function onOKClick() {
   if (props.edit) {
     onDialogOK(carForm.value);
-    return;
+  } else {
+    onDialogOK();
   }
-  onDialogOK();
 }
 
 function onCancelClick() {
@@ -63,7 +63,7 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
     <q-card class="q-dialog-plugin">
       <q-card-section v-if="edit" class="section">
         <h3>Edit</h3>
-        <CarForm v-model="carForm" />
+        <CarForm v-model="carForm" @save="onOKClick" @cancel="onCancelClick" />
       </q-card-section>
       <q-card-section v-else class="section">
         <h3>Car details</h3>
@@ -139,20 +139,15 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
           </div>
           <div v-else>Not on sale</div>
         </div>
+
+        <q-card-actions align="center">
+          <q-btn color="primary" label="OK" @click="onOKClick" />
+          <q-btn color="primary" label="Cancel" @click="onCancelClick" />
+        </q-card-actions>
       </q-card-section>
 
       <q-card-actions v-if="market" align="center">
         <q-btn color="primary" label="Buy" @click="onOKClick" />
-        <q-btn color="primary" label="Cancel" @click="onCancelClick" />
-      </q-card-actions>
-
-      <q-card-actions v-if="edit" align="center">
-        <q-btn color="primary" label="Save" @click="onOKClick" />
-        <q-btn color="primary" label="Cancel" @click="onCancelClick" />
-      </q-card-actions>
-
-      <q-card-actions v-else align="center">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
     </q-card>

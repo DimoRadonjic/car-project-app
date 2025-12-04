@@ -4,6 +4,7 @@ import { ref, watchEffect } from 'vue';
 import type { TableColumn } from './data-table.types';
 import DataTable from './DataTable.vue';
 import type { CarInformation } from '@/types/car.types';
+import { toFormattedDate } from 'src/utils/date.utils';
 
 const data = ref<CarInformation[]>();
 
@@ -19,7 +20,13 @@ async function getGarage() {
     });
 
     const resData: { cars: CarInformation[] } = await res.json();
-    data.value = resData.cars;
+    data.value = resData.cars.map((car) => ({
+      ...car,
+      registrationDetails: {
+        ...car.registrationDetails,
+        expiryDate: toFormattedDate(car.registrationDetails.expiryDate),
+      },
+    }));
 
     console.log('data garage', data);
   } catch (error) {
@@ -117,7 +124,7 @@ watchEffect(() => {
 <template>
   <DataTable
     v-if="!loading && data"
-    :data
+    v-model="data"
     :columns="defaultColumns"
     title="Garage"
     row-key="make"

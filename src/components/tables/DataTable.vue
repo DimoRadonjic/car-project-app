@@ -3,11 +3,9 @@ import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
-import type { CarInformation } from 'src/types/car.types';
 
 const propsComp = withDefaults(
   defineProps<{
-    data: TableRow[];
     market?: boolean;
     title: string;
     columns: TableColumn[];
@@ -30,11 +28,11 @@ const propsComp = withDefaults(
 
 const tableColumns = ref(propsComp.columns);
 
-const tableData = ref(propsComp.data);
+const tableData = defineModel<TableRow[]>({ required: true });
 
-const selected = ref<CarInformation[]>([]);
+const selected = ref<TableRow[]>([]);
 
-const { openCarDialog } = useDialog();
+const { openCarDialog, confrimationDialog, carFormDialog } = useDialog();
 
 const searchValue = ref<string>('');
 
@@ -82,10 +80,14 @@ function onRowClick(
 }
 
 function openAddDialog() {
-  openCarDialog(undefined, true).onOk(
+  carFormDialog(undefined, false).onOk(
     (newData: TableRow) => tableData.value.push(newData),
-    // If edit make API Call to update that car (API call by ID)
+    // Make API call to add new data to table data ( in db.json new car added )
   );
+}
+
+function removeElements() {
+  confrimationDialog(selected.value);
 }
 </script>
 
@@ -109,7 +111,9 @@ function openAddDialog() {
             </div>
             <div v-if="add || remove" class="action-btns">
               <q-btn v-if="add" @click="openAddDialog">Add</q-btn>
-              <q-btn v-if="remove" :disable="!selected.length">Remove</q-btn>
+              <q-btn v-if="remove" :disable="!selected.length" @click="removeElements"
+                >Remove</q-btn
+              >
             </div>
           </div>
         </div>

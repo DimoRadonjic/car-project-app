@@ -135,7 +135,7 @@ watchEffect(() => {
 <template>
   <DataTable
     v-if="!loading && data"
-    :data
+    v-model="data"
     :columns="marketColumns"
     :action-buttons="true"
     title="Market"
