@@ -27,7 +27,6 @@ async function fetchFinanceData() {
       },
     });
     financeData.value = await res.json();
-    console.log('res finance', await res.json());
   } catch (error) {
     console.error('Error fetching finance data:', error);
   }
