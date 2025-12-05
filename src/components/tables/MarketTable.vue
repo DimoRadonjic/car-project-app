@@ -4,7 +4,7 @@ import DataTable from './DataTable.vue';
 import type { TableColumn } from './data-table.types';
 import type { CarInformation } from '@/types/car.types';
 import { APIEndPoints } from 'src/enums';
-import { getVehicals } from 'src/api';
+import { fetchVehicals } from 'src/api';
 
 defineProps<{
   type: 'car' | 'motorcycle';
@@ -16,7 +16,7 @@ const loading = ref(true);
 
 async function fetchMarket() {
   try {
-    const res = await getVehicals(APIEndPoints.MARKET);
+    const res = await fetchVehicals(APIEndPoints.MARKET);
 
     data.value = res.cars;
 

@@ -1,5 +1,5 @@
 import type { CarInformation } from 'src/types/car.types';
-import { API_GARAGE_URL } from './urls';
+import { API_GARAGE_URL } from '../urls';
 
 export async function updateCarInfo(cars: CarInformation[]) {
   try {

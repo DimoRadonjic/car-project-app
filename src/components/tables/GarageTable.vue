@@ -3,8 +3,8 @@ import { ref, watchEffect } from 'vue';
 import type { TableColumn } from './data-table.types';
 import DataTable from './DataTable.vue';
 import type { CarInformation } from '@/types/car.types';
-import { getVehicals } from 'src/api';
 import { APIEndPoints } from 'src/enums';
+import { fetchVehicals } from 'src/api';
 
 const data = ref<CarInformation[]>();
 
@@ -12,7 +12,7 @@ const loading = ref(true);
 
 async function getGarage() {
   try {
-    const res = await getVehicals(APIEndPoints.GARAGE);
+    const res = await fetchVehicals(APIEndPoints.GARAGE);
 
     data.value = res.cars;
 

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
+import type { FinanceData } from 'src/types/finance.types';
 import { computed, ref } from 'vue';
-import { updatePurchaseData } from 'src/api/financeAPIs';
+
+defineProps<{ formData: FinanceData }>();
 
 const $q = useQuasar();
 
@@ -17,6 +19,8 @@ const model = defineModel<{
   },
 });
 
+const emit = defineEmits(['update-finance']);
+
 const edit = ref(false);
 
 const formComponent = ref();
@@ -25,28 +29,15 @@ const priceLimit = computed(() => {
   return Math.floor(model.value.amountForPurchase * (model.value.percentage / 100));
 });
 
-async function updateData() {
-  try {
-    const res = await updatePurchaseData(model.value);
-
-    console.log('res', res);
-
-    $q.notify({
-      color: 'green-4',
-      textColor: 'white',
-      icon: 'cloud_done',
-      message: 'Saved successfully',
-    });
-  } catch (error) {
-    console.error('error', error);
-  }
-}
-
 function onPurchaseSubmit() {
   if (formComponent.value.validate()) {
-    void updateData();
+    // works
+    // const send = { ...props.formData, purchase: model.value };
+
+    // void updateFinance(send);
 
     edit.value = false;
+    emit('update-finance');
   } else {
     $q.notify({
       color: 'red-5',

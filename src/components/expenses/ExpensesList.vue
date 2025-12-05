@@ -3,7 +3,9 @@ import { computed, ref } from 'vue';
 import { useQuasar } from 'quasar';
 import ExpenseDialog from './ExpenseDialog.vue';
 import ExpenseItem from './ExpenseItem.vue';
-import type { Expense } from '@/types/finance.types';
+import type { Expense, FinanceData } from '@/types/finance.types';
+
+const props = defineProps<{ financeData: FinanceData }>();
 
 const $q = useQuasar();
 
@@ -32,7 +34,7 @@ const allCosts = computed((): Record<string, number> => {
 function removeSelectedExpense() {
   if (!selected.value) return;
 
-  emit('update-finance', true);
+  emit('update-finance', { ...props.financeData, expenses: expenses.value });
 }
 
 function openDialog() {

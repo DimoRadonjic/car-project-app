@@ -5,9 +5,9 @@
   },
   "finance": {
     "purchase": {
-      "budget": 101600,
-      "amountForPurchase": 20000,
-      "percentage": 15
+      "budget": 10160012,
+      "amountForPurchase": 19999,
+      "percentage": 20
     },
     "expenses": [
       {

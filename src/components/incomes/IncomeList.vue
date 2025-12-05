@@ -3,7 +3,9 @@ import { computed, ref } from 'vue';
 import { useQuasar } from 'quasar';
 import IncomeDialog from './IncomeDialog.vue';
 import IncomeItem from './IncomeItem.vue';
-import type { Income } from '@/types/finance.types';
+import type { FinanceData, Income } from '@/types/finance.types';
+
+const props = defineProps<{ financeData: FinanceData }>();
 
 const $q = useQuasar();
 
@@ -17,7 +19,7 @@ const totalIncomesCost = computed((): number => {
 
 function removeSelectedIncome() {
   if (!selected.value) return;
-  emit('update-finance', true);
+  emit('update-finance', { ...props.financeData, incomes: incomes.value });
 }
 
 function openDialog() {

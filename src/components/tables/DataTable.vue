@@ -4,7 +4,7 @@ import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
-import { updateCarInfo } from 'src/api/carAPIs';
+import { updateCarInfo } from 'src/api/cars/update';
 
 const propsComp = withDefaults(
   defineProps<{
