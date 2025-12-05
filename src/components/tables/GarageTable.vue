@@ -4,7 +4,6 @@ import { ref, watchEffect } from 'vue';
 import type { TableColumn } from './data-table.types';
 import DataTable from './DataTable.vue';
 import type { CarInformation } from '@/types/car.types';
-import { toFormattedDate } from 'src/utils/date.utils';
 
 const data = ref<CarInformation[]>();
 
@@ -20,15 +19,9 @@ async function getGarage() {
     });
 
     const resData: { cars: CarInformation[] } = await res.json();
-    data.value = resData.cars.map((car) => ({
-      ...car,
-      registrationDetails: {
-        ...car.registrationDetails,
-        expiryDate: toFormattedDate(car.registrationDetails.expiryDate),
-      },
-    }));
+    data.value = resData.cars;
 
-    console.log('data garage', data);
+    console.log('data garage', data.value);
   } catch (error) {
     console.log(error);
   }

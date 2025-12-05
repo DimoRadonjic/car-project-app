@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { CarRegistration } from '@/types/car.types';
-import { isValidDate } from 'src/utils/date.utils';
-import { watchEffect } from 'vue';
+import { isValidDate, toFormattedDate } from 'src/utils/date.utils';
+import { computed } from 'vue';
 
 const model = defineModel<CarRegistration>({ required: true });
 
-watchEffect(() => console.log(model.value));
+const inputDate = computed(() => toFormattedDate(model.value.expiryDate, 'DD/MM/YYYY'));
 </script>
 
 <template>
@@ -23,7 +23,7 @@ watchEffect(() => console.log(model.value));
     />
 
     <q-input
-      v-model="model.expiryDate"
+      v-model="inputDate"
       filled
       placeholder="DD/MM/YYYY"
       mask="##/##/####"

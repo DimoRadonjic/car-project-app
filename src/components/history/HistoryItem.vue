@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { HistoryTransaction } from '@/types/finance.types';
-import { formatDate } from '@/utils/date.utils';
+import { formatDateDDMMYYYY } from '@/utils/date.utils';
 
 defineProps<{ item: HistoryTransaction }>();
 </script>
@@ -16,7 +16,7 @@ defineProps<{ item: HistoryTransaction }>();
       <q-item-label class="label"><strong>Amount:</strong> €{{ item.amount }}</q-item-label>
       <q-item-label class="label">
         <strong>Transaction Date:</strong>
-        {{ formatDate(item.date) }}
+        {{ formatDateDDMMYYYY(item.date) }}
       </q-item-label>
     </q-item-section>
   </q-item>

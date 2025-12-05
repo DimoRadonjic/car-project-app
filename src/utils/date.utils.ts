@@ -1,11 +1,32 @@
 import { date } from 'quasar';
 
-export function formatDate(newDate: Date): string {
+export function formatDateDDMMYYYY(newDate: Date): string {
   return date.formatDate(newDate, 'DD/MM/YYYY');
 }
 
-export function toFormattedDate(dateString: string): string {
-  return formatDate(new Date(dateString));
+export function formatDateYYYYMMDD(newDate: Date): string {
+  return date.formatDate(newDate, 'YYYY-MM-DD');
+}
+
+export function toFormattedDate(dateString: string, format: 'YYYY-MM-DD' | 'DD/MM/YYYY'): string {
+  console.log('/', dateString.includes('/'));
+  console.log('-', dateString.includes('-'));
+  if (dateString.includes('/')) {
+    const [day, month, year]: number[] = dateString.split('/').map(Number);
+
+    if (day && month && year) {
+      const date = new Date(year, month - 1, day);
+
+      return format === 'DD/MM/YYYY'
+        ? formatDateDDMMYYYY(new Date(date))
+        : formatDateYYYYMMDD(new Date(date));
+    }
+  } else {
+    return format === 'DD/MM/YYYY'
+      ? formatDateDDMMYYYY(new Date(dateString))
+      : formatDateYYYYMMDD(new Date(dateString));
+  }
+  return 'Invalid Date';
 }
 
 export function toDate(dateString: string): Date {
@@ -13,7 +34,7 @@ export function toDate(dateString: string): Date {
 }
 
 export function getCurrentDate() {
-  return formatDate(new Date());
+  return formatDateDDMMYYYY(new Date());
 }
 
 export function isValidDate(val: string) {

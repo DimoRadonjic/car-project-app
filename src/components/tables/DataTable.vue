@@ -3,6 +3,9 @@ import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
+import { toFormattedDate } from 'src/utils/date.utils';
+import { API_GARAGE_URL } from 'src/api';
+import type { CarInformation } from 'src/types/car.types';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -67,16 +70,47 @@ const columnsWithActions = computed<TableColumn[]>(() => {
   return tableColumns.value;
 });
 
-function onRowClick(
-  row: TableRow,
-  edit: boolean = propsComp.edit,
-  market: boolean = propsComp.market,
-) {
-  openCarDialog(row, edit, market).onOk(
-    (newData: TableRow) =>
-      (tableData.value = tableData.value.map((data) => (data.id === newData.id ? newData : data))),
-    // If edit make API Call to update that car (API call by ID)
-  );
+//place in its own folder
+async function updateCarInfo(cars: CarInformation[]) {
+  try {
+    const res = await fetch(API_GARAGE_URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cars: cars }),
+    });
+    console.log('res', await res.json());
+  } catch (error) {
+    console.log('updateCarInfo - error', error);
+  }
+}
+
+function onRowClick(row: TableRow, edit?: boolean, market?: boolean) {
+  console.log('row', row);
+
+  if (edit) {
+    openCarDialog(row, edit, market).onOk((newData: TableRow) => {
+      const newDataArr = tableData.value.slice().map((data) =>
+        data.id === newData.id
+          ? {
+              ...newData,
+              registrationDetails: {
+                ...data.registrationDetails,
+                expiryDate: toFormattedDate(newData.registrationDetails.expiryDate, 'YYYY-MM-DD'),
+              },
+            }
+          : data,
+      );
+
+      // If edit make API Call to update that car (API call by ID)
+      void updateCarInfo(newDataArr);
+
+      tableData.value = newDataArr;
+    });
+  } else {
+    openCarDialog(row, edit, market);
+  }
 }
 
 function openAddDialog() {

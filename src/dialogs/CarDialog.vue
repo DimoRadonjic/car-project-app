@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import CarForm from '@/components/car-forms/CarForm.vue';
-import { computed, ref, toRaw } from 'vue';
+import { computed, ref } from 'vue';
 import type { CarInformation, CarRegistration } from '@/types/car.types';
-import { formatDate } from 'src/utils/date.utils';
+import { formatDateDDMMYYYY } from 'src/utils/date.utils';
 
 const props = withDefaults(
   defineProps<{ carData?: CarInformation; edit?: boolean; market?: boolean }>(),
@@ -17,7 +17,7 @@ const props = withDefaults(
       onsale: false,
       price: 0,
       registrationDetails: {
-        expiryDate: formatDate(new Date()),
+        expiryDate: formatDateDDMMYYYY(new Date()),
         registrationNumber: '',
       },
       repairHistory: [],
@@ -32,7 +32,9 @@ const plugin = useDialogPluginComponent();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
-const carForm = ref<CarInformation>(structuredClone(toRaw(props.carData)));
+console.log('props.carData', props.carData);
+
+const carForm = ref<CarInformation>(JSON.parse(JSON.stringify(props.carData)));
 
 const { registrationDetails, ...rest } = props.carData;
 
@@ -43,9 +45,8 @@ const registration = ref<CarRegistration>(registrationDetails);
 function onOKClick() {
   if (props.edit) {
     onDialogOK(carForm.value);
-  } else {
-    onDialogOK();
   }
+  onDialogOK();
 }
 
 function onCancelClick() {

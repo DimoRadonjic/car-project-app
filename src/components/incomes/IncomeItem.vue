@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Income } from '@/types/finance.types';
-import { formatDate } from '@/utils/date.utils';
+import { formatDateDDMMYYYY } from '@/utils/date.utils';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -38,7 +38,7 @@ const getDateStatus = computed(() => checkDateStatus(props.income.receivedDate))
       <div><strong>Amount:</strong> €{{ income.amount }}</div>
       <div>
         <strong>Due Date:</strong>
-        {{ formatDate(income.receivedDate) }}
+        {{ formatDateDDMMYYYY(income.receivedDate) }}
       </div>
     </q-item-section>
 
