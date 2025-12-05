@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CarRegistration } from '@/types/car.types';
-import { validateDate } from 'src/utils/date.utils';
+import { isValidDate } from 'src/utils/date.utils';
 import { watchEffect } from 'vue';
 
 const model = defineModel<CarRegistration>({ required: true });
@@ -27,7 +27,7 @@ watchEffect(() => console.log(model.value));
       filled
       placeholder="DD/MM/YYYY"
       mask="##/##/####"
-      :rules="[(val) => validateDate(val) || 'Date is invalid']"
+      :rules="[(val) => isValidDate(val) || 'Date is invalid']"
     >
       <template #append>
         <q-icon name="event" class="cursor-pointer">
