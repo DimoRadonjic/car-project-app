@@ -27,14 +27,10 @@ export type Income = {
   id: string;
 };
 
-export type FinanceData = {
-  purchase: {
-    budget: number;
-    amountForPurchase: number;
-    percentage: number;
-  };
-  expenses: Expense[];
-  income: Income[];
+export type Purchase = {
+  budget: number;
+  amountForPurchase: number;
+  percentage: number;
 };
 
 export type HistoryTransaction = {
@@ -43,4 +39,14 @@ export type HistoryTransaction = {
   category: string;
   amount: number;
   date: Date;
+};
+
+export type FinanceData = {
+  purchase: {
+    budget: number;
+    amountForPurchase: number;
+    percentage: number;
+  };
+  expenses: Expense[];
+  income: Income[];
 };

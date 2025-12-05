@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { API_FINANCE_URL, API_HISTORY_URL } from '@/api';
 import ExpensesList from '@/components/expenses/ExpensesList.vue';
 import IncomeList from '@/components/incomes/IncomeList.vue';
 import PurchaseForm from '@/components/purchase/PurchaseForm.vue';
 import type { FinanceData, HistoryTransaction } from '@/types/finance.types';
+import { API_FINANCE_URL, API_HISTORY_URL } from 'src/api/urls';
 import { ref, watchEffect } from 'vue';
 
 const financeData = ref<FinanceData>({
@@ -67,8 +67,6 @@ async function updateBudget() {
     );
 
   historyTransactions = doneExpenses.concat(receivedIncome);
-
-  console.log('history', historyTransactions);
 
   try {
     await fetch(API_FINANCE_URL, {

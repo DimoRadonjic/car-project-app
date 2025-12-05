@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { API_MARKET_URL } from '@/api';
 import { ref, watchEffect } from 'vue';
 import DataTable from './DataTable.vue';
 import type { TableColumn } from './data-table.types';
 import type { CarInformation } from '@/types/car.types';
+import { APIEndPoints } from 'src/enums';
+import { getVehicals } from 'src/api';
 
 defineProps<{
   type: 'car' | 'motorcycle';
@@ -15,17 +16,11 @@ const loading = ref(true);
 
 async function fetchMarket() {
   try {
-    const res = await fetch(API_MARKET_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await getVehicals(APIEndPoints.MARKET);
 
-    const resData: { cars: CarInformation[] } = await res.json();
-    data.value = resData.cars;
-    console.log('marketCars', resData);
-    console.log('marketCars res', data.value);
+    data.value = res.cars;
+
+    console.log('data garage', data.value);
   } catch (error) {
     console.log(error);
   }

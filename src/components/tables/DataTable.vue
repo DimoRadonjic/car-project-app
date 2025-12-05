@@ -4,8 +4,7 @@ import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
-import { API_GARAGE_URL } from 'src/api';
-import type { CarInformation } from 'src/types/car.types';
+import { updateCarInfo } from 'src/api/carAPIs';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -70,22 +69,6 @@ const columnsWithActions = computed<TableColumn[]>(() => {
   return tableColumns.value;
 });
 
-//place in its own folder
-async function updateCarInfo(cars: CarInformation[]) {
-  try {
-    const res = await fetch(API_GARAGE_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ cars: cars }),
-    });
-    console.log('res', await res.json());
-  } catch (error) {
-    console.log('updateCarInfo - error', error);
-  }
-}
-
 function onRowClick(row: TableRow, edit?: boolean, market?: boolean) {
   console.log('row', row);
 
@@ -103,7 +86,7 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean) {
           : data,
       );
 
-      // If edit make API Call to update that car (API call by ID)
+      //  API Call to update that car (API call by ID)
       void updateCarInfo(newDataArr);
 
       tableData.value = newDataArr;

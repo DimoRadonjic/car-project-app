@@ -1,13 +1,49 @@
-import { APIEndPoints } from '@/enums';
+import type { VehicalResponse } from './api.types';
+import { API_GARAGE_URL } from './urls';
 
-export const BASE_URL = import.meta.env.VITE_BASE_URL || '/';
+const empty: VehicalResponse = { cars: [] };
 
-export const API_FINANCE_URL = BASE_URL + '/' + APIEndPoints.FINANCE;
-export const API_GARAGE_URL = BASE_URL + '/' + APIEndPoints.GARAGE;
-export const API_MARKET_URL = BASE_URL + '/' + APIEndPoints.MARKET;
-export const API_HISTORY_URL = BASE_URL + '/' + APIEndPoints.HISTORY;
+async function getGarage(): Promise<VehicalResponse> {
+  try {
+    const res = await fetch(API_GARAGE_URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-//finance parts
-export const API_EXPENSE_URL = API_FINANCE_URL + '/' + APIEndPoints.EXPENSE;
-export const API_INCOME_URL = API_FINANCE_URL + '/' + APIEndPoints.INCOME;
-export const API_PURCHASE_URL = API_FINANCE_URL + '/' + APIEndPoints.PURCHASE;
+    const resData: VehicalResponse = await res.json();
+
+    return resData;
+  } catch (error) {
+    console.log(error);
+    return empty;
+  }
+}
+
+async function getMarket(): Promise<VehicalResponse> {
+  try {
+    const res = await fetch(API_GARAGE_URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const resData: VehicalResponse = await res.json();
+
+    return resData;
+  } catch (error) {
+    console.log(error);
+    return empty;
+  }
+}
+
+// add get on type or all
+export async function getVehicals(api_url: 'garage' | 'market'): Promise<VehicalResponse> {
+  if (api_url.toLowerCase() === api_url) {
+    return await getGarage();
+  } else {
+    return await getMarket();
+  }
+}

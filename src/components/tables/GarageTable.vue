@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { API_GARAGE_URL } from '@/api';
 import { ref, watchEffect } from 'vue';
 import type { TableColumn } from './data-table.types';
 import DataTable from './DataTable.vue';
 import type { CarInformation } from '@/types/car.types';
+import { getVehicals } from 'src/api';
+import { APIEndPoints } from 'src/enums';
 
 const data = ref<CarInformation[]>();
 
@@ -11,15 +12,9 @@ const loading = ref(true);
 
 async function getGarage() {
   try {
-    const res = await fetch(API_GARAGE_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await getVehicals(APIEndPoints.GARAGE);
 
-    const resData: { cars: CarInformation[] } = await res.json();
-    data.value = resData.cars;
+    data.value = res.cars;
 
     console.log('data garage', data.value);
   } catch (error) {

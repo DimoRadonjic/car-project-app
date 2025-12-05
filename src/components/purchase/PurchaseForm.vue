@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
-import { API_PURCHASE_URL } from '@/api';
 import { computed, ref } from 'vue';
+import { updatePurchaseData } from 'src/api/financeAPIs';
 
 const $q = useQuasar();
 
@@ -25,15 +25,9 @@ const priceLimit = computed(() => {
   return Math.floor(model.value.amountForPurchase * (model.value.percentage / 100));
 });
 
-async function updatePurchaseData() {
+async function updateData() {
   try {
-    const res = await fetch(API_PURCHASE_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(model.value),
-    });
+    const res = await updatePurchaseData(model.value);
 
     console.log('res', res);
 
@@ -48,9 +42,9 @@ async function updatePurchaseData() {
   }
 }
 
-async function onPurchaseSubmit() {
+function onPurchaseSubmit() {
   if (formComponent.value.validate()) {
-    await updatePurchaseData();
+    void updateData();
 
     edit.value = false;
   } else {
