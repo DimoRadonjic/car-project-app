@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
 import { updateCarInfo } from 'src/api/cars/update';
@@ -28,15 +28,26 @@ const propsComp = withDefaults(
   },
 );
 
-const tableColumns = ref(propsComp.columns);
+const tableColumns = ref<TableColumn[]>(propsComp.columns);
 
-const tableData = defineModel<TableRow[]>({ required: true });
+const tableData = defineModel<TableRow[]>({ required: true, type: [] });
 
 const selected = ref<TableRow[]>([]);
 
 const { openCarDialog, confrimationDialog, carFormDialog } = useDialog();
 
 const searchValue = ref<string>('');
+
+const searchResults = ref<TableRow[]>([]);
+
+const loadingSearch = ref<boolean>(false);
+
+const pagination = ref<{ sortBy: string; descending: boolean; page: number; rowsPerPage: number }>({
+  sortBy: 'make',
+  descending: false,
+  page: 1,
+  rowsPerPage: 5,
+});
 
 const editColumn: TableColumn = {
   name: 'edit',
@@ -69,9 +80,7 @@ const columnsWithActions = computed<TableColumn[]>(() => {
   return tableColumns.value;
 });
 
-function onRowClick(row: TableRow, edit?: boolean, market?: boolean) {
-  console.log('row', row);
-
+function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
   if (edit) {
     openCarDialog(row, edit, market).onOk((newData: TableRow) => {
       const newDataArr = tableData.value.slice().map((data) =>
@@ -96,16 +105,49 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean) {
   }
 }
 
-function openAddDialog() {
+function openAddDialog(): void {
   carFormDialog(undefined, false).onOk(
     (newData: TableRow) => tableData.value.push(newData),
     // Make API call to add new data to table data ( in db.json new car added )
   );
 }
 
-function removeElements() {
+function removeElements(): void {
   confrimationDialog(selected.value);
 }
+
+function filterTableData(): () => void {
+  const data = tableData.value.slice();
+
+  return (): void => {
+    if (!searchValue.value) searchResults.value = data;
+
+    const result = data.filter(
+      ({ make, model }) =>
+        make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
+        model.toLowerCase().includes(searchValue.value.toLowerCase()),
+    );
+
+    searchResults.value = result;
+  };
+}
+
+const getSearchResults = filterTableData();
+
+console.log(getSearchResults());
+
+watch(
+  () => searchValue.value,
+  () => {
+    loadingSearch.value = true;
+
+    setTimeout(() => {
+      getSearchResults();
+      loadingSearch.value = false;
+      console.log('loading after', loadingSearch.value);
+    }, 2000);
+  },
+);
 </script>
 
 <template>
@@ -118,11 +160,11 @@ function removeElements() {
             <div v-if="search" class="search">
               <q-input
                 v-model="searchValue"
-                clearable
+                :clearable="!loadingSearch"
                 filled
                 square
-                shadow-text="Search"
                 placeholder="Search"
+                :loading="loadingSearch"
               >
               </q-input>
             </div>
@@ -139,14 +181,20 @@ function removeElements() {
     </div>
     <q-table
       v-model:selected="selected"
+      v-model:pagination="pagination"
       color="primary"
       bordered
-      :rows="tableData"
+      :rows="searchResults ?? tableData"
       :columns="columnsWithActions"
       :row-key
       selection="multiple"
+      :loading="loadingSearch"
       @row-dblclick="(_, row) => onRowClick(row)"
     >
+      <template #loading>
+        <q-inner-loading showing color="secondary"></q-inner-loading>
+      </template>
+
       <template v-if="view" #body-cell-view="props">
         <q-td :props="props">
           <q-btn class="action-btn" @click="onRowClick(props.row, false, false)">

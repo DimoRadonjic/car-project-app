@@ -90,7 +90,6 @@ function inputRequiredValid(val: string | number) {
         <div class="repair-inputs">
           <q-input
             v-model="carRepairHistoryValue"
-            aria-placeholder="test"
             autogrow
             type="textarea"
             label="Repair History"
