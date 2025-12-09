@@ -131,6 +131,19 @@ function removeElements(): void {
   confrimationDialog(selected.value);
 }
 
+function isFilterEmpty(): boolean {
+  const { registrationDetails, repairHistory, ...rest } = defaultFilterValues;
+
+  //filter repair history if empty or not empty
+  if (repairHistory.length !== filters.value.repairHistory.length) return false;
+
+  // filter options for registration - expired, does not have and registered
+  if (JSON.stringify(registrationDetails) !== JSON.stringify(filters.value.registrationDetails))
+    return false;
+
+  return Object.values(rest).every((val) => val === '' || val === 0 || val === false);
+}
+
 function filterBySearch(data: TableRow[]): void {
   let result: TableRow[];
 
@@ -167,7 +180,7 @@ function filterData(): () => void {
   const data = tableData.value.slice();
 
   return () => {
-    if (filters.value.year === 0 || searchValue.value === '') {
+    if (isFilterEmpty() || searchValue.value === '') {
       searchResults.value = data;
     }
 
