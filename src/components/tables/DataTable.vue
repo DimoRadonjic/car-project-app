@@ -281,7 +281,7 @@ watch(
           <h3>{{ title }}</h3>
           <div class="search-btns">
             <q-checkbox v-model="filters.onSale" label="On Sale" />
-            <q-checkbox v-model="filters.furtherRepairsNeeded" label="Needs Repairs" />
+            <q-checkbox v-model="filters.furtherRepairsNeeded" label="Does not need repairs" />
             <q-input
               v-model.number="filters.year"
               :clearable="!loadingSearch"
