@@ -144,33 +144,58 @@ function isFilterEmpty(): boolean {
   return Object.values(rest).every((val) => val === '' || val === 0 || val === false);
 }
 
+function searchCondtion(val: TableRow): boolean {
+  return (
+    val.make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
+    val.model.toLowerCase().includes(searchValue.value.toLowerCase())
+  );
+}
+
+function yearCondition(val: TableRow): boolean {
+  return val.year >= filters.value.year;
+}
+
 function filterBySearch(data: TableRow[]): void {
   let result: TableRow[];
 
   if (searchResults.value.length > 0) {
-    result = searchResults.value.filter(
-      ({ make, model }) =>
-        make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
-        model.toLowerCase().includes(searchValue.value.toLowerCase()),
-    );
+    result = dataFilter(searchResults.value, searchCondtion);
   } else {
-    result = data.filter(
-      ({ make, model }) =>
-        make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
-        model.toLowerCase().includes(searchValue.value.toLowerCase()),
-    );
+    result = dataFilter(data, searchCondtion);
   }
 
   searchResults.value = result;
 }
 
+// create a folder just for the filter on CarInformation types
+
+function dataFilter(
+  data: TableRow[],
+  filterBy: (val: TableRow) => TableRow[] | boolean,
+): TableRow[] {
+  return data.filter((val) => filterBy(val));
+}
+
+// function filterByOnSale(data: TableRow[]): void {
+//   let result: TableRow[];
+
+//   if (searchResults.value.length > 0) {
+//     result = searchResults.value.filter(({ year }) => year >= filters.value.year);
+//     result = searchResults.value.filter(({ year }) => year >= filters.value.year);
+//   } else {
+//     result = data.filter(({ year }) => year >= filters.value.year);
+//   }
+
+//   searchResults.value = result;
+// }
+
 function filterByYear(data: TableRow[]): void {
   let result: TableRow[];
 
   if (searchResults.value.length > 0) {
-    result = searchResults.value.filter(({ year }) => year >= filters.value.year);
+    result = dataFilter(searchResults.value, yearCondition);
   } else {
-    result = data.filter(({ year }) => year >= filters.value.year);
+    result = dataFilter(data, yearCondition);
   }
 
   searchResults.value = result;
@@ -180,6 +205,8 @@ function filterData(): () => void {
   const data = tableData.value.slice();
 
   return () => {
+    if (!searchValue.value) searchValue.value = '';
+
     if (isFilterEmpty() || searchValue.value === '') {
       searchResults.value = data;
     }
@@ -187,6 +214,8 @@ function filterData(): () => void {
     if (filters.value.year !== 0) {
       filterByYear(data);
     }
+
+    console.log('searchValue', searchValue.value);
 
     if (searchValue.value !== '') {
       filterBySearch(data);
@@ -214,6 +243,7 @@ watch(
         <div class="title-btns">
           <h3>{{ title }}</h3>
           <div class="search-btns">
+            <q-checkbox v-model="filters.onsale" />
             <q-input
               v-model.number="filters.year"
               :clearable="!loadingSearch"
