@@ -72,7 +72,7 @@
         "year": 1987,
         "mileage": 181916,
         "price": 299900,
-        "repairHistory": "molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui",
+        "repairHistory": "",
         "registrationDetails": {
           "vinNumber": "KNDMG4C76E6814526",
           "registrationNumber": "RY42-GY48-60KH",
@@ -90,7 +90,7 @@
         "year": 1993,
         "mileage": 111334,
         "price": 5990,
-        "repairHistory": "erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy",
+        "repairHistory": "",
         "registrationDetails": {
           "vinNumber": "1FTEX1C89AF588436",
           "registrationNumber": "MB75-ZX27-84SQ",

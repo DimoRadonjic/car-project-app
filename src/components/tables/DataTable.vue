@@ -51,18 +51,12 @@ const defaultFilterValues: Omit<TableRow, 'id'> = {
   repairHistory: [],
   sold: false,
   year: 0,
+  furtherRepairsNeeded: false,
 };
 
 const filters = ref<Omit<TableRow, 'id'>>(defaultFilterValues);
 
 const loadingSearch = ref<boolean>(false);
-
-const pagination = ref<{ sortBy: string; descending: boolean; page: number; rowsPerPage: number }>({
-  sortBy: 'make',
-  descending: false,
-  page: 1,
-  rowsPerPage: 5,
-});
 
 const editColumn: TableColumn = {
   name: 'edit',
@@ -159,6 +153,10 @@ function onSaleCondition(val: TableRow): boolean {
   return val.onSale === true;
 }
 
+function needsRepairsCondition(val: TableRow): boolean {
+  return val.furtherRepairsNeeded === false;
+}
+
 function filterBySearch(data: TableRow[]): void {
   let result: TableRow[];
 
@@ -187,6 +185,18 @@ function filterByOnSale(data: TableRow[]): void {
     result = dataFilter(searchResults.value, onSaleCondition);
   } else {
     result = dataFilter(data, onSaleCondition);
+  }
+
+  searchResults.value = result;
+}
+
+function filterByFurtherRepairsNeeded(data: TableRow[]): void {
+  let result: TableRow[];
+
+  if (searchResults.value.length > 0) {
+    result = dataFilter(searchResults.value, needsRepairsCondition);
+  } else {
+    result = dataFilter(data, needsRepairsCondition);
   }
 
   searchResults.value = result;
@@ -222,7 +232,9 @@ function filterData(): () => void {
       filterByOnSale(data);
     }
 
-    console.log('searchValue', searchValue.value);
+    if (filters.value.furtherRepairsNeeded) {
+      filterByFurtherRepairsNeeded(data);
+    }
 
     if (searchValue.value !== '') {
       filterBySearch(data);
@@ -231,7 +243,25 @@ function filterData(): () => void {
 }
 
 watch(
-  () => [searchValue.value, filters.value.year, filters.value.onSale],
+  () => searchValue.value,
+  () => {
+    loadingSearch.value = true;
+
+    setTimeout(() => {
+      filterData()();
+      loadingSearch.value = false;
+    }, 2000);
+  },
+);
+
+watch(
+  () => [
+    filters.value.furtherRepairsNeeded,
+    filters.value.onSale,
+    filters.value.price,
+    filters.value.sold,
+    filters.value.repairHistory,
+  ],
   () => {
     loadingSearch.value = true;
 
@@ -251,6 +281,7 @@ watch(
           <h3>{{ title }}</h3>
           <div class="search-btns">
             <q-checkbox v-model="filters.onSale" label="On Sale" />
+            <q-checkbox v-model="filters.furtherRepairsNeeded" label="Needs Repairs" />
             <q-input
               v-model.number="filters.year"
               :clearable="!loadingSearch"
@@ -286,7 +317,6 @@ watch(
     </div>
     <q-table
       v-model:selected="selected"
-      v-model:pagination="pagination"
       color="primary"
       bordered
       :rows="!searchResults.length ? tableData : searchResults"
