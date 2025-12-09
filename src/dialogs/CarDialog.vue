@@ -54,7 +54,7 @@ function onCancelClick() {
   onDialogCancel();
 }
 const repairHistoryValue = computed(() =>
-  carInfo.value.repairHistory.length ? carInfo.value.repairHistory.join(' ') : 'None',
+  carInfo.value.repairHistory.length ? carInfo.value.repairHistory : 'None',
 );
 
 const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ? 'Yes' : 'No'));

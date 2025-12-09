@@ -30,7 +30,7 @@ const propsComp = withDefaults(
 
 const tableColumns = ref<TableColumn[]>(propsComp.columns);
 
-const tableData = defineModel<TableRow[]>({ required: true, type: [] });
+const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow> });
 
 const selected = ref<TableRow[]>([]);
 

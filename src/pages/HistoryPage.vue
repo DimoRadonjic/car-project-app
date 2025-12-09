@@ -43,11 +43,11 @@ watchEffect(() => {
     <div class="cards">
       <q-card class="q-pa-md card expenses-card">
         <h4>Expenses Section</h4>
-        <HistoryList :model-value="historyExpenses" />
+        <HistoryList :data="historyExpenses" />
       </q-card>
       <q-card class="q-pa-md card income-card">
         <h4>Income Section</h4>
-        <HistoryList :model-value="historyIncome" />
+        <HistoryList :data="historyIncome" />
       </q-card>
     </div>
   </q-page>
