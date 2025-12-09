@@ -65,10 +65,10 @@ const defaultColumns: TableColumn[] = [
     sort: (a: string, b: string) => Number(a) - Number(b),
   },
   {
-    name: 'onsale',
+    name: 'onSale',
     label: 'On Sale',
     align: 'center',
-    field: (row: CarInformation) => (row.onsale ? 'Yes' : 'No'),
+    field: (row: CarInformation) => (row.onSale ? 'Yes' : 'No'),
     sortable: true,
     sort: (a: string, b: string) => a.localeCompare(b),
   },

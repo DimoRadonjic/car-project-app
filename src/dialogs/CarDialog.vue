@@ -14,11 +14,12 @@ const props = withDefaults(
       make: '',
       mileage: 0,
       model: '',
-      onsale: false,
+      onSale: false,
       price: 0,
       registrationDetails: {
         expiryDate: formatDateDDMMYYYY(new Date()),
         registrationNumber: '',
+        vinNumber: '',
       },
       repairHistory: [],
       sold: false,
@@ -122,7 +123,7 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
             </div>
           </div>
 
-          <div v-if="carInfo.onsale" class="info market-info">
+          <div v-if="carInfo.onSale" class="info market-info">
             <div class="info-value flex">
               <div class="value-label">Price :</div>
               <div class="value">{{ carInfo.price }}</div>
@@ -130,7 +131,7 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
 
             <div class="info-value flex">
               <div class="value-label">On Sale :</div>
-              <div class="value">{{ carInfo.onsale }}</div>
+              <div class="value">{{ carInfo.onSale }}</div>
             </div>
 
             <div class="info-value flex">

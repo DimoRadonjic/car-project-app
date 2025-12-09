@@ -40,14 +40,14 @@ const searchValue = ref<string>('');
 
 const searchResults = ref<TableRow[]>([]);
 
-const defaultFilterValues = {
+const defaultFilterValues: Omit<TableRow, 'id'> = {
   color: '',
   make: '',
   mileage: 0,
   model: '',
-  onsale: false,
+  onSale: false,
   price: 0,
-  registrationDetails: { expiryDate: getCurrentDate(), registrationNumber: '' },
+  registrationDetails: { expiryDate: getCurrentDate(), registrationNumber: '', vinNumber: '' },
   repairHistory: [],
   sold: false,
   year: 0,
@@ -155,6 +155,10 @@ function yearCondition(val: TableRow): boolean {
   return val.year >= filters.value.year;
 }
 
+function onSaleCondition(val: TableRow): boolean {
+  return val.onSale === true;
+}
+
 function filterBySearch(data: TableRow[]): void {
   let result: TableRow[];
 
@@ -176,18 +180,17 @@ function dataFilter(
   return data.filter((val) => filterBy(val));
 }
 
-// function filterByOnSale(data: TableRow[]): void {
-//   let result: TableRow[];
+function filterByOnSale(data: TableRow[]): void {
+  let result: TableRow[];
 
-//   if (searchResults.value.length > 0) {
-//     result = searchResults.value.filter(({ year }) => year >= filters.value.year);
-//     result = searchResults.value.filter(({ year }) => year >= filters.value.year);
-//   } else {
-//     result = data.filter(({ year }) => year >= filters.value.year);
-//   }
+  if (searchResults.value.length > 0) {
+    result = dataFilter(searchResults.value, onSaleCondition);
+  } else {
+    result = dataFilter(data, onSaleCondition);
+  }
 
-//   searchResults.value = result;
-// }
+  searchResults.value = result;
+}
 
 function filterByYear(data: TableRow[]): void {
   let result: TableRow[];
@@ -215,6 +218,10 @@ function filterData(): () => void {
       filterByYear(data);
     }
 
+    if (filters.value.onSale) {
+      filterByOnSale(data);
+    }
+
     console.log('searchValue', searchValue.value);
 
     if (searchValue.value !== '') {
@@ -224,7 +231,7 @@ function filterData(): () => void {
 }
 
 watch(
-  () => [searchValue.value, filters.value.year],
+  () => [searchValue.value, filters.value.year, filters.value.onSale],
   () => {
     loadingSearch.value = true;
 
@@ -243,7 +250,7 @@ watch(
         <div class="title-btns">
           <h3>{{ title }}</h3>
           <div class="search-btns">
-            <q-checkbox v-model="filters.onsale" />
+            <q-checkbox v-model="filters.onSale" label="On Sale" />
             <q-input
               v-model.number="filters.year"
               :clearable="!loadingSearch"
@@ -251,6 +258,7 @@ watch(
               filled
               square
               placeholder="From Year"
+              label="Make year"
               :loading="loadingSearch"
             >
             </q-input>

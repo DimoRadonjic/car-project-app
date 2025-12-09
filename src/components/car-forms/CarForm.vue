@@ -62,9 +62,9 @@ function inputRequiredValid(val: string | number) {
           <q-input v-model.number="car.mileage" type="number" label="Mileage" suffix="km"></q-input>
         </div>
         <div class="market-inputs">
-          <q-checkbox v-model="car.onsale" label="On Sale"></q-checkbox>
+          <q-checkbox v-model="car.onSale" label="On Sale"></q-checkbox>
 
-          <div v-if="car.onsale">
+          <div v-if="car.onSale">
             <q-input
               v-model.number="car.price"
               type="number"

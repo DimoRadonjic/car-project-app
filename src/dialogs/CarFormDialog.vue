@@ -12,11 +12,12 @@ const props = withDefaults(defineProps<{ carData?: CarInformation; edit?: boolea
     make: '',
     mileage: 0,
     model: '',
-    onsale: false,
+    onSale: false,
     price: 0,
     registrationDetails: {
       expiryDate: getCurrentDate(),
       registrationNumber: '',
+      vinNumber: '',
     },
     repairHistory: [],
     sold: false,

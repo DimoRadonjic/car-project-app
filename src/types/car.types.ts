@@ -1,6 +1,7 @@
 export type CarRegistration = {
   registrationNumber: string;
   expiryDate: string;
+  vinNumber: string;
 };
 
 export type CarInformation = {
@@ -11,7 +12,7 @@ export type CarInformation = {
   color: string;
   mileage: number;
   price: number;
-  onsale: boolean;
+  onSale: boolean;
   sold: boolean;
   repairHistory: string[];
   registrationDetails: CarRegistration;

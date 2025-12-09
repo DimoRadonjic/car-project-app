@@ -69,12 +69,10 @@ const defaultColumns: TableColumn[] = [
     sort: (a: string, b: string) => Number(a) - Number(b),
   },
   {
-    name: 'onsale',
+    name: 'onSale',
     label: 'On Sale',
     align: 'center',
-    field: (row: CarInformation) => (row.onsale ? 'Yes' : 'No'),
-    sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
+    field: (row: CarInformation) => (row.onSale ? 'Yes' : 'No'),
   },
 
   {
@@ -91,8 +89,6 @@ const defaultColumns: TableColumn[] = [
     label: 'Needs Repair',
     align: 'center',
     field: (row: CarInformation) => (row.furtherRepairsNeeded ? 'Yes' : 'No'),
-    sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
   },
 
   {
@@ -101,8 +97,6 @@ const defaultColumns: TableColumn[] = [
     align: 'center',
     field: (row: CarInformation) =>
       row.repairHistory && row.repairHistory.length > 0 ? 'Yes' : 'No',
-    sortable: true,
-    sort: (a: string, b: string) => a.localeCompare(b),
   },
 ];
 
