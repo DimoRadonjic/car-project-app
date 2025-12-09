@@ -11,4 +11,5 @@ export type TableColumn = {
   format?: (val: string) => string;
   sortable?: boolean;
   sort?: (a: string, b: string) => number;
+  filter?: string | object;
 };

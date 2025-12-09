@@ -73,6 +73,7 @@
         "year": 2019,
         "mileage": 30000,
         "price": 80000,
+        "onSale": true,
         "repairHistory": [],
         "registrationDetails": {
           "registrationNumber": "REG-101-XYZ",
@@ -87,6 +88,7 @@
         "year": 2017,
         "mileage": 60000,
         "price": 80000,
+        "onSale": true,
         "repairHistory": [],
         "registrationDetails": {
           "registrationNumber": "REG-102-ABC",
@@ -101,6 +103,7 @@
         "year": 2021,
         "mileage": 15000,
         "price": 80000,
+        "onSale": true,
         "repairHistory": [],
         "registrationDetails": {
           "registrationNumber": "REG-103-BMW",
@@ -115,6 +118,7 @@
         "year": 2022,
         "mileage": 8000,
         "price": 80000,
+        "onSale": true,
         "repairHistory": [],
         "registrationDetails": {
           "registrationNumber": "REG-104-TES",

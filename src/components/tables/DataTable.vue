@@ -3,7 +3,7 @@ import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
 import { computed, ref, watch } from 'vue';
 import { useDialog } from '@/composables/useDialog';
-import { toFormattedDate } from 'src/utils/date.utils';
+import { getCurrentDate, toFormattedDate } from 'src/utils/date.utils';
 import { updateCarInfo } from 'src/api/cars/update';
 
 const propsComp = withDefaults(
@@ -39,6 +39,21 @@ const { openCarDialog, confrimationDialog, carFormDialog } = useDialog();
 const searchValue = ref<string>('');
 
 const searchResults = ref<TableRow[]>([]);
+
+const defaultFilterValues = {
+  color: '',
+  make: '',
+  mileage: 0,
+  model: '',
+  onsale: false,
+  price: 0,
+  registrationDetails: { expiryDate: getCurrentDate(), registrationNumber: '' },
+  repairHistory: [],
+  sold: false,
+  year: 0,
+};
+
+const filters = ref<Omit<TableRow, 'id'>>(defaultFilterValues);
 
 const loadingSearch = ref<boolean>(false);
 
@@ -116,35 +131,64 @@ function removeElements(): void {
   confrimationDialog(selected.value);
 }
 
-function filterTableData(): () => void {
-  const data = tableData.value.slice();
+function filterBySearch(data: TableRow[]): void {
+  let result: TableRow[];
 
-  return (): void => {
-    if (!searchValue.value) searchResults.value = data;
-
-    const result = data.filter(
+  if (searchResults.value.length > 0) {
+    result = searchResults.value.filter(
       ({ make, model }) =>
         make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
         model.toLowerCase().includes(searchValue.value.toLowerCase()),
     );
+  } else {
+    result = data.filter(
+      ({ make, model }) =>
+        make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
+        model.toLowerCase().includes(searchValue.value.toLowerCase()),
+    );
+  }
 
-    searchResults.value = result;
+  searchResults.value = result;
+}
+
+function filterByYear(data: TableRow[]): void {
+  let result: TableRow[];
+
+  if (searchResults.value.length > 0) {
+    result = searchResults.value.filter(({ year }) => year >= filters.value.year);
+  } else {
+    result = data.filter(({ year }) => year >= filters.value.year);
+  }
+
+  searchResults.value = result;
+}
+
+function filterData(): () => void {
+  const data = tableData.value.slice();
+
+  return () => {
+    if (filters.value.year === 0 || searchValue.value === '') {
+      searchResults.value = data;
+    }
+
+    if (filters.value.year !== 0) {
+      filterByYear(data);
+    }
+
+    if (searchValue.value !== '') {
+      filterBySearch(data);
+    }
   };
 }
 
-const getSearchResults = filterTableData();
-
-console.log(getSearchResults());
-
 watch(
-  () => searchValue.value,
+  () => [searchValue.value, filters.value.year],
   () => {
     loadingSearch.value = true;
 
     setTimeout(() => {
-      getSearchResults();
+      filterData()();
       loadingSearch.value = false;
-      console.log('loading after', loadingSearch.value);
     }, 2000);
   },
 );
@@ -157,6 +201,16 @@ watch(
         <div class="title-btns">
           <h3>{{ title }}</h3>
           <div class="search-btns">
+            <q-input
+              v-model.number="filters.year"
+              :clearable="!loadingSearch"
+              mask="####"
+              filled
+              square
+              placeholder="From Year"
+              :loading="loadingSearch"
+            >
+            </q-input>
             <div v-if="search" class="search">
               <q-input
                 v-model="searchValue"
@@ -184,7 +238,7 @@ watch(
       v-model:pagination="pagination"
       color="primary"
       bordered
-      :rows="searchResults ?? tableData"
+      :rows="!searchResults.length ? tableData : searchResults"
       :columns="columnsWithActions"
       :row-key
       selection="multiple"
@@ -193,6 +247,13 @@ watch(
     >
       <template #loading>
         <q-inner-loading showing color="secondary"></q-inner-loading>
+      </template>
+
+      <template #no-data="{ icon, message, filter }">
+        <div class="full-width row flex-center q-gutter-sm">
+          <span> {{ message }} </span>
+          <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
+        </div>
       </template>
 
       <template v-if="view" #body-cell-view="props">
