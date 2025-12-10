@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
-import CarForm from '@/components/car-forms/CarForm.vue';
 import { ref, toRaw } from 'vue';
 import type { CarInformation } from '@/types/car.types';
 import { getCurrentDate } from 'src/utils/date.utils';
@@ -46,7 +45,7 @@ function onCancel() {
     <q-card class="q-dialog-plugin">
       <q-card-section class="section">
         <h3>{{ edit ? 'Edit' : 'New' }}</h3>
-        <CarForm v-model="carForm" @save="onSave" @cancel="onCancel" />
+        <car-form v-model="carForm" @save="onSave" @cancel="onCancel" />
       </q-card-section>
     </q-card>
   </q-dialog>

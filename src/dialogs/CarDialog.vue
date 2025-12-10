@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useDialogPluginComponent } from 'quasar';
 import CarForm from '@/components/car-forms/CarForm.vue';
 import { computed, ref } from 'vue';
 import type { CarInformation, CarRegistration } from '@/types/car.types';
 import { formatDateDDMMYYYY } from 'src/utils/date.utils';
+import { useDialog } from 'src/composables/useDialog';
 
 const props = withDefaults(
   defineProps<{ carData?: CarInformation; edit?: boolean; market?: boolean }>(),
@@ -29,7 +29,7 @@ const props = withDefaults(
   },
 );
 
-const plugin = useDialogPluginComponent();
+const { plugin } = useDialog();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 

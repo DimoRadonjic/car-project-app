@@ -442,6 +442,42 @@
         "sold": false,
         "furtherRepairsNeeded": true,
         "color": "Maroon"
+      },
+      {
+        "id": "3371fb7a-3cb1-42cf-bc2d-342394068e1b",
+        "make": "BMW",
+        "model": "7 Series",
+        "year": 1993,
+        "mileage": 111334,
+        "price": 5990,
+        "repairHistory": "",
+        "registrationDetails": {
+          "vinNumber": "1FTEX1C89AF588436",
+          "registrationNumber": "MB75-ZX27-84SQ",
+          "expiryDate": "19/07/1937"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Aquamarine"
+      },
+      {
+        "id": "67d3e385-d98c-46de-ac58-031ae6d4da9e",
+        "make": "Pontiac",
+        "model": "Chevette",
+        "year": 1987,
+        "mileage": 181916,
+        "price": 299900,
+        "repairHistory": "",
+        "registrationDetails": {
+          "vinNumber": "KNDMG4C76E6814526",
+          "registrationNumber": "RY42-GY48-60KH",
+          "expiryDate": "27/02/2015"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Red"
       }
     ]
   },
@@ -460,7 +496,7 @@
           "registrationNumber": "RY42-GY48-60KH",
           "expiryDate": "27/02/2015"
         },
-        "onSale": false,
+        "onSale": true,
         "sold": false,
         "furtherRepairsNeeded": true,
         "color": "Red"
@@ -478,7 +514,7 @@
           "registrationNumber": "MB75-ZX27-84SQ",
           "expiryDate": "19/07/1937"
         },
-        "onSale": false,
+        "onSale": true,
         "sold": false,
         "furtherRepairsNeeded": false,
         "color": "Aquamarine"

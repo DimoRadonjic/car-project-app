@@ -1,9 +1,9 @@
-import type { VehicalResponse } from './api.types';
+import type { VehicleResponse } from './api.types';
 import { API_GARAGE_URL, API_MARKET_URL } from './urls';
 
-const defaultVehicals: VehicalResponse = { cars: [] };
+const defaultVehicals: VehicleResponse = { cars: [] };
 
-async function fetchGarage(): Promise<VehicalResponse> {
+async function fetchGarage(): Promise<VehicleResponse> {
   try {
     const res = await fetch(API_GARAGE_URL, {
       method: 'GET',
@@ -12,7 +12,7 @@ async function fetchGarage(): Promise<VehicalResponse> {
       },
     });
 
-    const resData: VehicalResponse = await res.json();
+    const resData: VehicleResponse = await res.json();
 
     return resData;
   } catch (error) {
@@ -21,7 +21,7 @@ async function fetchGarage(): Promise<VehicalResponse> {
   }
 }
 
-async function fetchMarket(): Promise<VehicalResponse> {
+async function fetchMarket(): Promise<VehicleResponse> {
   try {
     const res = await fetch(API_MARKET_URL, {
       method: 'GET',
@@ -30,7 +30,9 @@ async function fetchMarket(): Promise<VehicalResponse> {
       },
     });
 
-    const resData: VehicalResponse = await res.json();
+    let resData: VehicleResponse = await res.json();
+
+    resData = { ...resData, cars: resData.cars.filter(({ sold, onSale }) => !sold && onSale) };
 
     return resData;
   } catch (error) {
@@ -40,7 +42,7 @@ async function fetchMarket(): Promise<VehicalResponse> {
 }
 
 // add get on type or all
-export async function fetchVehicals(api_url: 'garage' | 'market'): Promise<VehicalResponse> {
+export async function fetchVehicals(api_url: 'garage' | 'market'): Promise<VehicleResponse> {
   if (api_url.toLowerCase() === 'garage') {
     return await fetchGarage();
   } else {

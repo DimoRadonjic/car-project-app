@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { useDialog } from '@/composables/useDialog';
-import { getCurrentDate, toFormattedDate } from 'src/utils/date.utils';
+import { toFormattedDate } from 'src/utils/date.utils';
 import { updateCarInfo } from 'src/api/cars/update';
+import CarFilter from '../filters/CarFilter.vue';
+import CarSearch from '../filters/CarSearch.vue';
+import { watch } from 'vue';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -17,6 +20,7 @@ const propsComp = withDefaults(
     add?: boolean;
     remove?: boolean;
     search?: boolean;
+    refetch: () => Promise<TableRow[] | undefined>;
   }>(),
   {
     market: false,
@@ -30,32 +34,16 @@ const propsComp = withDefaults(
 
 const tableColumns = ref<TableColumn[]>(propsComp.columns);
 
-const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow> });
+const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow>, default: [] });
 
 const selected = ref<TableRow[]>([]);
 
-const { openCarDialog, confrimationDialog, carFormDialog } = useDialog();
+const { openCarDialog, confrimationDialog, garageDialog } = useDialog();
 
-const searchValue = ref<string>('');
-
+// same array state for filter, search and table
 const searchResults = ref<TableRow[]>([]);
 
-const defaultFilterValues: Omit<TableRow, 'id'> = {
-  color: '',
-  make: '',
-  mileage: 0,
-  model: '',
-  onSale: false,
-  price: 0,
-  registrationDetails: { expiryDate: getCurrentDate(), registrationNumber: '', vinNumber: '' },
-  repairHistory: [],
-  sold: false,
-  year: 0,
-  furtherRepairsNeeded: false,
-};
-
-const filters = ref<Omit<TableRow, 'id'>>(defaultFilterValues);
-
+// same loading state for filter, search and table
 const loadingSearch = ref<boolean>(false);
 
 const editColumn: TableColumn = {
@@ -114,163 +102,48 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
   }
 }
 
+async function dataRefetch() {
+  try {
+    const res = await propsComp.refetch();
+
+    console.log('res refetch', res);
+
+    tableData.value = res ? res : [];
+    loadingSearch.value = false;
+  } catch (error) {
+    console.log('Data table - refetch', error);
+  }
+}
+
+const toRefetch = ref<boolean>(false);
+
 function openAddDialog(): void {
-  carFormDialog(undefined, false).onOk(
-    (newData: TableRow) => tableData.value.push(newData),
-    // Make API call to add new data to table data ( in db.json new car added )
-  );
+  garageDialog().onOk((shouldRefetch) => {
+    toRefetch.value = shouldRefetch;
+  });
+}
+
+function clearFilters(): void {
+  searchResults.value = [];
 }
 
 function removeElements(): void {
   confrimationDialog(selected.value);
 }
 
-function isFilterEmpty(): boolean {
-  const { registrationDetails, repairHistory, ...rest } = defaultFilterValues;
-
-  //filter repair history if empty or not empty
-  if (repairHistory.length !== filters.value.repairHistory.length) return false;
-
-  // filter options for registration - expired, does not have and registered
-  if (JSON.stringify(registrationDetails) !== JSON.stringify(filters.value.registrationDetails))
-    return false;
-
-  return Object.values(rest).every((val) => val === '' || val === 0 || val === false);
-}
-
-function searchCondtion(val: TableRow): boolean {
-  return (
-    val.make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
-    val.model.toLowerCase().includes(searchValue.value.toLowerCase())
-  );
-}
-
-function yearCondition(val: TableRow): boolean {
-  return val.year >= filters.value.year;
-}
-
-function onSaleCondition(val: TableRow): boolean {
-  return val.onSale === true;
-}
-
-function needsRepairsCondition(val: TableRow): boolean {
-  return val.furtherRepairsNeeded === false;
-}
-
-function filterBySearch(data: TableRow[]): void {
-  let result: TableRow[];
-
-  if (searchResults.value.length > 0) {
-    result = dataFilter(searchResults.value, searchCondtion);
-  } else {
-    result = dataFilter(data, searchCondtion);
-  }
-
-  searchResults.value = result;
-}
-
-// create a folder just for the filter on CarInformation types
-
-function dataFilter(
-  data: TableRow[],
-  filterBy: (val: TableRow) => TableRow[] | boolean,
-): TableRow[] {
-  return data.filter((val) => filterBy(val));
-}
-
-function filterByOnSale(data: TableRow[]): void {
-  let result: TableRow[];
-
-  if (searchResults.value.length > 0) {
-    result = dataFilter(searchResults.value, onSaleCondition);
-  } else {
-    result = dataFilter(data, onSaleCondition);
-  }
-
-  searchResults.value = result;
-}
-
-function filterByFurtherRepairsNeeded(data: TableRow[]): void {
-  let result: TableRow[];
-
-  if (searchResults.value.length > 0) {
-    result = dataFilter(searchResults.value, needsRepairsCondition);
-  } else {
-    result = dataFilter(data, needsRepairsCondition);
-  }
-
-  searchResults.value = result;
-}
-
-function filterByYear(data: TableRow[]): void {
-  let result: TableRow[];
-
-  if (searchResults.value.length > 0) {
-    result = dataFilter(searchResults.value, yearCondition);
-  } else {
-    result = dataFilter(data, yearCondition);
-  }
-
-  searchResults.value = result;
-}
-
-function filterData(): () => void {
-  const data = tableData.value.slice();
-
-  return () => {
-    if (!searchValue.value) searchValue.value = '';
-
-    if (isFilterEmpty() || searchValue.value === '') {
-      searchResults.value = data;
-    }
-
-    if (filters.value.year !== 0) {
-      filterByYear(data);
-    }
-
-    if (filters.value.onSale) {
-      filterByOnSale(data);
-    }
-
-    if (filters.value.furtherRepairsNeeded) {
-      filterByFurtherRepairsNeeded(data);
-    }
-
-    if (searchValue.value !== '') {
-      filterBySearch(data);
-    }
-  };
-}
-
 watch(
-  () => searchValue.value,
+  () => toRefetch.value,
   () => {
-    loadingSearch.value = true;
+    if (toRefetch.value) {
+      loadingSearch.value = true;
+      setTimeout(() => void dataRefetch(), 2000);
 
-    setTimeout(() => {
-      filterData()();
-      loadingSearch.value = false;
-    }, 2000);
+      toRefetch.value = false;
+    }
   },
 );
 
-watch(
-  () => [
-    filters.value.furtherRepairsNeeded,
-    filters.value.onSale,
-    filters.value.price,
-    filters.value.sold,
-    filters.value.repairHistory,
-  ],
-  () => {
-    loadingSearch.value = true;
-
-    setTimeout(() => {
-      filterData()();
-      loadingSearch.value = false;
-    }, 2000);
-  },
-);
+watchEffect(() => console.log('searchResults', searchResults.value));
 </script>
 
 <template>
@@ -280,30 +153,18 @@ watch(
         <div class="title-btns">
           <h3>{{ title }}</h3>
           <div class="search-btns">
-            <q-checkbox v-model="filters.onSale" label="On Sale" />
-            <q-checkbox v-model="filters.furtherRepairsNeeded" label="Does not need repairs" />
-            <q-input
-              v-model.number="filters.year"
-              :clearable="!loadingSearch"
-              mask="####"
-              filled
-              square
-              placeholder="From Year"
-              label="Make year"
-              :loading="loadingSearch"
-            >
-            </q-input>
+            <car-filter v-model="searchResults" v-model:loading="loadingSearch" :data="tableData" />
             <div v-if="search" class="search">
-              <q-input
-                v-model="searchValue"
-                :clearable="!loadingSearch"
-                filled
-                square
-                placeholder="Search"
-                :loading="loadingSearch"
-              >
-              </q-input>
+              <car-search
+                v-model="searchResults"
+                v-model:loading="loadingSearch"
+                :data="tableData"
+              />
             </div>
+
+            <q-btn @click="clearFilters">Clear</q-btn>
+            <q-btn @click="toRefetch = true">Refetch</q-btn>
+
             <div v-if="add || remove" class="action-btns">
               <q-btn v-if="add" @click="openAddDialog">Add</q-btn>
               <q-btn v-if="remove" :disable="!selected.length" @click="removeElements"
@@ -319,7 +180,7 @@ watch(
       v-model:selected="selected"
       color="primary"
       bordered
-      :rows="!searchResults.length ? tableData : searchResults"
+      :rows="searchResults.length ? searchResults : tableData"
       :columns="columnsWithActions"
       :row-key
       selection="multiple"

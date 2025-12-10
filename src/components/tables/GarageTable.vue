@@ -6,17 +6,17 @@ import type { CarInformation } from '@/types/car.types';
 import { APIEndPoints } from 'src/enums';
 import { fetchVehicals } from 'src/api';
 
-const data = ref<CarInformation[]>();
+const data = ref<CarInformation[]>([]);
 
 const loading = ref(true);
 
-async function getGarage() {
+async function getGarage(): Promise<CarInformation[] | undefined> {
   try {
-    const res = await fetchVehicals(APIEndPoints.GARAGE);
+    const { cars } = await fetchVehicals(APIEndPoints.GARAGE);
 
-    data.value = res.cars;
+    data.value = cars;
 
-    console.log('data garage', data.value);
+    return cars;
   } catch (error) {
     console.log(error);
   }
@@ -121,6 +121,7 @@ watchEffect(() => {
     add
     remove
     search
+    :refetch="getGarage"
   >
   </DataTable>
 </template>

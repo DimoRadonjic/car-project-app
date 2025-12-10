@@ -5,6 +5,7 @@ import type { TableColumn } from './data-table.types';
 import type { CarInformation } from '@/types/car.types';
 import { APIEndPoints } from 'src/enums';
 import { fetchVehicals } from 'src/api';
+import type { VehicleResponse } from 'src/api/api.types';
 
 defineProps<{
   type: 'car' | 'motorcycle';
@@ -14,15 +15,15 @@ const data = ref<CarInformation[]>();
 
 const loading = ref(true);
 
-async function fetchMarket() {
+async function fetchMarket(): Promise<CarInformation[] | undefined> {
   try {
-    const res = await fetchVehicals(APIEndPoints.MARKET);
+    const { cars }: VehicleResponse = await fetchVehicals(APIEndPoints.MARKET);
 
-    data.value = res.cars;
+    data.value = cars;
 
-    console.log('data garage', data.value);
+    return cars;
   } catch (error) {
-    console.log(error);
+    console.log('fetch Market - market table', error);
   }
 }
 
@@ -132,6 +133,7 @@ watchEffect(() => {
     view
     add
     search
+    :refetch="fetchMarket"
   >
   </DataTable>
 </template>

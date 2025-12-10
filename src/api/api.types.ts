@@ -1,7 +1,7 @@
 import type { CarInformation } from 'src/types/car.types';
 import type { Expense, HistoryTransaction, Income } from 'src/types/finance.types';
 
-export type VehicalResponse = {
+export type VehicleResponse = {
   cars: CarInformation[];
 };
 
