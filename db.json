@@ -460,7 +460,7 @@
           "registrationNumber": "RY42-GY48-60KH",
           "expiryDate": "27/02/2015"
         },
-        "onSale": true,
+        "onSale": false,
         "sold": false,
         "furtherRepairsNeeded": true,
         "color": "Red"
