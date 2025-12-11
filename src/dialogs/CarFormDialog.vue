@@ -2,7 +2,7 @@
 import { useDialogPluginComponent } from 'quasar';
 import { ref, toRaw } from 'vue';
 import type { CarInformation } from '@/types/car.types';
-import { getCurrentDate } from 'src/utils/date.utils';
+import CarForm from 'src/components/car-forms/CarForm.vue';
 
 const props = withDefaults(defineProps<{ carData?: CarInformation; edit?: boolean }>(), {
   carData: () => ({
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{ carData?: CarInformation; edit?: boolea
     onSale: false,
     price: 0,
     registrationDetails: {
-      expiryDate: getCurrentDate(),
+      expiryDate: '',
       registrationNumber: '',
       vinNumber: '',
     },
@@ -45,7 +45,7 @@ function onCancel() {
     <q-card class="q-dialog-plugin">
       <q-card-section class="section">
         <h3>{{ edit ? 'Edit' : 'New' }}</h3>
-        <car-form v-model="carForm" @save="onSave" @cancel="onCancel" />
+        <CarForm v-model="carForm" @save="onSave" @cancel="onCancel" />
       </q-card-section>
     </q-card>
   </q-dialog>

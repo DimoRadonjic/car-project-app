@@ -13,13 +13,23 @@ const inputDate = computed(() => toFormattedDate(model.value.expiryDate, 'DD/MM/
     <q-input
       v-model.string="model.registrationNumber"
       label="Registration Number"
-      mask="XXX-XXX-XXX"
-      placeholder="XXX-XXX-XXX"
+      mask="XXXX-XXXX-XXXX"
+      placeholder="XXXX-XXXX-XXXX"
       stack-label
       input-class="registration-number"
       :rules="[
-        (val) => /^[A-Z0-9]{3}-[A-Z0-9]{3}-[A-Z0-9]{3}$/.test(val) || 'Format must be XXX-XXX-XXX',
+        (val) =>
+          /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/i.test(val.trim()) || 'Format must be XXX-XXX-XXX',
       ]"
+    />
+
+    <q-input
+      v-model.string="model.vinNumber"
+      label="Vin Number"
+      :maxlength="17"
+      stack-label
+      input-class="registration-number"
+      :rules="[(val) => /^[A-HJ-NPR-Z0-9]{17}$/i.test(val.trim()) || 'Format must be XXX-XXX-XXX']"
     />
 
     <q-input

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
-import { computed, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
 import { updateCarInfo } from 'src/api/cars/update';
@@ -122,10 +122,6 @@ function validRowKey() {
   }
 }
 
-if (!validRowKey()) {
-  throw new Error('Row key not unique');
-}
-
 function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
   if (edit) {
     openCarDialog(row, edit, market).onOk((newData: TableRow) => {
@@ -188,8 +184,20 @@ watch(
       toRefetch.value = false;
     }
   },
-  { immediate: true },
 );
+
+onBeforeMount(() => {
+  loadingSearch.value = true;
+  setTimeout(() => void dataRefetch(), 2000);
+
+  toRefetch.value = false;
+});
+
+onMounted(() => {
+  if (!validRowKey()) {
+    throw new Error('Row key not unique');
+  }
+});
 </script>
 
 <template>
