@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import CarForm from '@/components/car-forms/CarForm.vue';
-import { computed, ref } from 'vue';
-import type { CarInformation, CarRegistration } from '@/types/car.types';
+import { ref } from 'vue';
+import type { CarInformation } from '@/types/car.types';
 import { formatDateDDMMYYYY } from 'src/utils/date.utils';
 import { useDialog } from 'src/composables/useDialog';
+import CarDetails from 'src/components/CarDetails.vue';
 
 const props = withDefaults(
   defineProps<{ carData?: CarInformation; edit?: boolean; market?: boolean }>(),
@@ -28,34 +29,28 @@ const props = withDefaults(
     }),
   },
 );
-console.log('market boolean', props.market);
-const { plugin } = useDialog();
+const { plugin, openCarBuyingDialog } = useDialog();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
 const carForm = ref<CarInformation>(JSON.parse(JSON.stringify(props.carData)));
 
-const { registrationDetails, ...rest } = props.carData;
-
-const carInfo = ref(rest);
-
-const registration = ref<CarRegistration>(registrationDetails);
-
 function onOKClick() {
   if (props.edit) {
     onDialogOK(carForm.value);
   }
+
   onDialogOK();
+}
+
+function handleBuy() {
+  onDialogCancel();
+  openCarBuyingDialog(props.carData);
 }
 
 function onCancelClick() {
   onDialogCancel();
 }
-const repairHistoryValue = computed(() =>
-  carInfo.value.repairHistory.length ? carInfo.value.repairHistory : 'None',
-);
-
-const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ? 'Yes' : 'No'));
 </script>
 
 <template>
@@ -66,82 +61,9 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
         <CarForm v-model="carForm" @save="onOKClick" @cancel="onCancelClick" />
       </q-card-section>
       <q-card-section v-else class="section">
-        <h3>Car details</h3>
-        <div class="details">
-          <div class="info primary-info">
-            <div class="info-value flex">
-              <div class="value-label">Make :</div>
-              <div class="value">{{ carInfo.make }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Color :</div>
-              <div class="value">{{ carInfo.color }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Mileage :</div>
-              <div class="value">{{ carInfo.mileage }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Model :</div>
-              <div class="value">{{ carInfo.model }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Year :</div>
-              <div class="value">{{ carInfo.year }}</div>
-            </div>
-          </div>
-
-          <div class="info reg-info">
-            <div class="info-value flex">
-              <div class="value-label">Registartion Number:</div>
-              <div class="value">{{ registration.registrationNumber }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Expiry Date :</div>
-              <div class="value">{{ registration.expiryDate }}</div>
-            </div>
-          </div>
-
-          <div class="info repair-info">
-            <div class="info-value flex">
-              <div class="value-label">Further Repairs Needed:</div>
-              <div class="value">{{ furtherRepairsValue }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Repair History:</div>
-              <div class="value">
-                {{ repairHistoryValue }}
-              </div>
-            </div>
-          </div>
-
-          <div v-if="carInfo.onSale" class="info market-info">
-            <div class="info-value flex">
-              <div class="value-label">Price :</div>
-              <div class="value">{{ carInfo.price }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">On Sale :</div>
-              <div class="value">{{ carInfo.onSale }}</div>
-            </div>
-
-            <div class="info-value flex">
-              <div class="value-label">Sold :</div>
-              <div class="value">{{ carInfo.sold }}</div>
-            </div>
-          </div>
-          <div v-else>Not on sale</div>
-        </div>
-
+        <CarDetails :car-data />
         <q-card-actions v-if="market" align="center">
-          <q-btn color="primary" label="Buy" @click="onOKClick" />
+          <q-btn color="primary" label="Buy" @click="handleBuy" />
           <q-btn color="primary" label="Cancel" @click="onCancelClick" />
         </q-card-actions>
 
@@ -154,37 +76,4 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
   </q-dialog>
 </template>
 
-<style scoped lang="scss">
-.details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.info-value {
-  display: flex;
-  gap: 12px;
-}
-
-.value-label {
-  font-weight: 800;
-}
-
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form {
-  display: flex;
-  gap: 20px;
-}
-</style>
+<style scoped lang="scss"></style>

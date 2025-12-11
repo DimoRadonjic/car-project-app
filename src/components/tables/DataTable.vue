@@ -40,7 +40,7 @@ const selected = ref<TableRow[]>([]);
 
 const toRefetch = ref<boolean>(false);
 
-const { openCarDialog, confrimationDialog, garageDialog } = useDialog();
+const { openCarDialog, openRemovalConfrimationDialog, openGarageDialog } = useDialog();
 
 // same array state for filter, search and table
 const searchResults = ref<TableRow[]>([]);
@@ -161,7 +161,7 @@ async function dataRefetch() {
 }
 
 function openAddDialog(): void {
-  garageDialog().onOk((shouldRefetch) => {
+  openGarageDialog().onOk((shouldRefetch) => {
     toRefetch.value = shouldRefetch;
   });
 }
@@ -171,7 +171,7 @@ function clearFilters(): void {
 }
 
 function removeElements(): void {
-  confrimationDialog(selected.value);
+  openRemovalConfrimationDialog(selected.value);
 }
 
 watch(
