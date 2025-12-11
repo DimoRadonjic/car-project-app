@@ -45,7 +45,6 @@ function openDialog() {
       persistent: true,
     },
   }).onOk((e) => {
-    console.log('Dialog OK with data:', e);
     expenses.value.push(e);
     emit('update-finance', true);
   });

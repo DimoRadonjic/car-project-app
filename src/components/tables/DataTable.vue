@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
-import { computed, ref, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
 import { updateCarInfo } from 'src/api/cars/update';
@@ -14,7 +14,7 @@ const propsComp = withDefaults(
     market?: boolean;
     title: string;
     columns: TableColumn[];
-    rowKey: string;
+    rowKey: keyof TableRow;
     edit?: boolean;
     view?: boolean;
     add?: boolean;
@@ -76,6 +76,55 @@ const columnsWithActions = computed<TableColumn[]>(() => {
 
   return tableColumns.value;
 });
+
+function validRowKey() {
+  // tableData passed must have a unique row key
+  // function should pass true if row key is unique ( no two elements have the same value by the key passed )
+  // go through the array and compare elements ( a[key] === b[key] ? false : true )
+
+  if (tableData.value.length === 0) {
+    console.warn('Array is empty, are you sure the row key is unique?');
+    return true;
+  }
+
+  const rowKey = propsComp.rowKey;
+  const car: TableRow | undefined = tableData.value[0];
+
+  function reducedArr(arr: TableRow[], key: keyof TableRow) {
+    return arr.reduce(
+      (acc, data) => {
+        if (typeof data[key] !== 'string' && typeof data[key] !== 'number') return acc;
+
+        const value: string | number = data[key];
+
+        if (acc[value]) {
+          acc[value]++;
+          return acc;
+        } else {
+          acc[value] = 1;
+        }
+
+        return acc;
+      },
+      {} as Record<string | number, number>,
+    );
+  }
+
+  if (car) {
+    const valueType = typeof car[rowKey];
+
+    if (valueType !== 'string' && valueType !== 'number') {
+      throw new Error('Row key must be string or number');
+    } else {
+      const result = reducedArr(tableData.value, rowKey);
+      return Object.values(result).find((val) => val > 1) ? false : true;
+    }
+  }
+}
+
+if (!validRowKey()) {
+  throw new Error('Row key not unique');
+}
 
 function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
   if (edit) {
@@ -141,8 +190,6 @@ watch(
   },
   { immediate: true },
 );
-
-watchEffect(() => console.log('searchResults', searchResults.value));
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import { putCarOnMarket } from 'src/api/cars/update';
 import GarageList from 'src/components/lists/GarageList.vue';
 import { useDialog } from 'src/composables/useDialog';
 import type { CarInformation } from 'src/types/car.types';
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 
 const { plugin } = useDialog();
 
@@ -19,8 +19,6 @@ function handleOkClick(car: CarInformation) {
   void putCarOnMarket(car);
   onDialogOK(true);
 }
-
-watchEffect(() => console.log('carToMarket', carToMarket.value));
 </script>
 
 <template>
