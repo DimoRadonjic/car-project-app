@@ -38,6 +38,8 @@ const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow
 
 const selected = ref<TableRow[]>([]);
 
+const toRefetch = ref<boolean>(false);
+
 const { openCarDialog, confrimationDialog, garageDialog } = useDialog();
 
 // same array state for filter, search and table
@@ -158,8 +160,6 @@ async function dataRefetch() {
   }
 }
 
-const toRefetch = ref<boolean>(true);
-
 function openAddDialog(): void {
   garageDialog().onOk((shouldRefetch) => {
     toRefetch.value = shouldRefetch;
@@ -189,8 +189,6 @@ watch(
 onBeforeMount(() => {
   loadingSearch.value = true;
   setTimeout(() => void dataRefetch(), 2000);
-
-  toRefetch.value = false;
 });
 
 onMounted(() => {
@@ -201,12 +199,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="q-pa-xs">
+  <div class="q-pa-xs table-wrapper">
     <div>
       <slot name="headerSlot">
         <div class="title-btns">
           <h3>{{ title }}</h3>
-          <div class="search-btns">
+          <div class="filter-btns">
             <car-filter v-model="searchResults" v-model:loading="loadingSearch" :data="tableData" />
             <div v-if="search" class="search">
               <car-search
@@ -239,6 +237,7 @@ onMounted(() => {
       :row-key
       selection="multiple"
       :loading="loadingSearch"
+      class="table"
       @row-dblclick="(_: Event, row: TableRow) => onRowClick(row)"
     >
       <template #loading>
@@ -254,7 +253,7 @@ onMounted(() => {
 
       <template v-if="view" #body-cell-view="props">
         <q-td :props="props">
-          <q-btn class="action-btn" @click="onRowClick(props.row, false, false)">
+          <q-btn class="action-btn" @click="onRowClick(props.row, false, propsComp.market)">
             <q-icon :name="matSearch" />
           </q-btn>
         </q-td>
@@ -272,6 +271,17 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.table-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.table {
+  width: 100%;
+}
+
 .action-btn {
   border-radius: 999999px;
   width: fit-content;
@@ -284,14 +294,18 @@ onMounted(() => {
 
 .title-btns {
   display: flex;
-  place-content: space-between;
-  place-items: center;
+  flex-direction: column;
+  place-content: center;
+  gap: 20px;
+
+  place-items: start;
 }
 
-.search-btns {
+.filter-btns {
   display: flex;
-  place-content: space-between;
+  place-content: space-evenly;
   place-items: center;
+  width: 100%;
   gap: 20px;
 }
 

@@ -28,7 +28,7 @@ const props = withDefaults(
     }),
   },
 );
-
+console.log('market boolean', props.market);
 const { plugin } = useDialog();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
@@ -140,16 +140,16 @@ const furtherRepairsValue = computed(() => (carInfo.value.furtherRepairsNeeded ?
           <div v-else>Not on sale</div>
         </div>
 
-        <q-card-actions align="center">
+        <q-card-actions v-if="market" align="center">
+          <q-btn color="primary" label="Buy" @click="onOKClick" />
+          <q-btn color="primary" label="Cancel" @click="onCancelClick" />
+        </q-card-actions>
+
+        <q-card-actions v-else align="center">
           <q-btn color="primary" label="OK" @click="onOKClick" />
           <q-btn color="primary" label="Cancel" @click="onCancelClick" />
         </q-card-actions>
       </q-card-section>
-
-      <q-card-actions v-if="market" align="center">
-        <q-btn color="primary" label="Buy" @click="onOKClick" />
-        <q-btn color="primary" label="Cancel" @click="onCancelClick" />
-      </q-card-actions>
     </q-card>
   </q-dialog>
 </template>

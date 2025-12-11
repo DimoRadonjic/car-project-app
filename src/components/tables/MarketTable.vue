@@ -130,6 +130,7 @@ watchEffect(() => {
     :action-buttons="true"
     title="Market"
     row-key="id"
+    :market="true"
     view
     add
     search

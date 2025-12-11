@@ -49,34 +49,36 @@ watch(
 
 <template>
   <q-page v-if="!loading" class="finance-page">
-    <div>
-      <h3>Balance: {{ financeData.purchase.budget }} €</h3>
-    </div>
-    <div class="finance-cards">
-      <q-card class="q-pa-md card purchase-card">
-        <h4>Purchase section</h4>
-        <PurchaseForm
-          v-model="financeData.purchase"
-          :form-data="financeData"
-          @update-finance="update = true"
-        />
-      </q-card>
-      <q-card class="q-pa-md card expenses-card">
-        <h4>Expenses Section</h4>
-        <ExpensesList
-          v-model="financeData.expenses"
-          :finance-data="financeData"
-          @update-finance="update = true"
-        />
-      </q-card>
-      <q-card class="q-pa-md card income-card">
-        <h4>Income Section</h4>
-        <IncomeList
-          v-model="financeData.income"
-          :finance-data="financeData"
-          @update-finance="update = true"
-        />
-      </q-card>
+    <div class="content">
+      <div>
+        <h3>Balance: {{ financeData.purchase.budget }} €</h3>
+      </div>
+      <div class="finance-cards">
+        <q-card class="q-pa-md card purchase-card">
+          <h4>Purchase section</h4>
+          <PurchaseForm
+            v-model="financeData.purchase"
+            :form-data="financeData"
+            @update-finance="update = true"
+          />
+        </q-card>
+        <q-card class="q-pa-md card expenses-card">
+          <h4>Expenses Section</h4>
+          <ExpensesList
+            v-model="financeData.expenses"
+            :finance-data="financeData"
+            @update-finance="update = true"
+          />
+        </q-card>
+        <q-card class="q-pa-md card income-card">
+          <h4>Income Section</h4>
+          <IncomeList
+            v-model="financeData.income"
+            :finance-data="financeData"
+            @update-finance="update = true"
+          />
+        </q-card>
+      </div>
     </div>
   </q-page>
 </template>
@@ -85,11 +87,21 @@ watch(
 .finance-page {
   display: flex;
   flex-direction: column;
+  place-items: center;
+
+  gap: 20px;
+}
+
+.content {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
 .finance-cards {
   display: flex;
+  place-content: center;
   gap: 20px;
 }
 
