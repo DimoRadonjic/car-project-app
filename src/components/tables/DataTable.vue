@@ -106,14 +106,14 @@ async function dataRefetch() {
   try {
     const res = await propsComp.refetch();
 
-    tableData.value = res ? res : [];
+    searchResults.value = res ? res : [];
     loadingSearch.value = false;
   } catch (error) {
     console.log('Data table - refetch', error);
   }
 }
 
-const toRefetch = ref<boolean>(false);
+const toRefetch = ref<boolean>(true);
 
 function openAddDialog(): void {
   garageDialog().onOk((shouldRefetch) => {
@@ -139,6 +139,7 @@ watch(
       toRefetch.value = false;
     }
   },
+  { immediate: true },
 );
 
 watchEffect(() => console.log('searchResults', searchResults.value));
@@ -178,7 +179,7 @@ watchEffect(() => console.log('searchResults', searchResults.value));
       v-model:selected="selected"
       color="primary"
       bordered
-      :rows="searchResults.length ? searchResults : tableData"
+      :rows="searchResults"
       :columns="columnsWithActions"
       :row-key
       selection="multiple"

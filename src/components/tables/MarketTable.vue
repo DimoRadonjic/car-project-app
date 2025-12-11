@@ -129,7 +129,7 @@ watchEffect(() => {
     :columns="marketColumns"
     :action-buttons="true"
     title="Market"
-    row-key="make"
+    row-key="id"
     view
     add
     search

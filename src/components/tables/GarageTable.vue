@@ -115,7 +115,7 @@ watchEffect(() => {
     v-model="data"
     :columns="defaultColumns"
     title="Garage"
-    row-key="make"
+    row-key="id"
     view
     edit
     add

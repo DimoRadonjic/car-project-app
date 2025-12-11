@@ -7,6 +7,8 @@ const props = defineProps<{
   data: CarInformation[];
 }>();
 
+const originalData = props.data.slice();
+
 const searchResults = defineModel<CarInformation[]>({ type: Array<CarInformation>, default: [] });
 
 const loadingSearch = defineModel<boolean>('loading', { type: Boolean, default: false });
@@ -15,10 +17,10 @@ const searchValue = ref<string>('');
 
 function searchCondtion(val: CarInformation): boolean {
   if (!searchValue.value) searchValue.value = '';
-  return (
-    val.make.toLowerCase().includes(searchValue.value.toLowerCase()) ||
-    val.model.toLowerCase().includes(searchValue.value.toLowerCase())
-  );
+
+  const q = searchValue.value.trim().toLowerCase();
+
+  return val.make.toLowerCase().includes(q) || val.model.toLowerCase().includes(q);
 }
 
 function filterBySearch(data: CarInformation[]): void {
@@ -33,6 +35,14 @@ watch(
   () => searchValue.value,
   () => {
     loadingSearch.value = true;
+
+    if (searchValue.value === '' || !searchValue.value) {
+      searchResults.value = originalData;
+
+      loadingSearch.value = false;
+
+      return;
+    }
 
     setTimeout(() => {
       filterBySearch(props.data);

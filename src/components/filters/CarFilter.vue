@@ -8,6 +8,8 @@ const props = defineProps<{
   data: CarInformation[];
 }>();
 
+const originalData = props.data.slice();
+
 const defaultFilterValues: Omit<CarInformation, 'id'> = {
   color: '',
   make: '',
@@ -118,8 +120,8 @@ watch(
   () => {
     loadingFilter.value = true;
 
-    if (isFilterEmpty()) {
-      filterResults.value = props.data;
+    if (isFilterEmpty() || !filters.value.year) {
+      filterResults.value = originalData;
 
       loadingFilter.value = false;
 
