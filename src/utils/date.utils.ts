@@ -9,8 +9,6 @@ export function formatDateYYYYMMDD(newDate: Date): string {
 }
 
 export function toFormattedDate(dateString: string, format: 'YYYY-MM-DD' | 'DD/MM/YYYY'): string {
-  console.log('/', dateString.includes('/'));
-  console.log('-', dateString.includes('-'));
   if (dateString.includes('/')) {
     const [day, month, year]: number[] = dateString.split('/').map(Number);
 

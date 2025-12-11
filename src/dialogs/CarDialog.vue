@@ -33,8 +33,6 @@ const { plugin } = useDialog();
 
 const { dialogRef, onDialogOK, onDialogCancel } = plugin;
 
-console.log('props.carData', props.carData);
-
 const carForm = ref<CarInformation>(JSON.parse(JSON.stringify(props.carData)));
 
 const { registrationDetails, ...rest } = props.carData;

@@ -5,23 +5,19 @@ import { API_FINANCE_URL, API_HISTORY_URL } from '../urls';
 
 export async function updatePurchaseData(data: FinanceData): Promise<void> {
   try {
-    const res = await fetch(API_FINANCE_URL, {
+    await fetch(API_FINANCE_URL, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
-
-    console.log('res - updatePurchaseData', res);
   } catch (error) {
     console.error('error', error);
   }
 }
 
 export async function updateFinance(financeData: FinanceData) {
-  console.log('financeData', financeData);
-
   // const historyTransactions = getHistoryTransactions(financeData);
 
   try {

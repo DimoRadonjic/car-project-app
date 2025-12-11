@@ -9,8 +9,6 @@ const props = defineProps<{
 
 const searchResults = defineModel<CarInformation[]>({ type: Array<CarInformation>, default: [] });
 
-// const loadingSearch = ref<boolean>(false);
-
 const loadingSearch = defineModel<boolean>('loading', { type: Boolean, default: false });
 
 const searchValue = ref<string>('');
@@ -35,8 +33,6 @@ watch(
   () => searchValue.value,
   () => {
     loadingSearch.value = true;
-
-    console.log('searchValue', searchValue.value);
 
     setTimeout(() => {
       filterBySearch(props.data);

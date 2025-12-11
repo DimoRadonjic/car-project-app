@@ -1,6 +1,6 @@
+import { fetchVehicals } from 'src/api';
+import { API_GARAGE_URL, API_MARKET_URL } from 'src/api/urls';
 import type { CarInformation } from 'src/types/car.types';
-import { API_GARAGE_URL, API_MARKET_URL } from '../urls';
-import { fetchVehicals } from '..';
 
 function containsCar(arr: CarInformation[], carID: string) {
   return arr.find(({ id }) => id === carID);
@@ -25,11 +25,12 @@ export async function updateMarket(car: CarInformation): Promise<void> {
     const { cars: market } = await fetchVehicals('market');
 
     let body;
+    console.log('does it contain car Market', containsCar(market, car.id));
 
     if (!containsCar(market, car.id)) {
       body = JSON.stringify({ cars: [...market, car] });
     } else {
-      const newMarketCars = market.filter((marketCar) => marketCar.id !== car.id);
+      const newMarketCars = market.filter((marketCar: CarInformation) => marketCar.id !== car.id);
       body = JSON.stringify({ cars: newMarketCars });
     }
 
@@ -58,7 +59,7 @@ export async function updateGarage(car: CarInformation): Promise<void> {
     const { cars: garage } = await fetchVehicals('garage');
 
     const body = JSON.stringify({
-      cars: garage.map((garageCar) => (garageCar.id === car.id ? car : garageCar)),
+      cars: garage.map((garageCar: CarInformation) => (garageCar.id === car.id ? car : garageCar)),
     });
 
     await fetch(API_GARAGE_URL, {
@@ -68,6 +69,7 @@ export async function updateGarage(car: CarInformation): Promise<void> {
       },
       body: body,
     });
+    console.log('update garage =', garage);
   } catch (error) {
     console.log('updateCarInfo - error', error);
   }

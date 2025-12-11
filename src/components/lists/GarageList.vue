@@ -28,8 +28,6 @@ function carToMarket(carToUpdate: CarInformation) {
 
   void updateCarInfo(updatedArr);
 
-  console.log('cars to market', carToUpdate);
-
   emit('cars-to-market', { ...carToUpdate, onSale: true });
 
   updated.value = true;

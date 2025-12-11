@@ -106,8 +106,6 @@ async function dataRefetch() {
   try {
     const res = await propsComp.refetch();
 
-    console.log('res refetch', res);
-
     tableData.value = res ? res : [];
     loadingSearch.value = false;
   } catch (error) {
@@ -185,7 +183,7 @@ watchEffect(() => console.log('searchResults', searchResults.value));
       :row-key
       selection="multiple"
       :loading="loadingSearch"
-      @row-dblclick="(_, row) => onRowClick(row)"
+      @row-dblclick="(_: Event, row: TableRow) => onRowClick(row)"
     >
       <template #loading>
         <q-inner-loading showing color="secondary"></q-inner-loading>

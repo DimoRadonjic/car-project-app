@@ -16,17 +16,12 @@ async function fetchHistoryData() {
     });
     const { transactions: data } = await res.json();
 
-    console.log('data', data);
-
     historyExpenses.value = data.filter(
       (item: { type: 'income' | 'expense' }) => item.type === 'expense',
     );
     historyIncome.value = data.filter(
       (item: { type: 'income' | 'expense' }) => item.type === 'income',
     );
-
-    console.log('expenses', historyExpenses.value);
-    console.log('incomes', historyIncome.value);
   } catch (error) {
     console.log(error);
   }
