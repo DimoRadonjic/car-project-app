@@ -32,19 +32,16 @@ const propsComp = withDefaults(
   },
 );
 
-const tableColumns = ref<TableColumn[]>(propsComp.columns);
-
 const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow>, default: [] });
-
-const selected = ref<TableRow[]>([]);
-
-const toRefetch = ref<boolean>(false);
 
 const { openCarDialog, openRemovalConfrimationDialog, openGarageDialog } = useDialog();
 
+const tableColumns = ref<TableColumn[]>(propsComp.columns);
+const selected = ref<TableRow[]>([]);
+const toRefetch = ref<boolean>(false);
+
 // same array state for filter, search and table
 const searchResults = ref<TableRow[]>([]);
-
 // same loading state for filter, search and table
 const loadingSearch = ref<boolean>(false);
 
