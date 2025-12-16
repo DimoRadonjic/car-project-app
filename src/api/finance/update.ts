@@ -1,5 +1,7 @@
 import type { FinanceData, HistoryTransaction } from 'src/types/finance.types';
 import { API_FINANCE_URL, API_HISTORY_URL } from '../urls';
+import type { CarInformation } from 'src/types/car.types';
+import { updateGarage, updateMarket } from '../cars/update';
 
 // import { getHistoryTransactions } from './util';
 
@@ -49,5 +51,14 @@ export async function updateHistoryTransactions(
     });
   } catch (error) {
     console.error('UpdateHistoryTransactions:', error);
+  }
+}
+
+export async function makePurchase(carData: CarInformation): Promise<void> {
+  const promises = [updateMarket(carData), updateGarage(carData)];
+  try {
+    await Promise.all(promises);
+  } catch (error) {
+    console.log('MakePurchase', error);
   }
 }

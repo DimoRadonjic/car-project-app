@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fetchVehicals } from 'src/api';
-import { updateCarInfo } from 'src/api/cars/update';
+import { updateGarageCarInfo } from 'src/api/cars/update';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
 
@@ -26,7 +26,7 @@ function carToMarket(carToUpdate: CarInformation) {
     car.id === carToUpdate.id ? { ...car, onSale: !car.onSale } : car,
   );
 
-  void updateCarInfo(updatedArr);
+  void updateGarageCarInfo(updatedArr);
 
   emit('cars-to-market', { ...carToUpdate, onSale: true });
 

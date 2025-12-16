@@ -4,7 +4,7 @@ import type { TableColumn, TableRow } from './data-table.types';
 import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
-import { updateCarInfo } from 'src/api/cars/update';
+import { updateGarageCarInfo } from 'src/api/cars/update';
 import CarFilter from '../filters/CarFilter.vue';
 import CarSearch from '../filters/CarSearch.vue';
 import { watch } from 'vue';
@@ -137,7 +137,7 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
       );
 
       //  API Call to update that car (API call by ID)
-      void updateCarInfo(newDataArr);
+      void updateGarageCarInfo(newDataArr);
 
       tableData.value = newDataArr;
     });

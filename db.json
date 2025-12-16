@@ -66,24 +66,6 @@
   "market": {
     "cars": [
       {
-        "id": "20d9f0b6-ea6f-4346-b96d-789bf3cfabc1",
-        "make": "Pontiac",
-        "model": "Montana",
-        "year": 2004,
-        "mileage": 919641,
-        "price": 4999,
-        "repairHistory": "nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec",
-        "registrationDetails": {
-          "vinNumber": "WBANF33537C230179",
-          "registrationNumber": "ZC97-AW82-41SR",
-          "expiryDate": "21/04/1920"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
-      },
-      {
         "id": "e52b45d4-5ece-4c9c-a873-d94e40aec68e",
         "make": "BMW",
         "model": "X6 M",
@@ -518,6 +500,24 @@
         "sold": false,
         "furtherRepairsNeeded": false,
         "color": "Aquamarine"
+      },
+      {
+        "id": "20d9f0b6-ea6f-4346-b96d-789bf3cfabc1",
+        "make": "Pontiac",
+        "model": "Montana",
+        "year": 2004,
+        "mileage": 919641,
+        "price": 4999,
+        "repairHistory": "nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec",
+        "registrationDetails": {
+          "vinNumber": "WBANF33537C230179",
+          "registrationNumber": "ZC97-AW82-41SR",
+          "expiryDate": "21/04/1920"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Indigo"
       }
     ]
   },

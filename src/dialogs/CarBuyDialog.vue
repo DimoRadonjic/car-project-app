@@ -1,15 +1,27 @@
 <script setup lang="ts">
+import { makePurchase } from 'src/api/finance/update';
 import { useDialog } from 'src/composables/useDialog';
+import { useMarket } from 'src/composables/useMarket';
 import type { CarInformation } from 'src/types/car.types';
 
 const props = defineProps<{ carData: CarInformation }>();
 
 const { dialogRef, onDialogCancel, openCarDialog, openPurchaseConfrimationDialog } = useDialog();
+const { shouldRefetch } = useMarket();
 
 function onOKClick() {
-  console.log('buying.....');
+  const purchase = async () => {
+    try {
+      await makePurchase(props.carData);
+      setTimeout(() => onDialogCancel(), 1000);
+    } catch (error) {
+      console.log('Error in purchase', error);
+    }
+  };
+  void purchase();
   onDialogCancel();
   openPurchaseConfrimationDialog(props.carData);
+  shouldRefetch.value = true;
 }
 
 function onCancelClick() {
