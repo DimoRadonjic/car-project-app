@@ -3,10 +3,11 @@ import type { VehicleResponse } from 'src/api/api.types';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
 
+const loading = ref<boolean>(false);
+
 export const useMarket = () => {
   const marketData = ref<CarInformation[]>([]);
   const shouldRefetch = ref<boolean>(true);
-  const loading = ref<boolean>(true);
 
   async function fetch(): Promise<void> {
     loading.value = true;
@@ -14,19 +15,24 @@ export const useMarket = () => {
       const data: VehicleResponse = await fetchVehicals('market');
 
       marketData.value = data.cars;
-
-      loading.value = false;
     } catch (error) {
       console.log('Error fetching market - useMarket', error);
-      loading.value = false;
     }
   }
 
   watch(
     () => shouldRefetch.value,
-    () => shouldRefetch.value && void fetch(),
+    () => {
+      if (shouldRefetch.value) {
+        void fetch();
+        setTimeout(() => {
+          loading.value = false;
+          shouldRefetch.value = false;
+        }, 2000);
+      }
+    },
     { immediate: true },
   );
 
-  return { marketData, shouldRefetch, loading };
+  return { marketData, shouldRefetch, loading, fetch };
 };

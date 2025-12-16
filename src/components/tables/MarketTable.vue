@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { watchEffect } from 'vue';
 import DataTable from './DataTable.vue';
 import type { TableColumn } from './data-table.types';
 import type { CarInformation } from '@/types/car.types';
-import { APIEndPoints } from 'src/enums';
-import { fetchVehicals } from 'src/api';
-import type { VehicleResponse } from 'src/api/api.types';
+import { useMarket } from 'src/composables/useMarket';
 
 defineProps<{
   type: 'car' | 'motorcycle';
 }>();
 
-const data = ref<CarInformation[]>();
+const { marketData: data, loading, shouldRefetch, fetch } = useMarket();
 
-const loading = ref(true);
+// const data = ref<CarInformation[]>();
 
-async function fetchMarket(): Promise<CarInformation[] | undefined> {
-  try {
-    const { cars }: VehicleResponse = await fetchVehicals(APIEndPoints.MARKET);
+// const loading = ref(true);
 
-    data.value = cars;
+// async function fetchMarket(): Promise<CarInformation[] | undefined> {
+//   try {
+//     const { cars }: VehicleResponse = await fetchVehicals(APIEndPoints.MARKET);
 
-    return cars;
-  } catch (error) {
-    console.log('fetch Market - market table', error);
-  }
-}
+//     data.value = cars;
+
+//     return cars;
+//   } catch (error) {
+//     console.log('fetch Market - market table', error);
+//   }
+// }
 
 const defaultColumns: TableColumn[] = [
   {
@@ -116,25 +116,25 @@ const marketColumns: TableColumn[] = [
 ];
 
 watchEffect(() => {
-  loading.value = true;
-  void fetchMarket();
-  loading.value = false;
+  console.log('should refetch - market table', shouldRefetch.value);
+  console.log('loading.value - market table', loading.value);
 });
 </script>
 
 <template>
   <DataTable
-    v-if="!loading && data"
     v-model="data"
+    v-model:should-refetch="shouldRefetch"
     :columns="marketColumns"
     :action-buttons="true"
     title="Market"
     row-key="id"
     :market="true"
+    :loading
     view
     add
     search
-    :refetch="fetchMarket"
+    :refetch="fetch"
   >
   </DataTable>
 </template>

@@ -92,6 +92,7 @@ function filterByYear(data: CarInformation[]): CarInformation[] {
 
 function carFilterData(): () => void {
   const data = props.data.slice();
+  console.log('filters.value', filters.value);
 
   return () => {
     if (filters.value.year !== 0) {
@@ -120,7 +121,7 @@ watch(
   () => {
     loadingFilter.value = true;
 
-    if (isFilterEmpty() || !filters.value.year) {
+    if (isFilterEmpty()) {
       filterResults.value = originalData;
 
       loadingFilter.value = false;

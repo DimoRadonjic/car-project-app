@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
 import { updateGarageCarInfo } from 'src/api/cars/update';
 import CarFilter from '../filters/CarFilter.vue';
 import CarSearch from '../filters/CarSearch.vue';
-import { watch } from 'vue';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -20,7 +19,7 @@ const propsComp = withDefaults(
     add?: boolean;
     remove?: boolean;
     search?: boolean;
-    refetch: () => Promise<TableRow[] | undefined>;
+    refetch: () => Promise<TableRow[] | undefined | void>;
   }>(),
   {
     market: false,
@@ -31,19 +30,19 @@ const propsComp = withDefaults(
     search: false,
   },
 );
-
-const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow>, default: [] });
-
 const { openCarDialog, openRemovalConfrimationDialog, openGarageDialog } = useDialog();
 
+const shouldRefetch = defineModel('should-refetch', { default: false, type: Boolean });
+const loadingTable = defineModel('loading', { default: false, type: Boolean });
+const tableData = defineModel<TableRow[]>({ required: true, type: Array<TableRow>, default: [] });
+
+const searchResults = ref<TableRow[]>([]);
 const tableColumns = ref<TableColumn[]>(propsComp.columns);
 const selected = ref<TableRow[]>([]);
-const toRefetch = ref<boolean>(false);
 
-// same array state for filter, search and table
-const searchResults = ref<TableRow[]>([]);
-// same loading state for filter, search and table
-const loadingSearch = ref<boolean>(false);
+const shownData = computed(() =>
+  searchResults.value.length > 0 ? searchResults.value : tableData.value,
+);
 
 const editColumn: TableColumn = {
   name: 'edit',
@@ -146,20 +145,9 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
   }
 }
 
-async function dataRefetch() {
-  try {
-    const res = await propsComp.refetch();
-
-    searchResults.value = res ? res : [];
-    loadingSearch.value = false;
-  } catch (error) {
-    console.log('Data table - refetch', error);
-  }
-}
-
 function openAddDialog(): void {
   openGarageDialog().onOk((shouldRefetch) => {
-    toRefetch.value = shouldRefetch;
+    shouldRefetch.value = shouldRefetch;
   });
 }
 
@@ -171,28 +159,13 @@ function removeElements(): void {
   openRemovalConfrimationDialog(selected.value);
 }
 
-watch(
-  () => toRefetch.value,
-  () => {
-    if (toRefetch.value) {
-      loadingSearch.value = true;
-      setTimeout(() => void dataRefetch(), 2000);
-
-      toRefetch.value = false;
-    }
-  },
-);
-
-onBeforeMount(() => {
-  loadingSearch.value = true;
-  setTimeout(() => void dataRefetch(), 2000);
-});
-
 onMounted(() => {
   if (!validRowKey()) {
     throw new Error('Row key not unique');
   }
 });
+
+watchEffect(() => console.log('searchResults', searchResults.value));
 </script>
 
 <template>
@@ -202,17 +175,17 @@ onMounted(() => {
         <div class="title-btns">
           <h3>{{ title }}</h3>
           <div class="filter-btns">
-            <car-filter v-model="searchResults" v-model:loading="loadingSearch" :data="tableData" />
+            <car-filter v-model="searchResults" v-model:loading="loadingTable" :data="tableData" />
             <div v-if="search" class="search">
               <car-search
                 v-model="searchResults"
-                v-model:loading="loadingSearch"
+                v-model:loading="loadingTable"
                 :data="tableData"
               />
             </div>
 
             <q-btn @click="clearFilters">Clear</q-btn>
-            <q-btn @click="toRefetch = true">Refetch</q-btn>
+            <q-btn @click="shouldRefetch = true">Refetch</q-btn>
 
             <div v-if="add || remove" class="action-btns">
               <q-btn v-if="add" @click="openAddDialog">Add</q-btn>
@@ -229,11 +202,11 @@ onMounted(() => {
       v-model:selected="selected"
       color="primary"
       bordered
-      :rows="searchResults"
+      :rows="shownData"
       :columns="columnsWithActions"
       :row-key
       selection="multiple"
-      :loading="loadingSearch"
+      :loading="loadingTable"
       class="table"
       @row-dblclick="(_: Event, row: TableRow) => onRowClick(row)"
     >
