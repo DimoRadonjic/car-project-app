@@ -1,26 +1,10 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { useGarage } from 'src/composables/useGarage';
 import type { TableColumn } from './data-table.types';
 import DataTable from './DataTable.vue';
 import type { CarInformation } from '@/types/car.types';
-import { APIEndPoints } from 'src/enums';
-import { fetchVehicals } from 'src/api';
 
-const data = ref<CarInformation[]>([]);
-
-const loading = ref(true);
-
-async function getGarage(): Promise<CarInformation[] | undefined> {
-  try {
-    const { cars } = await fetchVehicals(APIEndPoints.GARAGE);
-
-    data.value = cars;
-
-    return cars;
-  } catch (error) {
-    console.log(error);
-  }
-}
+const { data, loading, shouldRefetch, fetch } = useGarage();
 
 const defaultColumns: TableColumn[] = [
   {
@@ -101,18 +85,12 @@ const defaultColumns: TableColumn[] = [
     sort: (a: string, b: string) => a.localeCompare(b),
   },
 ];
-
-watchEffect(() => {
-  loading.value = true;
-  void getGarage();
-  loading.value = false;
-});
 </script>
 
 <template>
   <DataTable
-    v-if="!loading && data"
     v-model="data"
+    v-model:should-refetch="shouldRefetch"
     :columns="defaultColumns"
     title="Garage"
     row-key="id"
@@ -121,7 +99,8 @@ watchEffect(() => {
     add
     remove
     search
-    :refetch="getGarage"
+    :loading
+    :refetch="fetch"
   >
   </DataTable>
 </template>

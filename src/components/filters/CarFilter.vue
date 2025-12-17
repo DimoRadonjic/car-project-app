@@ -39,7 +39,7 @@ function isFilterEmpty(): boolean {
   if (JSON.stringify(registrationDetails) !== JSON.stringify(filters.value.registrationDetails))
     return false;
 
-  return Object.values(rest).every((val) => val === '' || val === 0 || val === false);
+  return Object.values(rest).every((val) => !val);
 }
 
 function yearCondition(val: CarInformation): boolean {

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue';
 import DataTable from './DataTable.vue';
 import type { TableColumn } from './data-table.types';
 import type { CarInformation } from '@/types/car.types';
@@ -9,23 +8,7 @@ defineProps<{
   type: 'car' | 'motorcycle';
 }>();
 
-const { marketData: data, loading, shouldRefetch, fetch } = useMarket();
-
-// const data = ref<CarInformation[]>();
-
-// const loading = ref(true);
-
-// async function fetchMarket(): Promise<CarInformation[] | undefined> {
-//   try {
-//     const { cars }: VehicleResponse = await fetchVehicals(APIEndPoints.MARKET);
-
-//     data.value = cars;
-
-//     return cars;
-//   } catch (error) {
-//     console.log('fetch Market - market table', error);
-//   }
-// }
+const { data, loading, shouldRefetch, fetch } = useMarket();
 
 const defaultColumns: TableColumn[] = [
   {
@@ -114,11 +97,6 @@ const marketColumns: TableColumn[] = [
     sort: (a: string, b: string) => Number(a) - Number(b),
   },
 ];
-
-watchEffect(() => {
-  console.log('should refetch - market table', shouldRefetch.value);
-  console.log('loading.value - market table', loading.value);
-});
 </script>
 
 <template>

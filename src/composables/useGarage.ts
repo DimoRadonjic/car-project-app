@@ -5,18 +5,18 @@ import { ref, watch } from 'vue';
 
 const loading = ref<boolean>(false);
 
-export const useMarket = () => {
+export const useGarage = () => {
   const data = ref<CarInformation[]>([]);
   const shouldRefetch = ref<boolean>(true);
 
   async function fetch(): Promise<void> {
     loading.value = true;
     try {
-      const { cars }: VehicleResponse = await fetchVehicals('market');
+      const { cars }: VehicleResponse = await fetchVehicals('garage');
 
       data.value = cars;
     } catch (error) {
-      console.log('Error fetching market - useMarket', error);
+      console.log('Error fetching garage - useGarage', error);
     }
   }
 
