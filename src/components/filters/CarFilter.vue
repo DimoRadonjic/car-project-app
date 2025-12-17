@@ -108,32 +108,22 @@ function carFilterData(): () => void {
   };
 }
 
-watch(
-  () => [
-    filters.value.furtherRepairsNeeded,
-    filters.value.onSale,
-    filters.value.year,
-    filters.value.price,
-    filters.value.sold,
-    filters.value.repairHistory,
-  ],
-  () => {
-    loadingFilter.value = true;
+watch(filters.value, () => {
+  loadingFilter.value = true;
 
-    if (isFilterEmpty()) {
-      filterResults.value = originalData;
+  if (isFilterEmpty()) {
+    filterResults.value = originalData;
 
-      loadingFilter.value = false;
+    loadingFilter.value = false;
 
-      return;
-    }
+    return;
+  }
 
-    setTimeout(() => {
-      carFilterData()();
-      loadingFilter.value = false;
-    }, 2000);
-  },
-);
+  setTimeout(() => {
+    carFilterData()();
+    loadingFilter.value = false;
+  }, 2000);
+});
 </script>
 
 <template>
