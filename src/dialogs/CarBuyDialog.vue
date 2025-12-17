@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { makePurchase } from 'src/api/finance/update';
 import { useDialog } from 'src/composables/useDialog';
-import { useMarket } from 'src/composables/useMarket';
 import type { CarInformation } from 'src/types/car.types';
 
 const props = defineProps<{ carData: CarInformation }>();
 
 const { dialogRef, onDialogCancel, openCarDialog, openPurchaseConfrimationDialog } = useDialog();
-const { shouldRefetch } = useMarket();
 
 function onOKClick() {
   const purchase = async () => {
@@ -21,7 +19,6 @@ function onOKClick() {
   void purchase();
   onDialogCancel();
   openPurchaseConfrimationDialog(props.carData);
-  shouldRefetch.value = true;
 }
 
 function onCancelClick() {

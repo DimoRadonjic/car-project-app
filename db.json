@@ -66,96 +66,6 @@
   "market": {
     "cars": [
       {
-        "id": "e52b45d4-5ece-4c9c-a873-d94e40aec68e",
-        "make": "BMW",
-        "model": "X6 M",
-        "year": 2013,
-        "mileage": 597859,
-        "price": 2990,
-        "repairHistory": "sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec",
-        "registrationDetails": {
-          "vinNumber": "JM3TB2BV8E0989711",
-          "registrationNumber": "EL26-YB73-39EP",
-          "expiryDate": "07/05/1993"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Orange"
-      },
-      {
-        "id": "b235aa78-a55f-47b9-9aff-5116c7965ce8",
-        "make": "Jaguar",
-        "model": "X-Type",
-        "year": 2007,
-        "mileage": 803311,
-        "price": 56990,
-        "repairHistory": "morbi quis tortor id nulla ultrices aliquet maecenas leo odio",
-        "registrationDetails": {
-          "vinNumber": "4T1BF1FK5EU886382",
-          "registrationNumber": "YI77-HJ43-94XY",
-          "expiryDate": "12/03/1946"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Crimson"
-      },
-      {
-        "id": "3fee8e3a-c65c-4873-b447-f93b1418d495",
-        "make": "Lamborghini",
-        "model": "Diablo",
-        "year": 1999,
-        "mileage": 862582,
-        "price": 1999,
-        "repairHistory": "id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo",
-        "registrationDetails": {
-          "vinNumber": "2G4WS55J831093972",
-          "registrationNumber": "LD75-XW00-59ZN",
-          "expiryDate": "20/03/1915"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Green"
-      },
-      {
-        "id": "2c82ecdf-8b56-488f-883f-0622c1566232",
-        "make": "Dodge",
-        "model": "Ram Van B150",
-        "year": 1992,
-        "mileage": 713337,
-        "price": 19990,
-        "repairHistory": "iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris",
-        "registrationDetails": {
-          "vinNumber": "WA1CM74L49D695307",
-          "registrationNumber": "MP89-RN01-79LQ",
-          "expiryDate": "05/02/1984"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Purple"
-      },
-      {
-        "id": "577eeb23-076e-497c-9d70-ad4b1b8149a3",
-        "make": "Mazda",
-        "model": "B-Series",
-        "year": 2006,
-        "mileage": 801839,
-        "price": 5000,
-        "repairHistory": "nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum",
-        "registrationDetails": {
-          "vinNumber": "1FTNF2B56AE909323",
-          "registrationNumber": "GC20-RB94-42JY",
-          "expiryDate": "30/04/1950"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Orange"
-      },
-      {
         "id": "c0af91a7-70a9-4526-aed2-636ac351faad",
         "make": "Chrysler",
         "model": "300M",
@@ -518,6 +428,78 @@
         "sold": false,
         "furtherRepairsNeeded": false,
         "color": "Indigo"
+      },
+      {
+        "id": "b235aa78-a55f-47b9-9aff-5116c7965ce8",
+        "make": "Jaguar",
+        "model": "X-Type",
+        "year": 2007,
+        "mileage": 803311,
+        "price": 56990,
+        "repairHistory": "morbi quis tortor id nulla ultrices aliquet maecenas leo odio",
+        "registrationDetails": {
+          "vinNumber": "4T1BF1FK5EU886382",
+          "registrationNumber": "YI77-HJ43-94XY",
+          "expiryDate": "12/03/1946"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Crimson"
+      },
+      {
+        "id": "3fee8e3a-c65c-4873-b447-f93b1418d495",
+        "make": "Lamborghini",
+        "model": "Diablo",
+        "year": 1999,
+        "mileage": 862582,
+        "price": 1999,
+        "repairHistory": "id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo",
+        "registrationDetails": {
+          "vinNumber": "2G4WS55J831093972",
+          "registrationNumber": "LD75-XW00-59ZN",
+          "expiryDate": "20/03/1915"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Green"
+      },
+      {
+        "id": "2c82ecdf-8b56-488f-883f-0622c1566232",
+        "make": "Dodge",
+        "model": "Ram Van B150",
+        "year": 1992,
+        "mileage": 713337,
+        "price": 19990,
+        "repairHistory": "iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris",
+        "registrationDetails": {
+          "vinNumber": "WA1CM74L49D695307",
+          "registrationNumber": "MP89-RN01-79LQ",
+          "expiryDate": "05/02/1984"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Purple"
+      },
+      {
+        "id": "577eeb23-076e-497c-9d70-ad4b1b8149a3",
+        "make": "Mazda",
+        "model": "B-Series",
+        "year": 2006,
+        "mileage": 801839,
+        "price": 5000,
+        "repairHistory": "nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum",
+        "registrationDetails": {
+          "vinNumber": "1FTNF2B56AE909323",
+          "registrationNumber": "GC20-RB94-42JY",
+          "expiryDate": "30/04/1950"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Orange"
       }
     ]
   },

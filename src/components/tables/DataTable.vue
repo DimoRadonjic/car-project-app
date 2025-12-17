@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { matEdit, matSearch } from '@quasar/extras/material-icons';
 import type { TableColumn, TableRow } from './data-table.types';
-import { computed, onMounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
 import { updateGarageCarInfo } from 'src/api/cars/update';
@@ -164,8 +164,6 @@ onMounted(() => {
     throw new Error('Row key not unique');
   }
 });
-
-watchEffect(() => console.log('searchResults', searchResults.value));
 </script>
 
 <template>

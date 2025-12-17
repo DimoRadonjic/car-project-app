@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { useDialogPluginComponent } from 'quasar';
+import { useDialog } from 'src/composables/useDialog';
+import { useMarket } from 'src/composables/useMarket';
 import type { CarInformation } from 'src/types/car.types';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   carData: CarInformation;
 }>();
 
-const plugin = useDialogPluginComponent();
+const { dialogRef, onDialogCancel } = useDialog();
 
-const { dialogRef, onDialogCancel } = plugin;
+const { updateByCar } = useMarket();
 
 const isFinished = ref<boolean>(false);
 
@@ -18,6 +19,10 @@ setTimeout(() => {
 
   setTimeout(() => onDialogCancel(), 1000);
 }, 2000);
+
+onMounted(() => {
+  void updateByCar(props.carData);
+});
 </script>
 
 <template>

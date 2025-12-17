@@ -4,9 +4,9 @@ import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
 
 const loading = ref<boolean>(false);
+const data = ref<CarInformation[]>([]);
 
 export const useGarage = () => {
-  const data = ref<CarInformation[]>([]);
   const shouldRefetch = ref<boolean>(true);
 
   async function fetch(): Promise<void> {
@@ -19,6 +19,10 @@ export const useGarage = () => {
       console.log('Error fetching garage - useGarage', error);
     }
   }
+
+  // add update func
+
+  // add remove func
 
   watch(
     () => shouldRefetch.value,
