@@ -2,6 +2,7 @@ import type { CarInformation } from 'src/types/car.types';
 import { fetchVehicals } from '..';
 import { containsCar } from './utils';
 import { API_MARKET_URL } from '../urls';
+import { put } from '../methods';
 
 interface MarketServiceInterface {
   getData(): Promise<CarInformation[]>;
@@ -26,13 +27,7 @@ class MarketService implements MarketServiceInterface {
 
       const body = JSON.stringify({ cars: newMarketCars });
 
-      await fetch(API_MARKET_URL, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body,
-      });
+      await put(API_MARKET_URL, body);
 
       return newMarketCars;
     } catch (error) {

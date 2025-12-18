@@ -3,18 +3,14 @@ import { API_FINANCE_URL, API_HISTORY_URL } from '../urls';
 import type { CarInformation } from 'src/types/car.types';
 import { updateGarage } from '../cars/update';
 import { marketService } from '../services/market.service';
+import { put } from '../methods';
 
 // import { getHistoryTransactions } from './util';
 
 export async function updatePurchaseData(data: FinanceData): Promise<void> {
+  const body = JSON.stringify(data);
   try {
-    await fetch(API_FINANCE_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    await put(API_FINANCE_URL, body);
   } catch (error) {
     console.error('error', error);
   }
@@ -22,15 +18,10 @@ export async function updatePurchaseData(data: FinanceData): Promise<void> {
 
 export async function updateFinance(financeData: FinanceData) {
   // const historyTransactions = getHistoryTransactions(financeData);
-
+  const body = JSON.stringify(financeData);
   try {
-    await fetch(API_FINANCE_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(financeData),
-    });
+    await put(API_FINANCE_URL, body);
+
     // if (historyTransactions.length > 0) {
     //   void updateHistoryTransactions(historyTransactions);
     // }
@@ -42,14 +33,9 @@ export async function updateFinance(financeData: FinanceData) {
 export async function updateHistoryTransactions(
   historyTransactions: HistoryTransaction[],
 ): Promise<void> {
+  const body = JSON.stringify({ transactions: historyTransactions });
   try {
-    await fetch(API_HISTORY_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ transactions: historyTransactions }),
-    });
+    await put(API_HISTORY_URL, body);
   } catch (error) {
     console.error('UpdateHistoryTransactions:', error);
   }

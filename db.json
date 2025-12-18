@@ -66,96 +66,6 @@
   "market": {
     "cars": [
       {
-        "id": "c0af91a7-70a9-4526-aed2-636ac351faad",
-        "make": "Chrysler",
-        "model": "300M",
-        "year": 2000,
-        "mileage": 184892,
-        "price": 6990,
-        "repairHistory": "mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit",
-        "registrationDetails": {
-          "vinNumber": "SCFAD22383K902269",
-          "registrationNumber": "LY90-AE70-62OO",
-          "expiryDate": "15/11/1930"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Fuscia"
-      },
-      {
-        "id": "1a108056-6d6f-4b87-a4c8-e9bd6526b794",
-        "make": "Lincoln",
-        "model": "Navigator",
-        "year": 2011,
-        "mileage": 663699,
-        "price": 19990,
-        "repairHistory": "sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut",
-        "registrationDetails": {
-          "vinNumber": "5N1AT2MK8FC216961",
-          "registrationNumber": "YE37-FR76-87SK",
-          "expiryDate": "21/01/2004"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
-      },
-      {
-        "id": "e357655e-68a5-45fa-8f9d-ec92f22cc60e",
-        "make": "Ford",
-        "model": "Th!nk",
-        "year": 2000,
-        "mileage": 678871,
-        "price": 8990,
-        "repairHistory": "interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet",
-        "registrationDetails": {
-          "vinNumber": "WBAWB73507P101865",
-          "registrationNumber": "KM96-PD81-61VM",
-          "expiryDate": "16/03/2019"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Puce"
-      },
-      {
-        "id": "758abc19-4ae8-44b9-a216-c898942baf2c",
-        "make": "Nissan",
-        "model": "Frontier",
-        "year": 2006,
-        "mileage": 462092,
-        "price": 493434,
-        "repairHistory": "nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum",
-        "registrationDetails": {
-          "vinNumber": "1G6DJ577280779947",
-          "registrationNumber": "WE43-QW04-57EH",
-          "expiryDate": "21/11/1938"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Violet"
-      },
-      {
-        "id": "f1f26560-e60f-4190-a67d-6514af360fd3",
-        "make": "Ford",
-        "model": "F250",
-        "year": 2003,
-        "mileage": 552564,
-        "price": 1023,
-        "repairHistory": "eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor",
-        "registrationDetails": {
-          "vinNumber": "5N1BA0ND8FN825437",
-          "registrationNumber": "CC05-RI86-39PB",
-          "expiryDate": "10/06/1949"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
-      },
-      {
         "id": "48b3a1de-b46c-4205-b72a-a3b64132b6a2",
         "make": "Acura",
         "model": "RL",
@@ -500,6 +410,96 @@
         "sold": false,
         "furtherRepairsNeeded": false,
         "color": "Orange"
+      },
+      {
+        "id": "c0af91a7-70a9-4526-aed2-636ac351faad",
+        "make": "Chrysler",
+        "model": "300M",
+        "year": 2000,
+        "mileage": 184892,
+        "price": 6990,
+        "repairHistory": "mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit",
+        "registrationDetails": {
+          "vinNumber": "SCFAD22383K902269",
+          "registrationNumber": "LY90-AE70-62OO",
+          "expiryDate": "15/11/1930"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Fuscia"
+      },
+      {
+        "id": "1a108056-6d6f-4b87-a4c8-e9bd6526b794",
+        "make": "Lincoln",
+        "model": "Navigator",
+        "year": 2011,
+        "mileage": 663699,
+        "price": 19990,
+        "repairHistory": "sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut",
+        "registrationDetails": {
+          "vinNumber": "5N1AT2MK8FC216961",
+          "registrationNumber": "YE37-FR76-87SK",
+          "expiryDate": "21/01/2004"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Indigo"
+      },
+      {
+        "id": "e357655e-68a5-45fa-8f9d-ec92f22cc60e",
+        "make": "Ford",
+        "model": "Th!nk",
+        "year": 2000,
+        "mileage": 678871,
+        "price": 8990,
+        "repairHistory": "interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet",
+        "registrationDetails": {
+          "vinNumber": "WBAWB73507P101865",
+          "registrationNumber": "KM96-PD81-61VM",
+          "expiryDate": "16/03/2019"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Puce"
+      },
+      {
+        "id": "758abc19-4ae8-44b9-a216-c898942baf2c",
+        "make": "Nissan",
+        "model": "Frontier",
+        "year": 2006,
+        "mileage": 462092,
+        "price": 493434,
+        "repairHistory": "nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum",
+        "registrationDetails": {
+          "vinNumber": "1G6DJ577280779947",
+          "registrationNumber": "WE43-QW04-57EH",
+          "expiryDate": "21/11/1938"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Violet"
+      },
+      {
+        "id": "f1f26560-e60f-4190-a67d-6514af360fd3",
+        "make": "Ford",
+        "model": "F250",
+        "year": 2003,
+        "mileage": 552564,
+        "price": 1023,
+        "repairHistory": "eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor",
+        "registrationDetails": {
+          "vinNumber": "5N1BA0ND8FN825437",
+          "registrationNumber": "CC05-RI86-39PB",
+          "expiryDate": "10/06/1949"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Indigo"
       }
     ]
   },

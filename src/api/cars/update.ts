@@ -3,16 +3,13 @@ import { API_GARAGE_URL } from '../urls';
 import { fetchVehicals } from '..';
 import { containsCar } from '../services/utils';
 import { marketService } from '../services/market.service';
+import { put } from '../methods';
 
 export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void> {
+  const body = JSON.stringify({ cars: cars });
+
   try {
-    await fetch(API_GARAGE_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ cars: cars }),
-    });
+    await put(API_GARAGE_URL, body);
   } catch (error) {
     console.log('updateGarageCarInfo - error', error);
   }
@@ -39,13 +36,7 @@ export async function updateGarage(car: CarInformation): Promise<void> {
       body = JSON.stringify({ cars: newGarageCars });
     }
 
-    await fetch(API_GARAGE_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    });
+    await put(API_GARAGE_URL, body);
   } catch (error) {
     console.log('updateGarageCarInfo - error', error);
   }

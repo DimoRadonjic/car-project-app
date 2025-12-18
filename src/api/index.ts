@@ -1,16 +1,12 @@
 import type { VehicleResponse, VehicleStorage } from './api.types';
+import { get } from './methods';
 import { API_GARAGE_URL, API_MARKET_URL } from './urls';
 
 const defaultVehicals: VehicleResponse = { cars: [] };
 
 async function fetchGarage(): Promise<VehicleResponse> {
   try {
-    const res = await fetch(API_GARAGE_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await get(API_GARAGE_URL);
 
     const resData: VehicleResponse = await res.json();
 
@@ -23,12 +19,7 @@ async function fetchGarage(): Promise<VehicleResponse> {
 
 async function fetchMarket(): Promise<VehicleResponse> {
   try {
-    const res = await fetch(API_MARKET_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await get(API_MARKET_URL);
 
     let resData: VehicleResponse = await res.json();
 
