@@ -1,0 +1,71 @@
+import type { CarInformation } from 'src/types/car.types';
+import { fetchVehicals } from '..';
+import { containsCar } from './utils';
+import { API_MARKET_URL } from '../urls';
+
+interface MarketServiceInterface {
+  getData(): Promise<CarInformation[]>;
+  updateData(car: CarInformation, market: CarInformation[]): Promise<CarInformation[]>;
+}
+
+class MarketService implements MarketServiceInterface {
+  async getData(): Promise<CarInformation[]> {
+    const { cars } = await fetchVehicals('market');
+    return cars;
+  }
+
+  async updateData(car: CarInformation, market: CarInformation[]): Promise<CarInformation[]> {
+    let newMarketCars: CarInformation[] = market.slice();
+
+    try {
+      if (!containsCar(market, car.id)) {
+        newMarketCars = [...market, car];
+      } else {
+        newMarketCars = market.filter((marketCar) => marketCar.id !== car.id);
+      }
+
+      const body = JSON.stringify({ cars: newMarketCars });
+
+      await fetch(API_MARKET_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      });
+
+      return newMarketCars;
+    } catch (error) {
+      console.log('updateGarageCarInfo - error', error);
+      return market;
+    }
+  }
+}
+
+class ProxyMarketService implements MarketService {
+  private serviceInstance: MarketService | null = null;
+  private cache: CarInformation[] = [];
+
+  async getData(force = false) {
+    if (this.cache.length > 0 && !force) {
+      return this.cache;
+    }
+    if (!this.serviceInstance) {
+      console.log('Creating market service.........');
+      this.serviceInstance = new MarketService();
+    }
+    const data = await this.serviceInstance.getData();
+    this.cache = data;
+
+    return data;
+  }
+
+  async updateData(car: CarInformation): Promise<CarInformation[]> {
+    if (this.serviceInstance) {
+      this.cache = await this.serviceInstance.updateData(car, this.cache);
+    }
+    return this.cache;
+  }
+}
+
+export const marketService = new ProxyMarketService();

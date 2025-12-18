@@ -11,13 +11,12 @@ function onOKClick() {
   const purchase = async () => {
     try {
       await makePurchase(props.carData);
-      setTimeout(() => onDialogCancel(), 1000);
+      onDialogCancel();
     } catch (error) {
       console.log('Error in purchase', error);
     }
   };
   void purchase();
-  onDialogCancel();
   openPurchaseConfrimationDialog(props.carData);
 }
 

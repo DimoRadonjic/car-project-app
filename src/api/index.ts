@@ -1,4 +1,4 @@
-import type { VehicleResponse } from './api.types';
+import type { VehicleResponse, VehicleStorage } from './api.types';
 import { API_GARAGE_URL, API_MARKET_URL } from './urls';
 
 const defaultVehicals: VehicleResponse = { cars: [] };
@@ -41,8 +41,7 @@ async function fetchMarket(): Promise<VehicleResponse> {
   }
 }
 
-// add get on type or all
-export async function fetchVehicals(api_url: 'garage' | 'market'): Promise<VehicleResponse> {
+export async function fetchVehicals(api_url: VehicleStorage): Promise<VehicleResponse> {
   if (api_url.toLowerCase() === 'garage') {
     return await fetchGarage();
   } else {

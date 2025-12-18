@@ -24,3 +24,5 @@ export type HistoryTransactionResponse = HistoryTransaction[];
 
 export type ExpenseResponse = Expense[];
 export type IncomeResponse = Income[];
+
+export type VehicleStorage = 'garage' | 'market';

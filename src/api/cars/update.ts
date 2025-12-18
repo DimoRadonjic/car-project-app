@@ -1,10 +1,8 @@
 import type { CarInformation } from 'src/types/car.types';
-import { API_GARAGE_URL, API_MARKET_URL } from '../urls';
+import { API_GARAGE_URL } from '../urls';
 import { fetchVehicals } from '..';
-
-function containsCar(arr: CarInformation[], carID: string) {
-  return arr.find(({ id }) => id === carID);
-}
+import { containsCar } from '../services/utils';
+import { marketService } from '../services/market.service';
 
 export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void> {
   try {
@@ -20,34 +18,9 @@ export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void>
   }
 }
 
-export async function updateMarket(car: CarInformation): Promise<void> {
-  try {
-    const { cars: market } = await fetchVehicals('market');
-
-    let body;
-
-    if (!containsCar(market, car.id)) {
-      body = JSON.stringify({ cars: [...market, car] });
-    } else {
-      const newMarketCars = market.filter((marketCar) => marketCar.id !== car.id);
-      body = JSON.stringify({ cars: newMarketCars });
-    }
-
-    await fetch(API_MARKET_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    });
-  } catch (error) {
-    console.log('updateGarageCarInfo - error', error);
-  }
-}
-
 export async function putCarOnMarket(car: CarInformation): Promise<void> {
   try {
-    await updateMarket(car);
+    await marketService.updateData(car);
   } catch (error) {
     console.log('putCarOnMarket - error', error);
   }

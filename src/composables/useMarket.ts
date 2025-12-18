@@ -1,6 +1,4 @@
-import { fetchVehicals } from 'src/api';
-import type { VehicleResponse } from 'src/api/api.types';
-import { updateMarket } from 'src/api/cars/update';
+import { marketService } from 'src/api/services/market.service';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch, watchEffect } from 'vue';
 
@@ -11,14 +9,11 @@ export const useMarket = () => {
   const shouldRefetch = ref<boolean>(true);
 
   async function fetch(): Promise<void> {
-    console.log('fetching market');
     loading.value = true;
     try {
-      const { cars }: VehicleResponse = await fetchVehicals('market');
+      const cars = await marketService.getData();
 
       data.value = cars;
-
-      console.log('fetching market new data', data.value);
     } catch (error) {
       console.log('Error fetching market - useMarket', error);
     }
@@ -26,7 +21,7 @@ export const useMarket = () => {
 
   async function updateByCar(newData: CarInformation): Promise<void> {
     try {
-      await updateMarket(newData);
+      await marketService.updateData(newData);
 
       await fetch();
     } catch (error) {
