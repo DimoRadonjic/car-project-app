@@ -4,6 +4,7 @@ import { API_GARAGE_URL } from '../urls';
 import { put } from '../methods';
 import type { ServiceInterface } from '.';
 import { fetchGarage } from '../cars';
+import { marketService } from '../market';
 
 class GarageService implements ServiceInterface {
   async getData(): Promise<CarInformation[]> {
@@ -53,6 +54,7 @@ export class ProxyGarageService implements GarageService {
     return data;
   }
 
+  // just update garage ( PUT and POST calls)
   async updateData(car: CarInformation): Promise<CarInformation[]> {
     if (this.serviceInstance) {
       console.log('car to update - service', car);
@@ -62,6 +64,7 @@ export class ProxyGarageService implements GarageService {
     return this.cache;
   }
 
+  // update garage and market
   async putOnMarket(carID: string) {
     if (this.serviceInstance) {
       let updatedCar: CarInformation | undefined = this.cache.find(({ id }) => id === carID);
@@ -69,6 +72,7 @@ export class ProxyGarageService implements GarageService {
         updatedCar = { ...updatedCar, onSale: true };
 
         this.cache = await this.serviceInstance.updateData(updatedCar, this.cache);
+        void marketService.updateData(updatedCar);
       }
     }
   }

@@ -4,6 +4,11 @@ import { containsCar } from '../services/utils';
 import { put } from '../methods';
 import { garageService } from '.';
 
+// update a single car in garage
+// add car to market by onSale becoming true
+// remove car from garage by user
+// add new car to garage
+
 export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void> {
   const body = JSON.stringify({ cars: cars });
 
@@ -16,7 +21,7 @@ export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void>
 
 export async function putCarOnMarket(car: CarInformation): Promise<void> {
   try {
-    await garageService.updateData(car);
+    await garageService.putOnMarket(car.id);
   } catch (error) {
     console.log('putCarOnMarket - error', error);
   }

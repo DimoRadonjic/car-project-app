@@ -11,6 +11,7 @@ class MarketService implements ServiceInterface {
     return cars;
   }
 
+  // update Market ( car joins from garage or is removed from market by purchase )
   async updateData(car: CarInformation, market: CarInformation[]): Promise<CarInformation[]> {
     let newMarketCars: CarInformation[] = market.slice();
 
