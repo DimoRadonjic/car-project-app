@@ -10,6 +10,6 @@ export const API_EXPENSE_URL = API_FINANCE_URL + '/' + APIEndPoints.EXPENSE;
 export const API_INCOME_URL = API_FINANCE_URL + '/' + APIEndPoints.INCOME;
 export const API_PURCHASE_URL = API_FINANCE_URL + '/' + APIEndPoints.PURCHASE;
 
-//vehicals
+//vehicles
 export const API_GARAGE_URL = BASE_URL + '/' + APIEndPoints.GARAGE;
 export const API_MARKET_URL = BASE_URL + '/' + APIEndPoints.MARKET;
