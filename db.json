@@ -287,7 +287,7 @@
     "cars": [
       {
         "id": "67d3e385-d98c-46de-ac58-031ae6d4da9e",
-        "make": "Pontiac",
+        "make": "Pontiac123",
         "model": "Chevette",
         "year": 1987,
         "mileage": 181916,
@@ -332,9 +332,9 @@
         "registrationDetails": {
           "vinNumber": "WBANF33537C230179",
           "registrationNumber": "ZC97-AW82-41SR",
-          "expiryDate": "21/04/1920"
+          "expiryDate": "1920-04-21"
         },
-        "onSale": false,
+        "onSale": true,
         "sold": false,
         "furtherRepairsNeeded": false,
         "color": "Indigo"

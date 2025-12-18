@@ -1,5 +1,4 @@
-import { fetchVehicals } from 'src/api';
-import type { VehicleResponse } from 'src/api/api.types';
+import { garageService } from 'src/api/services/garage.service';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
 
@@ -12,7 +11,7 @@ export const useGarage = () => {
   async function fetch(): Promise<void> {
     loading.value = true;
     try {
-      const { cars }: VehicleResponse = await fetchVehicals('garage');
+      const cars: CarInformation[] = await garageService.getData();
 
       data.value = cars;
     } catch (error) {

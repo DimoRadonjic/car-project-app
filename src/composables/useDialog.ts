@@ -13,7 +13,9 @@ export function useDialog() {
 
   const { dialogRef, onDialogCancel, onDialogHide, onDialogOK } = plugin;
 
-  function openCarDialog(car?: CarInformation, edit?: boolean, market?: boolean) {
+  function openCarDialog(car: CarInformation, edit?: boolean, market?: boolean) {
+    console.log('car in dialog', car);
+
     return $q.dialog({
       component: CarDialog,
 

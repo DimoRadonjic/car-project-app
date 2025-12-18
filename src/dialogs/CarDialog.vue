@@ -22,7 +22,7 @@ const props = withDefaults(
         registrationNumber: '',
         vinNumber: '',
       },
-      repairHistory: [],
+      repairHistory: '',
       sold: false,
       year: new Date().getFullYear(),
       furtherRepairsNeeded: false,
@@ -38,6 +38,7 @@ const carForm = ref<CarInformation>(JSON.parse(JSON.stringify(props.carData)));
 function onOKClick() {
   if (props.edit) {
     onDialogOK(carForm.value);
+    return;
   }
 
   onDialogOK();

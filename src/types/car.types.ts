@@ -14,7 +14,7 @@ export type CarInformation = {
   price: number;
   onSale: boolean;
   sold: boolean;
-  repairHistory: string[];
+  repairHistory: string;
   registrationDetails: CarRegistration;
   furtherRepairsNeeded?: boolean;
 };

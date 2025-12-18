@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{ carData?: CarInformation; edit?: boolea
       registrationNumber: '',
       vinNumber: '',
     },
-    repairHistory: [],
+    repairHistory: '',
     sold: false,
     year: new Date().getFullYear(),
     furtherRepairsNeeded: false,

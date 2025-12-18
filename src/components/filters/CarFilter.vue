@@ -18,7 +18,7 @@ const defaultFilterValues: Omit<CarInformation, 'id'> = {
   onSale: false,
   price: 0,
   registrationDetails: { expiryDate: getCurrentDate(), registrationNumber: '', vinNumber: '' },
-  repairHistory: [],
+  repairHistory: '',
   sold: false,
   year: 0,
   furtherRepairsNeeded: false,

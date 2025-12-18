@@ -13,7 +13,7 @@ export const defaultCar: CarInformation = {
     registrationNumber: '',
     vinNumber: '',
   },
-  repairHistory: [],
+  repairHistory: '',
   sold: false,
   year: 0,
   furtherRepairsNeeded: false,

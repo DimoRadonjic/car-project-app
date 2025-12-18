@@ -1,9 +1,8 @@
 import type { CarInformation } from 'src/types/car.types';
 import { API_GARAGE_URL } from '../urls';
-import { fetchVehicals } from '..';
 import { containsCar } from '../services/utils';
-import { marketService } from '../services/market.service';
 import { put } from '../methods';
+import { garageService } from '../services/garage.service';
 
 export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void> {
   const body = JSON.stringify({ cars: cars });
@@ -17,7 +16,7 @@ export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void>
 
 export async function putCarOnMarket(car: CarInformation): Promise<void> {
   try {
-    await marketService.updateData(car);
+    await garageService.updateData(car);
   } catch (error) {
     console.log('putCarOnMarket - error', error);
   }
@@ -25,16 +24,16 @@ export async function putCarOnMarket(car: CarInformation): Promise<void> {
 
 export async function updateGarage(car: CarInformation): Promise<void> {
   try {
-    const { cars: garage } = await fetchVehicals('garage');
+    const garage = await garageService.getData();
 
-    let body;
+    let newGarageCars;
 
     if (!containsCar(garage, car.id)) {
-      body = JSON.stringify({ cars: [...garage, { ...car, onSale: false }] });
+      newGarageCars = [...garage, { ...car, onSale: false }];
     } else {
-      const newGarageCars = garage.map((garageCar) => (garageCar.id === car.id ? car : garageCar));
-      body = JSON.stringify({ cars: newGarageCars });
+      newGarageCars = garage.map((garageCar) => (garageCar.id === car.id ? car : garageCar));
     }
+    const body = JSON.stringify({ cars: newGarageCars });
 
     await put(API_GARAGE_URL, body);
   } catch (error) {

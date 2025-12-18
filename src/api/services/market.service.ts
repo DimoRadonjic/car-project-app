@@ -3,13 +3,9 @@ import { fetchVehicals } from '..';
 import { containsCar } from './utils';
 import { API_MARKET_URL } from '../urls';
 import { put } from '../methods';
+import type { ServiceInterface } from '.';
 
-interface MarketServiceInterface {
-  getData(): Promise<CarInformation[]>;
-  updateData(car: CarInformation, market: CarInformation[]): Promise<CarInformation[]>;
-}
-
-class MarketService implements MarketServiceInterface {
+class MarketService implements ServiceInterface {
   async getData(): Promise<CarInformation[]> {
     const { cars } = await fetchVehicals('market');
     return cars;

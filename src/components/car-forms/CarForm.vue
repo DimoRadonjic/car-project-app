@@ -8,7 +8,7 @@ const carForm = ref();
 const emit = defineEmits(['save', 'cancel']);
 const registration = ref<CarRegistration>(car.value.registrationDetails);
 const carRepairHistoryValue = computed(() =>
-  car.value?.repairHistory.length ? car.value?.repairHistory.join(' ') : '',
+  car.value?.repairHistory.length ? car.value?.repairHistory : '',
 );
 
 async function handleSave() {
