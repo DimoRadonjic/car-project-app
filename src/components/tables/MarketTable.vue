@@ -7,7 +7,7 @@ defineProps<{
   type: 'car' | 'motorcycle';
 }>();
 
-const { data, loading, shouldRefetch, fetch } = useMarket();
+const { data, loading, shouldRefetch } = useMarket();
 </script>
 
 <template>
@@ -23,7 +23,6 @@ const { data, loading, shouldRefetch, fetch } = useMarket();
     view
     add
     search
-    :refetch="fetch"
   >
   </DataTable>
 </template>

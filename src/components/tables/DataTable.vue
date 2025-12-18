@@ -19,7 +19,6 @@ const propsComp = withDefaults(
     add?: boolean;
     remove?: boolean;
     search?: boolean;
-    refetch: () => Promise<TableRow[] | undefined | void>;
   }>(),
   {
     market: false,

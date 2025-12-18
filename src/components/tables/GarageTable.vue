@@ -3,7 +3,7 @@ import { useGarage } from 'src/composables/useGarage';
 import DataTable from './DataTable.vue';
 import { defaultColumns } from './columns';
 
-const { data, loading, shouldRefetch, fetch } = useGarage();
+const { data, loading, shouldRefetch } = useGarage();
 </script>
 
 <template>
@@ -19,7 +19,6 @@ const { data, loading, shouldRefetch, fetch } = useGarage();
     remove
     search
     :loading
-    :refetch="fetch"
   >
   </DataTable>
 </template>
