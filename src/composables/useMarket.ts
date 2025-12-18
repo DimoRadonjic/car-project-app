@@ -1,4 +1,4 @@
-import { marketService } from 'src/api/services/market.service';
+import { marketService } from 'src/api/market';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch, watchEffect } from 'vue';
 

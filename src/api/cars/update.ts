@@ -2,7 +2,7 @@ import type { CarInformation } from 'src/types/car.types';
 import { API_GARAGE_URL } from '../urls';
 import { containsCar } from '../services/utils';
 import { put } from '../methods';
-import { garageService } from '../services/garage.service';
+import { garageService } from '.';
 
 export async function updateGarageCarInfo(cars: CarInformation[]): Promise<void> {
   const body = JSON.stringify({ cars: cars });

@@ -1,13 +1,13 @@
 import type { CarInformation } from 'src/types/car.types';
-import { fetchVehicals } from '..';
 import { containsCar } from './utils';
 import { API_MARKET_URL } from '../urls';
 import { put } from '../methods';
 import type { ServiceInterface } from '.';
+import { fetchMarket } from '../market';
 
 class MarketService implements ServiceInterface {
   async getData(): Promise<CarInformation[]> {
-    const { cars } = await fetchVehicals('market');
+    const { cars } = await fetchMarket();
     return cars;
   }
 
@@ -33,7 +33,7 @@ class MarketService implements ServiceInterface {
   }
 }
 
-class ProxyMarketService implements MarketService {
+export class ProxyMarketService implements MarketService {
   private serviceInstance: MarketService | null = null;
   private cache: CarInformation[] = [];
 
@@ -58,5 +58,3 @@ class ProxyMarketService implements MarketService {
     return this.cache;
   }
 }
-
-export const marketService = new ProxyMarketService();

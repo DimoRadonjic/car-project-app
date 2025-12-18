@@ -1,13 +1,13 @@
 import type { CarInformation } from 'src/types/car.types';
-import { fetchVehicals } from '..';
 import { containsCar } from './utils';
 import { API_GARAGE_URL } from '../urls';
 import { put } from '../methods';
 import type { ServiceInterface } from '.';
+import { fetchGarage } from '../cars';
 
 class GarageService implements ServiceInterface {
   async getData(): Promise<CarInformation[]> {
-    const { cars } = await fetchVehicals('garage');
+    const { cars } = await fetchGarage();
     return cars;
   }
 
@@ -35,7 +35,7 @@ class GarageService implements ServiceInterface {
   }
 }
 
-class ProxyGarageService implements GarageService {
+export class ProxyGarageService implements GarageService {
   private serviceInstance: GarageService | null = null;
   private cache: CarInformation[] = [];
 
@@ -61,6 +61,15 @@ class ProxyGarageService implements GarageService {
     }
     return this.cache;
   }
-}
 
-export const garageService = new ProxyGarageService();
+  async putOnMarket(carID: string) {
+    if (this.serviceInstance) {
+      let updatedCar: CarInformation | undefined = this.cache.find(({ id }) => id === carID);
+      if (updatedCar) {
+        updatedCar = { ...updatedCar, onSale: true };
+
+        this.cache = await this.serviceInstance.updateData(updatedCar, this.cache);
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchVehicals } from 'src/api';
+import { garageService } from 'src/api/cars';
 import { updateGarageCarInfo } from 'src/api/cars/update';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
@@ -11,7 +11,7 @@ const emit = defineEmits(['cars-to-market']);
 
 async function fetchGarage(): Promise<void> {
   try {
-    const { cars } = await fetchVehicals('garage');
+    const cars = await garageService.getData();
 
     data.value = cars;
   } catch (error) {
