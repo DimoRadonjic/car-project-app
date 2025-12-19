@@ -1,30 +1,15 @@
 <script setup lang="ts">
 import type { CarInformation } from 'src/types/car.types';
-import { getCurrentDate } from 'src/utils/date.utils';
 import { ref, watch } from 'vue';
-import { carDataFilter } from '.';
-
-type Filter = Omit<CarInformation, 'id' | 'ownerID'>;
+import type { Filter } from '.';
+import { carDataFilter, defaultFilterValues } from '.';
 
 const props = defineProps<{
   data: CarInformation[];
+  market?: boolean;
 }>();
 
 const originalData = props.data.slice();
-
-const defaultFilterValues: Filter = {
-  color: '',
-  make: '',
-  mileage: 0,
-  model: '',
-  onSale: false,
-  price: 0,
-  registrationDetails: { expiryDate: getCurrentDate(), registrationNumber: '', vinNumber: '' },
-  repairHistory: '',
-  sold: false,
-  year: 0,
-  furtherRepairsNeeded: false,
-};
 
 const filters = ref<Filter>(defaultFilterValues);
 
@@ -130,7 +115,7 @@ watch(filters.value, () => {
 
 <template>
   <div class="filter">
-    <q-checkbox v-model="filters.onSale" label="On Sale" />
+    <q-checkbox v-if="!market" v-model="filters.onSale" label="On Sale" />
     <q-checkbox v-model="filters.furtherRepairsNeeded" label="Does not need repairs" />
     <q-input
       v-model.number="filters.year"

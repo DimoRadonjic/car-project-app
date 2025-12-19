@@ -165,6 +165,25 @@
         "sold": false,
         "furtherRepairsNeeded": false,
         "color": "Aquamarine"
+      },
+      {
+        "id": "67d3e385-d98c-46de-ac58-031ae6d4da9e",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Pontiac",
+        "model": "Chevette",
+        "year": 1987,
+        "mileage": 181916,
+        "price": 299900,
+        "repairHistory": "",
+        "registrationDetails": {
+          "vinNumber": "KNDMG4C76E6814526",
+          "registrationNumber": "RY42-GY48-60KH",
+          "expiryDate": "2015-02-27"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Red"
       }
     ]
   },
@@ -184,7 +203,7 @@
           "registrationNumber": "RY42-GY48-60KH",
           "expiryDate": "2015-02-27"
         },
-        "onSale": false,
+        "onSale": true,
         "sold": false,
         "furtherRepairsNeeded": true,
         "color": "Red"

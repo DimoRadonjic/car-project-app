@@ -173,7 +173,12 @@ onMounted(() => {
         <div class="title-btns">
           <h3>{{ title }}</h3>
           <div class="filter-btns">
-            <car-filter v-model="searchResults" v-model:loading="loadingTable" :data="tableData" />
+            <car-filter
+              v-model="searchResults"
+              v-model:loading="loadingTable"
+              :data="tableData"
+              :market
+            />
             <div v-if="search" class="search">
               <car-search
                 v-model="searchResults"
