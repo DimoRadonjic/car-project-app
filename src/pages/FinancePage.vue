@@ -3,8 +3,8 @@ import ExpensesList from '@/components/expenses/ExpensesList.vue';
 import IncomeList from '@/components/incomes/IncomeList.vue';
 import PurchaseForm from '@/components/purchase/PurchaseForm.vue';
 import type { FinanceData } from '@/types/finance.types';
-import { fetchFinance } from 'src/api/finance';
-import { updateFinance } from 'src/api/finance/update';
+import { fetchFinance } from 'src/api/services/finance';
+import { updateFinance } from 'src/api/services/finance/update';
 import { watch } from 'vue';
 import { ref, watchEffect } from 'vue';
 

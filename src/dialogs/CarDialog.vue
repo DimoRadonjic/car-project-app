@@ -12,6 +12,7 @@ const props = withDefaults(
     carData: () => ({
       color: '',
       id: crypto.randomUUID(),
+      ownerID: crypto.randomUUID(),
       make: '',
       mileage: 0,
       model: '',

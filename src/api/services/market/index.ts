@@ -1,10 +1,7 @@
-import { defaultVehicals } from '..';
-import type { VehicleResponse } from '../api.types';
-import { get } from '../methods';
-import { ProxyMarketService } from '../services/market.service';
-import { API_MARKET_URL } from '../urls';
-
-export const marketService = new ProxyMarketService();
+import { defaultVehicals } from '../..';
+import type { VehicleResponse } from '../../api.types';
+import { get } from '../../methods';
+import { API_MARKET_URL } from '../../urls';
 
 export async function fetchMarket(): Promise<VehicleResponse> {
   try {

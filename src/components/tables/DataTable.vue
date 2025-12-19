@@ -4,9 +4,9 @@ import type { TableColumn, TableRow } from './data-table.types';
 import { computed, onMounted, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
-import { updateGarageCarInfo } from 'src/api/cars/update';
 import CarFilter from '../filters/CarFilter.vue';
 import CarSearch from '../filters/CarSearch.vue';
+import { garageService } from 'src/api/services';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -135,7 +135,7 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
       );
 
       //  API Call to update that car (API call by ID)
-      void updateGarageCarInfo(newDataArr);
+      void garageService.updateData(newData);
 
       tableData.value = newDataArr;
     });

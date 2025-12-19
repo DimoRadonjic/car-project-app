@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { makePurchase } from 'src/api/finance/update';
+import { makePurchase } from 'src/api/services/finance/update';
 import { useDialog } from 'src/composables/useDialog';
 import type { CarInformation } from 'src/types/car.types';
 

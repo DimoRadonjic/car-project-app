@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<{ carData?: CarInformation; edit?: boolea
   carData: () => ({
     color: '',
     id: crypto.randomUUID(),
+    ownerID: crypto.randomUUID(),
     make: '',
     mileage: 0,
     model: '',

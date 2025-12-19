@@ -1,9 +1,9 @@
 import type { CarInformation } from 'src/types/car.types';
-import { containsCar } from './utils';
-import { API_MARKET_URL } from '../urls';
-import { put } from '../methods';
-import type { ServiceInterface } from '.';
-import { fetchMarket } from '../market';
+import { containsCar } from '../utils';
+import { API_MARKET_URL } from '../../urls';
+import { put } from '../../methods';
+import type { ServiceInterface } from '..';
+import { fetchMarket } from '.';
 
 class MarketService implements ServiceInterface {
   async getData(): Promise<CarInformation[]> {

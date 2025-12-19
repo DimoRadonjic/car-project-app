@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { putCarOnMarket } from 'src/api/cars/update';
+import { garageService } from 'src/api/services';
 import GarageList from 'src/components/lists/GarageList.vue';
 import { useDialog } from 'src/composables/useDialog';
 import type { CarInformation } from 'src/types/car.types';
@@ -16,7 +16,7 @@ function handlecarToMarket(val: CarInformation) {
 }
 
 function handleOkClick(car: CarInformation) {
-  void putCarOnMarket(car);
+  void garageService.putOnMarket(car.id);
   onDialogOK(true);
 }
 </script>

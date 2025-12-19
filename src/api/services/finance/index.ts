@@ -4,8 +4,8 @@ import type {
   FinanceResponse,
   HistoryTransactionResponse,
   IncomeResponse,
-} from '../api.types';
-import { API_EXPENSE_URL, API_FINANCE_URL, API_INCOME_URL } from '../urls';
+} from '../../api.types';
+import { API_EXPENSE_URL, API_FINANCE_URL, API_INCOME_URL } from '../../urls';
 
 const defaultIncome: Income[] = [];
 const defaultExpense: Expense[] = [];

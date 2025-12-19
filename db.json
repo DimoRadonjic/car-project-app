@@ -6,7 +6,6 @@
     "lastName": "Doe",
     "password": "password123"
   },
-
   "users": [
     {
       "id": "11111111-aaaa-4aaa-8aaa-111111111111",
@@ -51,7 +50,6 @@
       "lastName": "Bennett"
     }
   ],
-
   "market": {
     "cars": [
       {
@@ -170,7 +168,6 @@
       }
     ]
   },
-
   "garage": {
     "cars": [
       {
@@ -403,7 +400,6 @@
       }
     ]
   },
-
   "finance": {
     "purchase": {
       "budget": 10160012,

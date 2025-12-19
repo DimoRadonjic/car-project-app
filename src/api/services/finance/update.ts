@@ -1,9 +1,8 @@
 import type { FinanceData, HistoryTransaction } from 'src/types/finance.types';
-import { API_FINANCE_URL, API_HISTORY_URL } from '../urls';
+import { API_FINANCE_URL, API_HISTORY_URL } from '../../urls';
 import type { CarInformation } from 'src/types/car.types';
-import { updateGarage } from '../cars/update';
-import { put } from '../methods';
-import { marketService } from '../market';
+import { put } from '../../methods';
+import { garageService, marketService } from '..';
 
 // import { getHistoryTransactions } from './util';
 
@@ -42,7 +41,7 @@ export async function updateHistoryTransactions(
 }
 
 export async function makePurchase(carData: CarInformation): Promise<void> {
-  const promises = [marketService.updateData(carData), updateGarage(carData)];
+  const promises = [marketService.updateData(carData), garageService.updateData(carData)];
   try {
     await Promise.all(promises);
   } catch (error) {

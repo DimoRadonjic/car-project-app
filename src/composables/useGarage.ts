@@ -1,4 +1,4 @@
-import { garageService } from 'src/api/cars';
+import { garageService } from 'src/api/services';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
 

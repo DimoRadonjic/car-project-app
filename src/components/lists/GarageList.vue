@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { garageService } from 'src/api/cars';
-import { updateGarageCarInfo } from 'src/api/cars/update';
+import { garageService } from 'src/api/services';
 import type { CarInformation } from 'src/types/car.types';
 import { ref, watch } from 'vue';
 
@@ -22,11 +21,7 @@ async function fetchGarage(): Promise<void> {
 }
 
 function carToMarket(carToUpdate: CarInformation) {
-  const updatedArr: CarInformation[] = data.value.map((car) =>
-    car.id === carToUpdate.id ? { ...car, onSale: !car.onSale } : car,
-  );
-
-  void updateGarageCarInfo(updatedArr);
+  void garageService.putOnMarket(carToUpdate.id);
 
   emit('cars-to-market', { ...carToUpdate, onSale: true });
 
