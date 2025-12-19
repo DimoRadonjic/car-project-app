@@ -6,6 +6,7 @@ export type CarRegistration = {
 
 export type CarInformation = {
   id: string;
+  ownerID: string;
   make: string;
   model: string;
   year: number;

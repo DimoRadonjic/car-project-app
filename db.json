@@ -1,8 +1,362 @@
 {
   "profile": {
+    "id": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
     "name": "John Doe",
     "email": "test.test@gmail.com"
   },
+
+  "market": {
+    "cars": [
+      {
+        "id": "48b3a1de-b46c-4205-b72a-a3b64132b6a2",
+        "ownerID": "11111111-aaaa-4aaa-8aaa-111111111111",
+        "make": "Acura",
+        "model": "RL",
+        "year": 2005,
+        "mileage": 508540,
+        "price": 493434,
+        "repairHistory": "in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec",
+        "registrationDetails": {
+          "vinNumber": "SCBBP93W99C316178",
+          "registrationNumber": "OG70-FH07-43OL",
+          "expiryDate": "07/12/1906"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Crimson"
+      },
+      {
+        "id": "862ec715-19e9-4b99-8a97-4b45faf7544b",
+        "ownerID": "22222222-bbbb-4bbb-8bbb-222222222222",
+        "make": "Oldsmobile",
+        "model": "Silhouette",
+        "year": 1995,
+        "mileage": 904097,
+        "price": 4290,
+        "repairHistory": "vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non",
+        "registrationDetails": {
+          "vinNumber": "JN8AF5MR5DT231378",
+          "registrationNumber": "AU69-SL64-62IV",
+          "expiryDate": "08/06/1912"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Aquamarine"
+      },
+      {
+        "id": "f66c835b-9125-4215-8f78-55ce5a9a386e",
+        "ownerID": "33333333-cccc-4ccc-8ccc-333333333333",
+        "make": "Jeep",
+        "model": "Grand Cherokee",
+        "year": 2006,
+        "mileage": 924586,
+        "price": 2990,
+        "repairHistory": "varius ut blandit non interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et",
+        "registrationDetails": {
+          "vinNumber": "WBASP4C54BC125441",
+          "registrationNumber": "DU34-JO09-25OC",
+          "expiryDate": "03/03/1906"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Blue"
+      },
+      {
+        "id": "5c5c5387-9f60-4fef-a507-523ea077c256",
+        "ownerID": "44444444-dddd-4ddd-8ddd-444444444444",
+        "make": "Mazda",
+        "model": "MX-6",
+        "year": 1990,
+        "mileage": 406179,
+        "price": 4999,
+        "repairHistory": "rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor",
+        "registrationDetails": {
+          "vinNumber": "5NPDH4AE1DH590570",
+          "registrationNumber": "WD38-DH26-71MV",
+          "expiryDate": "24/09/1914"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Violet"
+      },
+      {
+        "id": "0e6b9735-82c7-420f-8b70-aef0f3d02c97",
+        "ownerID": "55555555-eeee-4eee-8eee-555555555555",
+        "make": "GMC",
+        "model": "1500 Club Coupe",
+        "year": 1996,
+        "mileage": 48955,
+        "price": 4290,
+        "repairHistory": "sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero",
+        "registrationDetails": {
+          "vinNumber": "3C4PDCDG6FT162612",
+          "registrationNumber": "LR56-ZX83-05SL",
+          "expiryDate": "01/02/2020"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Red"
+      },
+      {
+        "id": "478e8823-dd31-4839-82e8-f3f89dae250f",
+        "ownerID": "66666666-ffff-4fff-8fff-666666666666",
+        "make": "Chevrolet",
+        "model": "Suburban 2500",
+        "year": 2008,
+        "mileage": 354257,
+        "price": 3490,
+        "repairHistory": "amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum",
+        "registrationDetails": {
+          "vinNumber": "1G4GA5GR6DF677792",
+          "registrationNumber": "EB55-NO21-76JB",
+          "expiryDate": "18/12/1974"
+        },
+        "onSale": true,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Aquamarine"
+      }
+    ]
+  },
+
+  "garage": {
+    "cars": [
+      {
+        "id": "67d3e385-d98c-46de-ac58-031ae6d4da9e",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Pontiac123",
+        "model": "Chevette",
+        "year": 1987,
+        "mileage": 181916,
+        "price": 299900,
+        "repairHistory": "",
+        "registrationDetails": {
+          "vinNumber": "KNDMG4C76E6814526",
+          "registrationNumber": "RY42-GY48-60KH",
+          "expiryDate": "2015-02-27"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Red"
+      },
+      {
+        "id": "3371fb7a-3cb1-42cf-bc2d-342394068e1b",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "BMW",
+        "model": "7 Series",
+        "year": 1993,
+        "mileage": 111334,
+        "price": 5990,
+        "repairHistory": "",
+        "registrationDetails": {
+          "vinNumber": "1FTEX1C89AF588436",
+          "registrationNumber": "MB75-ZX27-84SQ",
+          "expiryDate": "1937-07-19"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Aquamarine"
+      },
+      {
+        "id": "20d9f0b6-ea6f-4346-b96d-789bf3cfabc1",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Pontiac",
+        "model": "Montana",
+        "year": 2004,
+        "mileage": 919641,
+        "price": 4999,
+        "repairHistory": "nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec",
+        "registrationDetails": {
+          "vinNumber": "WBANF33537C230179",
+          "registrationNumber": "ZC97-AW82-41SR",
+          "expiryDate": "1920-04-21"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Indigo"
+      },
+      {
+        "id": "b235aa78-a55f-47b9-9aff-5116c7965ce8",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Jaguar",
+        "model": "X-Type",
+        "year": 2007,
+        "mileage": 803311,
+        "price": 56990,
+        "repairHistory": "morbi quis tortor id nulla ultrices aliquet maecenas leo odio",
+        "registrationDetails": {
+          "vinNumber": "4T1BF1FK5EU886382",
+          "registrationNumber": "YI77-HJ43-94XY",
+          "expiryDate": "12/03/1946"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Crimson"
+      },
+      {
+        "id": "3fee8e3a-c65c-4873-b447-f93b1418d495",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Lamborghini",
+        "model": "Diablo",
+        "year": 1999,
+        "mileage": 862582,
+        "price": 1999,
+        "repairHistory": "id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo",
+        "registrationDetails": {
+          "vinNumber": "2G4WS55J831093972",
+          "registrationNumber": "LD75-XW00-59ZN",
+          "expiryDate": "20/03/1915"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Green"
+      },
+      {
+        "id": "2c82ecdf-8b56-488f-883f-0622c1566232",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Dodge",
+        "model": "Ram Van B150",
+        "year": 1992,
+        "mileage": 713337,
+        "price": 19990,
+        "repairHistory": "iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris",
+        "registrationDetails": {
+          "vinNumber": "WA1CM74L49D695307",
+          "registrationNumber": "MP89-RN01-79LQ",
+          "expiryDate": "05/02/1984"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Purple"
+      },
+      {
+        "id": "577eeb23-076e-497c-9d70-ad4b1b8149a3",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Mazda",
+        "model": "B-Series",
+        "year": 2006,
+        "mileage": 801839,
+        "price": 5000,
+        "repairHistory": "nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum",
+        "registrationDetails": {
+          "vinNumber": "1FTNF2B56AE909323",
+          "registrationNumber": "GC20-RB94-42JY",
+          "expiryDate": "30/04/1950"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Orange"
+      },
+      {
+        "id": "c0af91a7-70a9-4526-aed2-636ac351faad",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Chrysler",
+        "model": "300M",
+        "year": 2000,
+        "mileage": 184892,
+        "price": 6990,
+        "repairHistory": "mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit",
+        "registrationDetails": {
+          "vinNumber": "SCFAD22383K902269",
+          "registrationNumber": "LY90-AE70-62OO",
+          "expiryDate": "15/11/1930"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Fuscia"
+      },
+      {
+        "id": "1a108056-6d6f-4b87-a4c8-e9bd6526b794",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Lincoln",
+        "model": "Navigator",
+        "year": 2011,
+        "mileage": 663699,
+        "price": 19990,
+        "repairHistory": "sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut",
+        "registrationDetails": {
+          "vinNumber": "5N1AT2MK8FC216961",
+          "registrationNumber": "YE37-FR76-87SK",
+          "expiryDate": "21/01/2004"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Indigo"
+      },
+      {
+        "id": "e357655e-68a5-45fa-8f9d-ec92f22cc60e",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Ford",
+        "model": "Th!nk",
+        "year": 2000,
+        "mileage": 678871,
+        "price": 8990,
+        "repairHistory": "interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet",
+        "registrationDetails": {
+          "vinNumber": "WBAWB73507P101865",
+          "registrationNumber": "KM96-PD81-61VM",
+          "expiryDate": "16/03/2019"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Puce"
+      },
+      {
+        "id": "758abc19-4ae8-44b9-a216-c898942baf2c",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Nissan",
+        "model": "Frontier",
+        "year": 2006,
+        "mileage": 462092,
+        "price": 493434,
+        "repairHistory": "nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum",
+        "registrationDetails": {
+          "vinNumber": "1G6DJ577280779947",
+          "registrationNumber": "WE43-QW04-57EH",
+          "expiryDate": "21/11/1938"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": true,
+        "color": "Violet"
+      },
+      {
+        "id": "f1f26560-e60f-4190-a67d-6514af360fd3",
+        "ownerID": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
+        "make": "Ford",
+        "model": "F250",
+        "year": 2003,
+        "mileage": 552564,
+        "price": 1023,
+        "repairHistory": "eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor",
+        "registrationDetails": {
+          "vinNumber": "5N1BA0ND8FN825437",
+          "registrationNumber": "CC05-RI86-39PB",
+          "expiryDate": "10/06/1949"
+        },
+        "onSale": false,
+        "sold": false,
+        "furtherRepairsNeeded": false,
+        "color": "Indigo"
+      }
+    ]
+  },
+
   "finance": {
     "purchase": {
       "budget": 10160012,
@@ -60,446 +414,6 @@
         "receivedDate": "2025/11/06",
         "id": "488043f9-8a74-4662-9b60-e08fd11b80cd",
         "status": "recevied"
-      }
-    ]
-  },
-  "market": {
-    "cars": [
-      {
-        "id": "48b3a1de-b46c-4205-b72a-a3b64132b6a2",
-        "make": "Acura",
-        "model": "RL",
-        "year": 2005,
-        "mileage": 508540,
-        "price": 493434,
-        "repairHistory": "in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec",
-        "registrationDetails": {
-          "vinNumber": "SCBBP93W99C316178",
-          "registrationNumber": "OG70-FH07-43OL",
-          "expiryDate": "07/12/1906"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Crimson"
-      },
-      {
-        "id": "862ec715-19e9-4b99-8a97-4b45faf7544b",
-        "make": "Oldsmobile",
-        "model": "Silhouette",
-        "year": 1995,
-        "mileage": 904097,
-        "price": 4290,
-        "repairHistory": "vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non",
-        "registrationDetails": {
-          "vinNumber": "JN8AF5MR5DT231378",
-          "registrationNumber": "AU69-SL64-62IV",
-          "expiryDate": "08/06/1912"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Aquamarine"
-      },
-      {
-        "id": "f66c835b-9125-4215-8f78-55ce5a9a386e",
-        "make": "Jeep",
-        "model": "Grand Cherokee",
-        "year": 2006,
-        "mileage": 924586,
-        "price": 2990,
-        "repairHistory": "varius ut blandit non interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et",
-        "registrationDetails": {
-          "vinNumber": "WBASP4C54BC125441",
-          "registrationNumber": "DU34-JO09-25OC",
-          "expiryDate": "03/03/1906"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Blue"
-      },
-      {
-        "id": "5c5c5387-9f60-4fef-a507-523ea077c256",
-        "make": "Mazda",
-        "model": "MX-6",
-        "year": 1990,
-        "mileage": 406179,
-        "price": 4999,
-        "repairHistory": "rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor",
-        "registrationDetails": {
-          "vinNumber": "5NPDH4AE1DH590570",
-          "registrationNumber": "WD38-DH26-71MV",
-          "expiryDate": "24/09/1914"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Violet"
-      },
-      {
-        "id": "0e6b9735-82c7-420f-8b70-aef0f3d02c97",
-        "make": "GMC",
-        "model": "1500 Club Coupe",
-        "year": 1996,
-        "mileage": 48955,
-        "price": 4290,
-        "repairHistory": "sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero",
-        "registrationDetails": {
-          "vinNumber": "3C4PDCDG6FT162612",
-          "registrationNumber": "LR56-ZX83-05SL",
-          "expiryDate": "01/02/2020"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Red"
-      },
-      {
-        "id": "478e8823-dd31-4839-82e8-f3f89dae250f",
-        "make": "Chevrolet",
-        "model": "Suburban 2500",
-        "year": 2008,
-        "mileage": 354257,
-        "price": 3490,
-        "repairHistory": "amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum",
-        "registrationDetails": {
-          "vinNumber": "1G4GA5GR6DF677792",
-          "registrationNumber": "EB55-NO21-76JB",
-          "expiryDate": "18/12/1974"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Aquamarine"
-      },
-      {
-        "id": "9fb7e6cb-ed10-43a0-9973-deae6008df89",
-        "make": "Scion",
-        "model": "tC",
-        "year": 2005,
-        "mileage": 233236,
-        "price": 3990,
-        "repairHistory": "diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam",
-        "registrationDetails": {
-          "vinNumber": "1GYEE637570778043",
-          "registrationNumber": "KM20-VY89-89UI",
-          "expiryDate": "12/02/1992"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Crimson"
-      },
-      {
-        "id": "79ec7520-9cfe-4204-bd16-65e63b051b49",
-        "make": "Honda",
-        "model": "Pilot",
-        "year": 2009,
-        "mileage": 165679,
-        "price": 1300,
-        "repairHistory": "elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget",
-        "registrationDetails": {
-          "vinNumber": "2C3CDXJG7EH872186",
-          "registrationNumber": "OT88-CD38-09QC",
-          "expiryDate": "19/03/1977"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
-      },
-      {
-        "id": "c2d51788-b116-4666-935e-a986c8e51441",
-        "make": "Chevrolet",
-        "model": "Express 3500",
-        "year": 1997,
-        "mileage": 344779,
-        "price": 3990,
-        "repairHistory": "viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit",
-        "registrationDetails": {
-          "vinNumber": "JTHBL5EF9F5509735",
-          "registrationNumber": "FT37-LV09-40ZN",
-          "expiryDate": "16/01/1920"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Mauv"
-      },
-      {
-        "id": "e9ed5f86-a53e-4e88-9da3-982120fc7091",
-        "make": "Lotus",
-        "model": "Exige",
-        "year": 2010,
-        "mileage": 324409,
-        "price": 6990,
-        "repairHistory": "sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci",
-        "registrationDetails": {
-          "vinNumber": "3C6TD4CT7CG830433",
-          "registrationNumber": "JR87-RV52-74NB",
-          "expiryDate": "03/05/2013"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Maroon"
-      },
-      {
-        "id": "3371fb7a-3cb1-42cf-bc2d-342394068e1b",
-        "make": "BMW",
-        "model": "7 Series",
-        "year": 1993,
-        "mileage": 111334,
-        "price": 5990,
-        "repairHistory": "",
-        "registrationDetails": {
-          "vinNumber": "1FTEX1C89AF588436",
-          "registrationNumber": "MB75-ZX27-84SQ",
-          "expiryDate": "19/07/1937"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Aquamarine"
-      },
-      {
-        "id": "67d3e385-d98c-46de-ac58-031ae6d4da9e",
-        "make": "Pontiac",
-        "model": "Chevette",
-        "year": 1987,
-        "mileage": 181916,
-        "price": 299900,
-        "repairHistory": "",
-        "registrationDetails": {
-          "vinNumber": "KNDMG4C76E6814526",
-          "registrationNumber": "RY42-GY48-60KH",
-          "expiryDate": "27/02/2015"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Red"
-      }
-    ]
-  },
-  "garage": {
-    "cars": [
-      {
-        "id": "67d3e385-d98c-46de-ac58-031ae6d4da9e",
-        "make": "Pontiac123",
-        "model": "Chevette",
-        "year": 1987,
-        "mileage": 181916,
-        "price": 299900,
-        "repairHistory": "",
-        "registrationDetails": {
-          "vinNumber": "KNDMG4C76E6814526",
-          "registrationNumber": "RY42-GY48-60KH",
-          "expiryDate": "2015-02-27"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Red"
-      },
-      {
-        "id": "3371fb7a-3cb1-42cf-bc2d-342394068e1b",
-        "make": "BMW",
-        "model": "7 Series",
-        "year": 1993,
-        "mileage": 111334,
-        "price": 5990,
-        "repairHistory": "",
-        "registrationDetails": {
-          "vinNumber": "1FTEX1C89AF588436",
-          "registrationNumber": "MB75-ZX27-84SQ",
-          "expiryDate": "19/07/1937"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Aquamarine"
-      },
-      {
-        "id": "20d9f0b6-ea6f-4346-b96d-789bf3cfabc1",
-        "make": "Pontiac",
-        "model": "Montana",
-        "year": 2004,
-        "mileage": 919641,
-        "price": 4999,
-        "repairHistory": "nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec",
-        "registrationDetails": {
-          "vinNumber": "WBANF33537C230179",
-          "registrationNumber": "ZC97-AW82-41SR",
-          "expiryDate": "1920-04-21"
-        },
-        "onSale": true,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
-      },
-      {
-        "id": "b235aa78-a55f-47b9-9aff-5116c7965ce8",
-        "make": "Jaguar",
-        "model": "X-Type",
-        "year": 2007,
-        "mileage": 803311,
-        "price": 56990,
-        "repairHistory": "morbi quis tortor id nulla ultrices aliquet maecenas leo odio",
-        "registrationDetails": {
-          "vinNumber": "4T1BF1FK5EU886382",
-          "registrationNumber": "YI77-HJ43-94XY",
-          "expiryDate": "12/03/1946"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Crimson"
-      },
-      {
-        "id": "3fee8e3a-c65c-4873-b447-f93b1418d495",
-        "make": "Lamborghini",
-        "model": "Diablo",
-        "year": 1999,
-        "mileage": 862582,
-        "price": 1999,
-        "repairHistory": "id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo",
-        "registrationDetails": {
-          "vinNumber": "2G4WS55J831093972",
-          "registrationNumber": "LD75-XW00-59ZN",
-          "expiryDate": "20/03/1915"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Green"
-      },
-      {
-        "id": "2c82ecdf-8b56-488f-883f-0622c1566232",
-        "make": "Dodge",
-        "model": "Ram Van B150",
-        "year": 1992,
-        "mileage": 713337,
-        "price": 19990,
-        "repairHistory": "iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris",
-        "registrationDetails": {
-          "vinNumber": "WA1CM74L49D695307",
-          "registrationNumber": "MP89-RN01-79LQ",
-          "expiryDate": "05/02/1984"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Purple"
-      },
-      {
-        "id": "577eeb23-076e-497c-9d70-ad4b1b8149a3",
-        "make": "Mazda",
-        "model": "B-Series",
-        "year": 2006,
-        "mileage": 801839,
-        "price": 5000,
-        "repairHistory": "nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum",
-        "registrationDetails": {
-          "vinNumber": "1FTNF2B56AE909323",
-          "registrationNumber": "GC20-RB94-42JY",
-          "expiryDate": "30/04/1950"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Orange"
-      },
-      {
-        "id": "c0af91a7-70a9-4526-aed2-636ac351faad",
-        "make": "Chrysler",
-        "model": "300M",
-        "year": 2000,
-        "mileage": 184892,
-        "price": 6990,
-        "repairHistory": "mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit",
-        "registrationDetails": {
-          "vinNumber": "SCFAD22383K902269",
-          "registrationNumber": "LY90-AE70-62OO",
-          "expiryDate": "15/11/1930"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Fuscia"
-      },
-      {
-        "id": "1a108056-6d6f-4b87-a4c8-e9bd6526b794",
-        "make": "Lincoln",
-        "model": "Navigator",
-        "year": 2011,
-        "mileage": 663699,
-        "price": 19990,
-        "repairHistory": "sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut",
-        "registrationDetails": {
-          "vinNumber": "5N1AT2MK8FC216961",
-          "registrationNumber": "YE37-FR76-87SK",
-          "expiryDate": "21/01/2004"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
-      },
-      {
-        "id": "e357655e-68a5-45fa-8f9d-ec92f22cc60e",
-        "make": "Ford",
-        "model": "Th!nk",
-        "year": 2000,
-        "mileage": 678871,
-        "price": 8990,
-        "repairHistory": "interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet",
-        "registrationDetails": {
-          "vinNumber": "WBAWB73507P101865",
-          "registrationNumber": "KM96-PD81-61VM",
-          "expiryDate": "16/03/2019"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Puce"
-      },
-      {
-        "id": "758abc19-4ae8-44b9-a216-c898942baf2c",
-        "make": "Nissan",
-        "model": "Frontier",
-        "year": 2006,
-        "mileage": 462092,
-        "price": 493434,
-        "repairHistory": "nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum",
-        "registrationDetails": {
-          "vinNumber": "1G6DJ577280779947",
-          "registrationNumber": "WE43-QW04-57EH",
-          "expiryDate": "21/11/1938"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": true,
-        "color": "Violet"
-      },
-      {
-        "id": "f1f26560-e60f-4190-a67d-6514af360fd3",
-        "make": "Ford",
-        "model": "F250",
-        "year": 2003,
-        "mileage": 552564,
-        "price": 1023,
-        "repairHistory": "eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor",
-        "registrationDetails": {
-          "vinNumber": "5N1BA0ND8FN825437",
-          "registrationNumber": "CC05-RI86-39PB",
-          "expiryDate": "10/06/1949"
-        },
-        "onSale": false,
-        "sold": false,
-        "furtherRepairsNeeded": false,
-        "color": "Indigo"
       }
     ]
   },
