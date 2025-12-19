@@ -1,9 +1,56 @@
 {
   "profile": {
     "id": "a3f1d6b2-4c8e-4c1a-9c55-2e4a9f3c8a21",
-    "name": "John Doe",
-    "email": "test.test@gmail.com"
+    "email": "test.test@gmail.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "password": "password123"
   },
+
+  "users": [
+    {
+      "id": "11111111-aaaa-4aaa-8aaa-111111111111",
+      "email": "acura.owner@example.com",
+      "password": "password123",
+      "firstName": "Alex",
+      "lastName": "Carter"
+    },
+    {
+      "id": "22222222-bbbb-4bbb-8bbb-222222222222",
+      "email": "oldsmobile.owner@example.com",
+      "password": "password123",
+      "firstName": "Brian",
+      "lastName": "Mitchell"
+    },
+    {
+      "id": "33333333-cccc-4ccc-8ccc-333333333333",
+      "email": "jeep.owner@example.com",
+      "password": "password123",
+      "firstName": "Chris",
+      "lastName": "Reynolds"
+    },
+    {
+      "id": "44444444-dddd-4ddd-8ddd-444444444444",
+      "email": "mazda.owner@example.com",
+      "password": "password123",
+      "firstName": "Daniel",
+      "lastName": "Hughes"
+    },
+    {
+      "id": "55555555-eeee-4eee-8eee-555555555555",
+      "email": "gmc.owner@example.com",
+      "password": "password123",
+      "firstName": "Ethan",
+      "lastName": "Walker"
+    },
+    {
+      "id": "66666666-ffff-4fff-8fff-666666666666",
+      "email": "chevy.owner@example.com",
+      "password": "password123",
+      "firstName": "Frank",
+      "lastName": "Bennett"
+    }
+  ],
 
   "market": {
     "cars": [
