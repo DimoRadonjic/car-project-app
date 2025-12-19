@@ -1,44 +1,13 @@
 <script setup lang="ts">
-import { garageService } from 'src/api/services';
 import type { CarInformation } from 'src/types/car.types';
-import { ref, watch } from 'vue';
 
-const data = ref<CarInformation[]>([]);
-const updated = ref<boolean>(true);
+const data = defineModel({ required: true, default: [], type: Array<CarInformation> });
 
 const emit = defineEmits(['cars-to-market']);
 
-async function fetchGarage(): Promise<void> {
-  try {
-    const cars = await garageService.getData();
-
-    data.value = cars;
-  } catch (error) {
-    console.log('Garage list - fetch garage', error);
-  }
-
-  updated.value = false;
-}
-
 function carToMarket(carToUpdate: CarInformation) {
-  void garageService.putOnMarket(carToUpdate.id);
-
-  emit('cars-to-market', { ...carToUpdate, onSale: true });
-
-  updated.value = true;
+  emit('cars-to-market', { ...carToUpdate, onSale: !carToUpdate.onSale });
 }
-
-watch(
-  () => updated.value,
-  () => {
-    if (updated.value) {
-      void fetchGarage();
-    }
-  },
-  {
-    immediate: true,
-  },
-);
 </script>
 
 <template>

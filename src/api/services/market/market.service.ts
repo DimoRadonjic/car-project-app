@@ -16,9 +16,11 @@ class MarketService implements ServiceInterface {
     let newMarketCars: CarInformation[] = market.slice();
 
     try {
-      if (!containsCar(market, car.id)) {
+      if (!containsCar(market, car.id) && car.onSale) {
         newMarketCars = [...market, car];
-      } else {
+      }
+
+      if (containsCar(market, car.id) && !car.onSale) {
         newMarketCars = market.filter((marketCar) => marketCar.id !== car.id);
       }
 
@@ -53,6 +55,8 @@ export class ProxyMarketService implements MarketService {
   }
 
   async updateData(car: CarInformation): Promise<CarInformation[]> {
+    if (!this.serviceInstance) await this.getData();
+
     if (this.serviceInstance) {
       this.cache = await this.serviceInstance.updateData(car, this.cache);
     }

@@ -6,7 +6,7 @@ import { useDialog } from '@/composables/useDialog';
 import { toFormattedDate } from 'src/utils/date.utils';
 import CarFilter from '../filters/CarFilter.vue';
 import CarSearch from '../filters/CarSearch.vue';
-import { garageService } from 'src/api/services';
+import { garageService } from 'src/boot/services';
 
 const propsComp = withDefaults(
   defineProps<{
@@ -146,8 +146,8 @@ function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
 }
 
 function openAddDialog(): void {
-  openGarageDialog().onOk((shouldRefetch) => {
-    shouldRefetch.value = shouldRefetch;
+  openGarageDialog().onOk((newValue) => {
+    shouldRefetch.value = newValue;
   });
 }
 
@@ -229,7 +229,7 @@ onMounted(() => {
 
       <template v-if="edit" #body-cell-edit="props">
         <q-td :props="props">
-          <q-btn class="action-btn" @click="onRowClick(props.row, true)">
+          <q-btn class="action-btn" @click="onRowClick(props.row, true, false)">
             <q-icon :name="matEdit" />
           </q-btn>
         </q-td>

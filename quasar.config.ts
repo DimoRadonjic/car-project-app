@@ -12,7 +12,7 @@ export default defineConfig((/* ctx */) => {
     // app boot file (/@/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['router-loading'],
+    boot: ['router-loading', 'services'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: ['app.scss'],

@@ -2,8 +2,9 @@ import type { CarInformation } from 'src/types/car.types';
 import { containsCar } from '../utils';
 import { API_GARAGE_URL } from '../../urls';
 import { put } from '../../methods';
-import { marketService, type ServiceInterface } from '..';
 import { fetchGarage } from '.';
+import type { ServiceInterface } from '..';
+import type { ProxyMarketService } from '../market/market.service';
 
 class GarageService implements ServiceInterface {
   async getData(): Promise<CarInformation[]> {
@@ -15,7 +16,6 @@ class GarageService implements ServiceInterface {
     let newGarageCars: CarInformation[] = garage.slice();
 
     try {
-      console.log('contains', !containsCar(garage, car.id));
       if (!containsCar(garage, car.id)) {
         newGarageCars = [...garage, car];
       } else {
@@ -35,6 +35,8 @@ class GarageService implements ServiceInterface {
 }
 
 export class ProxyGarageService implements GarageService {
+  constructor(private readonly marketService: ProxyMarketService) {}
+
   private serviceInstance: GarageService | null = null;
   private cache: CarInformation[] = [];
 
@@ -54,24 +56,16 @@ export class ProxyGarageService implements GarageService {
 
   // just update garage ( PUT and POST calls)
   async updateData(car: CarInformation): Promise<CarInformation[]> {
-    if (this.serviceInstance) {
-      console.log('car to update - service', car);
+    if (!this.serviceInstance) await this.getData();
 
+    // await this.marketService.getData();
+
+    if (this.serviceInstance) {
       this.cache = await this.serviceInstance.updateData(car, this.cache);
+
+      await this.marketService.updateData(car);
     }
+
     return this.cache;
-  }
-
-  // update garage and market
-  async putOnMarket(carID: string) {
-    if (this.serviceInstance) {
-      let updatedCar: CarInformation | undefined = this.cache.find(({ id }) => id === carID);
-      if (updatedCar) {
-        updatedCar = { ...updatedCar, onSale: true };
-
-        this.cache = await this.serviceInstance.updateData(updatedCar, this.cache);
-        void marketService.updateData(updatedCar);
-      }
-    }
   }
 }

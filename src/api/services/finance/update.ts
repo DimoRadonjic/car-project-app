@@ -2,7 +2,7 @@ import type { FinanceData, HistoryTransaction } from 'src/types/finance.types';
 import { API_FINANCE_URL, API_HISTORY_URL } from '../../urls';
 import type { CarInformation } from 'src/types/car.types';
 import { put } from '../../methods';
-import { garageService, marketService } from '..';
+import { garageService, marketService } from 'src/boot/services';
 
 // import { getHistoryTransactions } from './util';
 
