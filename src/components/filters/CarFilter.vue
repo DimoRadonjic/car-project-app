@@ -4,13 +4,15 @@ import { getCurrentDate } from 'src/utils/date.utils';
 import { ref, watch } from 'vue';
 import { carDataFilter } from '.';
 
+type Filter = Omit<CarInformation, 'id' | 'ownerID'>;
+
 const props = defineProps<{
   data: CarInformation[];
 }>();
 
 const originalData = props.data.slice();
 
-const defaultFilterValues: Omit<CarInformation, 'id'> = {
+const defaultFilterValues: Filter = {
   color: '',
   make: '',
   mileage: 0,
@@ -24,7 +26,7 @@ const defaultFilterValues: Omit<CarInformation, 'id'> = {
   furtherRepairsNeeded: false,
 };
 
-const filters = ref<Omit<CarInformation, 'id'>>(defaultFilterValues);
+const filters = ref<Filter>(defaultFilterValues);
 
 const filterResults = defineModel<CarInformation[]>({ type: Array<CarInformation>, default: [] });
 const loadingFilter = defineModel<boolean>('loading', { type: Boolean, default: false });

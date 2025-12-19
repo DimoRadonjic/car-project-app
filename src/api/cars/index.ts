@@ -10,6 +10,7 @@ export const garageService = new ProxyGarageService();
 export const defaultCar: CarInformation = {
   color: '',
   id: '',
+  ownerID: '',
   make: '',
   mileage: 0,
   model: '',
