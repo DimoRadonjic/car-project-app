@@ -122,6 +122,7 @@ function validRowKey() {
 function onRowClick(row: TableRow, edit?: boolean, market?: boolean): void {
   if (edit) {
     openCarDialog(row, edit, market).onOk((newData: TableRow) => {
+      if (!newData) return;
       const newDataArr = tableData.value.slice().map((data) =>
         data.id === newData.id
           ? {

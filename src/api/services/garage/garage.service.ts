@@ -15,13 +15,12 @@ class GarageService implements ServiceInterface {
     let newGarageCars: CarInformation[] = garage.slice();
 
     try {
+      console.log('contains', !containsCar(garage, car.id));
       if (!containsCar(garage, car.id)) {
         newGarageCars = [...garage, car];
       } else {
-        newGarageCars = garage.filter((garageCar) => (garageCar.id === car.id ? car : garageCar));
+        newGarageCars = garage.map((garageCar) => (garageCar.id === car.id ? car : garageCar));
       }
-
-      console.log('garage update car', newGarageCars);
 
       const body = JSON.stringify({ cars: newGarageCars });
 
