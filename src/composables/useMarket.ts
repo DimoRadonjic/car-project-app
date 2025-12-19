@@ -1,6 +1,6 @@
 import { marketService } from 'src/boot/services';
 import type { CarInformation } from 'src/types/car.types';
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 
 const loading = ref<boolean>(false);
 const data = ref<CarInformation[]>([]);
@@ -43,8 +43,6 @@ export const useMarket = () => {
     },
     { immediate: true },
   );
-
-  watchEffect(() => console.log('data market', data.value));
 
   return { data, shouldRefetch, loading, fetch, updateByCar };
 };

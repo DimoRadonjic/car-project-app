@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import type { CarInformation } from 'src/types/car.types';
+import { computed, ref } from 'vue';
 
 const data = defineModel({ required: true, default: [], type: Array<CarInformation> });
 
-const emit = defineEmits(['cars-to-market']);
+const emit = defineEmits(['cars-to-market', 'changed']);
+
+const currentData = computed(() => data.value);
+
+const carsChanged = ref<number>(0);
 
 function carToMarket(carToUpdate: CarInformation) {
+  data.value = data.value.map((car) => {
+    if (car.id === carToUpdate.id) {
+      carsChanged.value++;
+      return { ...carToUpdate, onSale: !carToUpdate.onSale };
+    }
+    return car;
+  });
+  emit('changed');
   emit('cars-to-market', { ...carToUpdate, onSale: !carToUpdate.onSale });
 }
 </script>
@@ -15,7 +28,7 @@ function carToMarket(carToUpdate: CarInformation) {
     <h3>Your vehicles</h3>
 
     <q-list class="garage-list">
-      <q-item v-for="(car, i) in data" :key="car.id" class="item">
+      <q-item v-for="(car, i) in currentData" :key="car.id" class="item">
         <q-item-section :class="['item-section ', i < data.length - 1 ? 'border' : '']">
           <div>{{ car.make }}</div>
           <div>{{ car.model }}</div>
@@ -29,6 +42,7 @@ function carToMarket(carToUpdate: CarInformation) {
       </q-item>
       <q-separator />
     </q-list>
+    <p>Cars changed : {{ carsChanged }}</p>
   </div>
 </template>
 

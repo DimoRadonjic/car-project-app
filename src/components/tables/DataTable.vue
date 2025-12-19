@@ -79,7 +79,7 @@ function validRowKey() {
   // function should pass true if row key is unique ( no two elements have the same value by the key passed )
   // go through the array and compare elements ( a[key] === b[key] ? false : true )
 
-  if (tableData.value.length === 0) {
+  if (tableData.value.length === 0 && !loadingTable.value) {
     console.warn('Array is empty, are you sure the row key is unique?');
     return true;
   }
@@ -160,7 +160,7 @@ function removeElements(): void {
 }
 
 onMounted(() => {
-  if (!validRowKey()) {
+  if (!validRowKey() && !loadingTable.value) {
     throw new Error('Row key not unique');
   }
 });
